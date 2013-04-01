@@ -146,6 +146,9 @@
 		90C2780A1709C27700D8F93B /* vec2.c in Sources */ = {isa = PBXBuildFile; fileRef = 90C277A31709C27700D8F93B /* vec2.c */; };
 		90C2780B1709C27700D8F93B /* vec3.c in Sources */ = {isa = PBXBuildFile; fileRef = 90C277A41709C27700D8F93B /* vec3.c */; };
 		90C2780C1709C27700D8F93B /* vec4.c in Sources */ = {isa = PBXBuildFile; fileRef = 90C277A51709C27700D8F93B /* vec4.c */; };
+		90C2780F1709DC4300D8F93B /* DrumSelectionLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C2780E1709DC4200D8F93B /* DrumSelectionLayer.m */; };
+		90C278121709DF6E00D8F93B /* drum-selection@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 90C278101709DF6E00D8F93B /* drum-selection@2x~ipad.png */; };
+		90C278131709DF6E00D8F93B /* drum-selection~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 90C278111709DF6E00D8F93B /* drum-selection~ipad.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -440,6 +443,10 @@
 		90C277A61709C27700D8F93B /* LICENSE_cocos2d.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE_cocos2d.txt; sourceTree = "<group>"; };
 		90C277A71709C27700D8F93B /* LICENSE_CocosDenshion.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE_CocosDenshion.txt; sourceTree = "<group>"; };
 		90C277A81709C27700D8F93B /* LICENSE_Kazmath.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE_Kazmath.txt; sourceTree = "<group>"; };
+		90C2780D1709DC4200D8F93B /* DrumSelectionLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrumSelectionLayer.h; sourceTree = "<group>"; };
+		90C2780E1709DC4200D8F93B /* DrumSelectionLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrumSelectionLayer.m; sourceTree = "<group>"; };
+		90C278101709DF6E00D8F93B /* drum-selection@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "drum-selection@2x~ipad.png"; sourceTree = "<group>"; };
+		90C278111709DF6E00D8F93B /* drum-selection~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "drum-selection~ipad.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -518,6 +525,8 @@
 				90C1505416F6C96A00DFF0ED /* HelloWorldLayer.m */,
 				90C2767D1709602200D8F93B /* MainScreenLayer.h */,
 				90C2767E1709602200D8F93B /* MainScreenLayer.m */,
+				90C2780D1709DC4200D8F93B /* DrumSelectionLayer.h */,
+				90C2780E1709DC4200D8F93B /* DrumSelectionLayer.m */,
 				90C1505616F6C96A00DFF0ED /* IntroLayer.h */,
 				90C1505716F6C96A00DFF0ED /* IntroLayer.m */,
 				90C14ED916F6C96800DFF0ED /* Resources */,
@@ -559,14 +568,8 @@
 		90C276A31709A81500D8F93B /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				90C276931709A66C00D8F93B /* main-screen-single@2x~ipad.png */,
-				90C276941709A66C00D8F93B /* main-screen-single~ipad.png */,
-				90C276971709A80F00D8F93B /* 1p1d@2x~ipad.png */,
-				90C276981709A80F00D8F93B /* 1p1d~ipad.png */,
-				90C276991709A80F00D8F93B /* 1p2d@2x~ipad.png */,
-				90C2769A1709A80F00D8F93B /* 1p2d~ipad.png */,
-				90C2769B1709A80F00D8F93B /* 1p4d@2x~ipad.png */,
-				90C2769C1709A81000D8F93B /* 1p4d~ipad.png */,
+				90C278141709DF8100D8F93B /* MainScreen */,
+				90C278151709DF8D00D8F93B /* DrumSelection */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -924,6 +927,30 @@
 			path = GL;
 			sourceTree = "<group>";
 		};
+		90C278141709DF8100D8F93B /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				90C276931709A66C00D8F93B /* main-screen-single@2x~ipad.png */,
+				90C276941709A66C00D8F93B /* main-screen-single~ipad.png */,
+				90C276971709A80F00D8F93B /* 1p1d@2x~ipad.png */,
+				90C276981709A80F00D8F93B /* 1p1d~ipad.png */,
+				90C276991709A80F00D8F93B /* 1p2d@2x~ipad.png */,
+				90C2769A1709A80F00D8F93B /* 1p2d~ipad.png */,
+				90C2769B1709A80F00D8F93B /* 1p4d@2x~ipad.png */,
+				90C2769C1709A81000D8F93B /* 1p4d~ipad.png */,
+			);
+			name = MainScreen;
+			sourceTree = "<group>";
+		};
+		90C278151709DF8D00D8F93B /* DrumSelection */ = {
+			isa = PBXGroup;
+			children = (
+				90C278101709DF6E00D8F93B /* drum-selection@2x~ipad.png */,
+				90C278111709DF6E00D8F93B /* drum-selection~ipad.png */,
+			);
+			name = DrumSelection;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1012,6 +1039,8 @@
 				90C276A01709A81000D8F93B /* 1p2d~ipad.png in Resources */,
 				90C276A11709A81000D8F93B /* 1p4d@2x~ipad.png in Resources */,
 				90C276A21709A81000D8F93B /* 1p4d~ipad.png in Resources */,
+				90C278121709DF6E00D8F93B /* drum-selection@2x~ipad.png in Resources */,
+				90C278131709DF6E00D8F93B /* drum-selection~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1028,6 +1057,7 @@
 				90C1505816F6C96A00DFF0ED /* IntroLayer.m in Sources */,
 				90C2767F1709602200D8F93B /* MainScreenLayer.m in Sources */,
 				90C2768C1709674D00D8F93B /* KaboomGameData.m in Sources */,
+				90C2780F1709DC4300D8F93B /* DrumSelectionLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,9 +9,19 @@
 #import "MainScreenLayer.h"
 #import "AppDelegate.h"
 #import "KaboomGameData.h"
+#import "DrumSelectionLayer.h"
 
 #define DETECTION_AREA_WIDTH 40
 #define DETECTION_AREA_HEIGHT 40
+
+#define DRUM_ONE                0
+#define DRUM_TWO_LEFT           1
+#define DRUM_TWO_RIGHT          2
+#define DRUM_FOUR_UPPER_LEFT    3
+#define DRUM_FOUR_UPPER_RIGHT   4
+#define DRUM_FOUR_LOWER_LEFT    5
+#define DRUM_FOUR_LOWER_RIGHT   6
+
 
 @implementation MainScreenLayer
 
@@ -38,7 +48,7 @@
 	if( (self=[super init]) ) {
         self.isTouchEnabled = YES;
         _points = [NSMutableArray array];
-        
+        _drums = [NSMutableSet set];
 		CGSize size = [[CCDirector sharedDirector] winSize];
         
         CCSprite *background;
@@ -118,7 +128,6 @@
         }
         [_points removeObjectAtIndex:idx];
     }
-    [self printPoints];
     [self changeDisplay];
 }
 
@@ -191,6 +200,7 @@
             [self makeShow:_fourDrum];
             break;
     }
+    [self checkDrum];
 }
 
 - (void)updateMode
@@ -238,15 +248,58 @@
         
         if (CGRectContainsPoint(box_d1, touchLocation)) {
             data.mode = MODE_SINGLE_ONE;
-        } else if (CGRectContainsPoint(box_d2_1, touchLocation) || CGRectContainsPoint(box_d2_2, touchLocation)) {
+            [_drums addObject:@(DRUM_ONE)];
+            
+        } else if (CGRectContainsPoint(box_d2_1, touchLocation)) {
             data.mode = MODE_SINGLE_TWO;
-        } else if (CGRectContainsPoint(box_d4_1, touchLocation) || CGRectContainsPoint(box_d4_2, touchLocation) ||
-                   CGRectContainsPoint(box_d4_3, touchLocation) || CGRectContainsPoint(box_d4_4, touchLocation)) {
+            [_drums addObject:@(DRUM_TWO_LEFT)];
+            
+        } else if (CGRectContainsPoint(box_d2_2, touchLocation)) {
+            data.mode = MODE_SINGLE_TWO;
+            [_drums addObject:@(DRUM_TWO_RIGHT)];
+            
+        } else if (CGRectContainsPoint(box_d4_1, touchLocation)) {
             data.mode = MODE_SINGLE_FOUR;
+            [_drums addObject:@(DRUM_FOUR_UPPER_LEFT)];
+            
+        } else if (CGRectContainsPoint(box_d4_2, touchLocation)) {
+            data.mode = MODE_SINGLE_FOUR;
+            [_drums addObject:@(DRUM_FOUR_UPPER_RIGHT)];
+            
+        } else if (CGRectContainsPoint(box_d4_3, touchLocation)) {
+            data.mode = MODE_SINGLE_FOUR;
+            [_drums addObject:@(DRUM_FOUR_LOWER_LEFT)];
+            
+        } else if (CGRectContainsPoint(box_d4_4, touchLocation)) {
+            data.mode = MODE_SINGLE_FOUR;
+            [_drums addObject:@(DRUM_FOUR_LOWER_RIGHT)];
+            
         } else {
             data.mode = MODE_UNDETERMINED;
         }
     }
+}
+
+- (void)checkDrum
+{
+    KaboomGameData *data = [KaboomGameData sharedData];
+    if (data.mode == MODE_SINGLE_ONE && [_drums containsObject:@(DRUM_ONE)]) {
+        NSLog(@"DRUM = SINGLE_ONE");
+        [self schedule:@selector(makeTransition:) interval:0.5f];
+    } else if (data.mode == MODE_SINGLE_TWO && [_drums containsObject:@(DRUM_TWO_LEFT)] && [_drums containsObject:@(DRUM_TWO_RIGHT)]) {
+        NSLog(@"DRUM = SINGLE_TWO");
+        [self schedule:@selector(makeTransition:) interval:0.5f];
+    } else if (data.mode == MODE_SINGLE_FOUR && [_drums containsObject:@(DRUM_FOUR_UPPER_LEFT)] && [_drums containsObject:@(DRUM_FOUR_UPPER_RIGHT)] &&
+               [_drums containsObject:@(DRUM_FOUR_LOWER_LEFT)] && [_drums containsObject:@(DRUM_FOUR_LOWER_RIGHT)]) {
+        NSLog(@"DRUM = SINGLE_FOUR");
+        [self schedule:@selector(makeTransition:) interval:0.5f];
+    }
+}
+
+-(void) makeTransition:(ccTime)dt
+{
+	[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.4 scene:[DrumSelectionLayer scene] withColor:ccWHITE]];
+    [self unschedule:@selector(makeTransition:)];
 }
 
 @end

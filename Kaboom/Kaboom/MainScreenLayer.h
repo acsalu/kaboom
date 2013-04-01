@@ -18,6 +18,7 @@
     CCSprite *_twoDrum;
     CCSprite *_fourDrum;
     NSMutableArray *_points;
+    NSMutableSet *_drums;
 }
 
 +(CCScene *) scene;
