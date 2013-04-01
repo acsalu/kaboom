@@ -243,6 +243,8 @@
         } else if (CGRectContainsPoint(box_d4_1, touchLocation) || CGRectContainsPoint(box_d4_2, touchLocation) ||
                    CGRectContainsPoint(box_d4_3, touchLocation) || CGRectContainsPoint(box_d4_4, touchLocation)) {
             data.mode = MODE_SINGLE_FOUR;
+        } else {
+            data.mode = MODE_UNDETERMINED;
         }
     }
 }
