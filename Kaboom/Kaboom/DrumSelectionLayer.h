@@ -10,6 +10,11 @@
 
 @interface DrumSelectionLayer : CCLayer
 
+@property (strong, nonatomic) NSArray *drums;
+@property (strong, nonatomic) NSArray *initialLocations;
+@property (nonatomic) int currentDrum;
+
+
 +(CCScene *) scene;
 
 @end

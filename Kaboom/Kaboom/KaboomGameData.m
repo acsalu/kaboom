@@ -12,13 +12,14 @@
 
 + (KaboomGameData *)sharedData
 {
-    static dispatch_once_t onceToken;
-    __strong static id __data = nil;
-    dispatch_once(&onceToken, ^{
-        __data = [[KaboomGameData alloc] init];
-        [__data setMode:MODE_UNDETERMINED];
-    });
-    return __data;
+    static KaboomGameData *sharedData;
+    @synchronized(self) {
+        if (!sharedData) {
+            NSLog(@"new instance is created");
+            sharedData = [[self alloc] init];
+        }
+    }
+    return sharedData;
 }
 
 @end
