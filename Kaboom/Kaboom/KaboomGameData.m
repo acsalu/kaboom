@@ -22,4 +22,17 @@
     return sharedData;
 }
 
+
+- (id)init
+{
+    if (self = ([super init])) {
+        
+        _drumEffect = [NSMutableDictionary dictionary];
+    }
+    
+    return self;
+}
+
+
+
 @end

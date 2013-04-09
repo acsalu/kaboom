@@ -9,6 +9,8 @@
 #import "DrumSelectionLayer.h"
 #import "KaboomGameData.h"
 #import "SimpleAudioEngine.h"
+#import "Const.h"
+#import "SongSelectionLayer.h";
 
 #define ONE_DRUM_OFFST_Y 100
 #define DRUM_DIFF_Y 192
@@ -72,11 +74,12 @@
         
         CCMenuItem *startMenuItem = [CCMenuItemImage itemWithNormalImage:@"start.png" selectedImage:@"startp.png" block:^(id sender){
             CCLOG(@"start button pressed");
+            [[CCDirector sharedDirector] replaceScene:[SongSelectionLayer scene]];
         }];
         
         NSLog(@"(w, h) = (%.0f, %.0f)", [startMenuItem boundingBox].size.width, [startMenuItem boundingBox].size.height);
         
-        startMenuItem.isEnabled = NO;
+//        startMenuItem.isEnabled = NO;
         
         CCMenu *startMenu = [CCMenu menuWithItems:startMenuItem, nil];
 
@@ -135,10 +138,12 @@
     for (CCSprite *drum in _drums) {
         if (CGRectContainsPoint(drum.boundingBox,location) && _currentDrum == 0){
             _currentDrum = [_drums indexOfObject:drum] + 1;
+            [[SimpleAudioEngine sharedEngine] playEffect:[NSString stringWithFormat:@"d%d.mp3", _currentDrum]];
             break;
         }
     }
 }
+
 
 - (void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     if (_currentDrum != 0) {
@@ -146,6 +151,7 @@
         CGPoint location = [touch locationInView:[touch view]];
         location = [[CCDirector sharedDirector] convertToGL:location];
         ((CCSprite *) _drums[_currentDrum - 1]).position = location;
+        [self checkDrumWithLocation:location];
     }
 }
 
@@ -156,9 +162,50 @@
         location = [[CCDirector sharedDirector] convertToGL:location];
         CCSprite *drum = _drums[_currentDrum - 1];
         drum.position = location;
+        
+        [self checkDrumWithLocation:location];
+        
         [drum runAction:[CCMoveTo actionWithDuration:0.2f position:[_initialLocations[_currentDrum - 1] CGPointValue]]];
         _currentDrum = 0;
     }
+}
+
+- (void)checkDrumWithLocation:(CGPoint)location
+{
+    KaboomGameData *data = [KaboomGameData sharedData];
+    CGSize size = [[CCDirector sharedDirector] winSize];
+    NSString *currentDrumEffect = [NSString stringWithFormat:@"d%d.mp3", _currentDrum];
+    if (data.mode == MODE_SINGLE_ONE) {
+        CGPoint drumCenter = ccp(size.width / 2, 0);
+        if ([self distanceBetween:location and:drumCenter] < kDrumEffectiveRadius) {
+            [data.drumEffect setObject:currentDrumEffect forKey:@"ONE"];
+            [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
+        }
+    } else if (data.mode == MODE_SINGLE_TWO) {
+        CGPoint leftDrumCenter = ccp(0, size.height / 2);
+        CGPoint rightDrumCenter = ccp(size.width, size.height / 2);
+        if ([self distanceBetween:location and:leftDrumCenter] < kDrumEffectiveRadius) {
+            [data.drumEffect setObject:currentDrumEffect forKey:@"TWO_LEFT"];
+            [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
+            
+        } else if ([self distanceBetween:location and:rightDrumCenter] < kDrumEffectiveRadius) {
+            [data.drumEffect setObject:currentDrumEffect forKey:@"TWO_RIGHT"];
+            [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
+            
+        }
+        
+        
+    } else if (data.mode == MODE_SINGLE_FOUR) {
+        
+    }
+}
+
+- (CGFloat)distanceBetween:(CGPoint)p1 and:(CGPoint)p2
+{
+    CGFloat xDist = (p2.x - p1.x);
+    CGFloat yDist = (p2.y - p1.y);
+    CGFloat distance = sqrt((xDist * xDist) + (yDist * yDist));
+    return distance;
 }
 
 @end

@@ -133,18 +133,20 @@
 
 - (void)makeDisapear:(CCNode *)node
 {
-    node.visible = NO;
-    /*
     if (!node.visible) return;
-    CCAction *action1 = [CCFadeOut actionWithDuration:0.3];
-    CCAction *action2 = [CCHide action];
-    [node runAction:[CCSequence actions:action1, action2, nil]];
-    */
+    
+    //if (!node.visible) return;
+    //CCAction *action2 = [CCHide action];
+    [node runAction:[CCFadeOut actionWithDuration:1.0f]];
+    node.visible = NO;
 }
+
 
 - (void)makeShow:(CCNode *)node
 {
+    if (node.visible) return;
     node.visible = YES;
+    [node runAction:[CCFadeIn actionWithDuration:1.0f]];
     /*
     if (node.visible) return;
     CCAction *action1 = [CCFadeOut actionWithDuration:0.3];

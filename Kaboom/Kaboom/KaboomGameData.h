@@ -22,5 +22,6 @@ typedef enum MODE MODE;
 + (KaboomGameData *)sharedData;
 
 @property (nonatomic) MODE mode;
+@property (strong, nonatomic) NSMutableDictionary *drumEffect;
 
 @end

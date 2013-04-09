@@ -170,6 +170,9 @@
 		90C2780F1709DC4300D8F93B /* DrumSelectionLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C2780E1709DC4200D8F93B /* DrumSelectionLayer.m */; };
 		90C278121709DF6E00D8F93B /* drum-selection@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 90C278101709DF6E00D8F93B /* drum-selection@2x~ipad.png */; };
 		90C278131709DF6E00D8F93B /* drum-selection~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 90C278111709DF6E00D8F93B /* drum-selection~ipad.png */; };
+		90DB8B2D171447AF00EE785D /* SongSelectionLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DB8B2C171447AF00EE785D /* SongSelectionLayer.m */; };
+		90DB8B30171447BE00EE785D /* GameLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DB8B2F171447BE00EE785D /* GameLayer.m */; };
+		90DB8B341714496C00EE785D /* list1~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 90DB8B331714496C00EE785D /* list1~ipad.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -489,6 +492,12 @@
 		90C2780E1709DC4200D8F93B /* DrumSelectionLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrumSelectionLayer.m; sourceTree = "<group>"; };
 		90C278101709DF6E00D8F93B /* drum-selection@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "drum-selection@2x~ipad.png"; sourceTree = "<group>"; };
 		90C278111709DF6E00D8F93B /* drum-selection~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "drum-selection~ipad.png"; sourceTree = "<group>"; };
+		90DB8B2A171439FE00EE785D /* Const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Const.h; sourceTree = "<group>"; };
+		90DB8B2B171447AF00EE785D /* SongSelectionLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongSelectionLayer.h; sourceTree = "<group>"; };
+		90DB8B2C171447AF00EE785D /* SongSelectionLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongSelectionLayer.m; sourceTree = "<group>"; };
+		90DB8B2E171447BD00EE785D /* GameLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLayer.h; sourceTree = "<group>"; };
+		90DB8B2F171447BE00EE785D /* GameLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLayer.m; sourceTree = "<group>"; };
+		90DB8B331714496C00EE785D /* list1~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list1~ipad.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -581,8 +590,13 @@
 				90C2767E1709602200D8F93B /* MainScreenLayer.m */,
 				90C2780D1709DC4200D8F93B /* DrumSelectionLayer.h */,
 				90C2780E1709DC4200D8F93B /* DrumSelectionLayer.m */,
+				90DB8B2B171447AF00EE785D /* SongSelectionLayer.h */,
+				90DB8B2C171447AF00EE785D /* SongSelectionLayer.m */,
+				90DB8B2E171447BD00EE785D /* GameLayer.h */,
+				90DB8B2F171447BE00EE785D /* GameLayer.m */,
 				90C1505616F6C96A00DFF0ED /* IntroLayer.h */,
 				90C1505716F6C96A00DFF0ED /* IntroLayer.m */,
+				90DB8B2A171439FE00EE785D /* Const.h */,
 				90C14ED916F6C96800DFF0ED /* Resources */,
 				90C1504C16F6C96A00DFF0ED /* Supporting Files */,
 			);
@@ -625,6 +639,7 @@
 			children = (
 				90C278141709DF8100D8F93B /* MainScreen */,
 				90C278151709DF8D00D8F93B /* DrumSelection */,
+				90DB8B321714495E00EE785D /* SongSelection */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -1022,6 +1037,14 @@
 			name = DrumSelection;
 			sourceTree = "<group>";
 		};
+		90DB8B321714495E00EE785D /* SongSelection */ = {
+			isa = PBXGroup;
+			children = (
+				90DB8B331714496C00EE785D /* list1~ipad.png */,
+			);
+			name = SongSelection;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1133,6 +1156,7 @@
 				90474288171188E300E1CEFB /* d3.mp3 in Resources */,
 				90474289171188E300E1CEFB /* d2.mp3 in Resources */,
 				9047428A171188E300E1CEFB /* d1.mp3 in Resources */,
+				90DB8B341714496C00EE785D /* list1~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1150,6 +1174,8 @@
 				90C2767F1709602200D8F93B /* MainScreenLayer.m in Sources */,
 				90C2768C1709674D00D8F93B /* KaboomGameData.m in Sources */,
 				90C2780F1709DC4300D8F93B /* DrumSelectionLayer.m in Sources */,
+				90DB8B2D171447AF00EE785D /* SongSelectionLayer.m in Sources */,
+				90DB8B30171447BE00EE785D /* GameLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
