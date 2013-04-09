@@ -14,9 +14,11 @@
 
 @interface MainScreenLayer : CCLayer
 {
-    CCSprite *_oneDrum;
-    CCSprite *_twoDrum;
-    CCSprite *_fourDrum;
+    CCSprite *_oneDrum1P;
+    CCSprite *_twoDrum1P;
+    CCSprite *_fourDrum1P;
+    CCSprite *_twoDrum2P;
+    CCSprite *_fourDrum2P;
     NSMutableArray *_points;
     NSMutableSet *_drums;
 }

@@ -22,6 +22,7 @@
 #define DRUM_FOUR_LOWER_LEFT    5
 #define DRUM_FOUR_LOWER_RIGHT   6
 
+#define BACKGROUND_TAG 1000
 
 @implementation MainScreenLayer
 
@@ -53,27 +54,87 @@
         
         CCSprite *background;
         CGPoint center = ccp(size.width/2, size.height/2);
+        CGPoint v_center = ccp(size.height / 2, size.width / 2);
 
         background = [CCSprite spriteWithFile:@"1-00.png"];
         background.position = ccp(size.width * 3 / 2, size.height / 2);
+        background.tag = BACKGROUND_TAG;
         
-        _oneDrum = [CCSprite spriteWithFile:@"1p1d.png"];
-        _oneDrum.position = center;
+        _oneDrum1P = [CCSprite spriteWithFile:@"1p1d.png"];
+        _oneDrum1P.position = center;
         
-        _twoDrum = [CCSprite spriteWithFile:@"1p2d.png"];
-        _twoDrum.position = center;
+        _twoDrum1P = [CCSprite spriteWithFile:@"1p2d.png"];
+        _twoDrum1P.position = center;
         
-        _fourDrum = [CCSprite spriteWithFile:@"1p4d.png"];
-        _fourDrum.position = center;
+        _fourDrum1P = [CCSprite spriteWithFile:@"1p4d.png"];
+        _fourDrum1P.position = center;
         
-        [self addChild: background];
-        [self addChild: _oneDrum];
-        [self addChild: _twoDrum];
-        [self addChild: _fourDrum];
+        _twoDrum2P = [CCSprite spriteWithFile:@"2p2d.png"];
+        _twoDrum2P.position = v_center;
+        _twoDrum2P.visible = NO;
+        
+        _fourDrum2P = [CCSprite spriteWithFile:@"2p4d.png"];
+        _fourDrum2P.position = v_center;
+        _fourDrum2P.visible = NO;
+        
+        [self addChild:background];
+        [self addChild:_oneDrum1P];
+        [self addChild:_twoDrum1P];
+        [self addChild:_fourDrum1P];
+        [self addChild:_twoDrum2P];
+        [self addChild:_fourDrum2P];
+        
+        // SETUP DEVICE ORIENTATION CHANGE NOTIFICATION
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:[UIDevice currentDevice]];
 	}
 	return self;
 }
 
+- (void)orientationChanged:(NSNotification *)notification
+{
+    NSLog(@"Orientation  has changed: %d", [[notification object] orientation]);
+    UIInterfaceOrientation orientation = [[notification object] orientation];
+    KaboomGameData *data = [KaboomGameData sharedData];
+    if (UIInterfaceOrientationIsPortrait(orientation) && data.player != PLAYER_TWO) {
+        data.player = PLAYER_TWO;
+        [self changeInterface];
+    } else if (UIInterfaceOrientationIsLandscape(orientation) && data.player != PLAYER_SINGLE){
+        data.player = PLAYER_SINGLE;
+        [self changeInterface];
+    }
+}
+
+- (void)changeInterface
+{
+    CGSize size = [[CCDirector sharedDirector] winSize];
+    CCLOG(@"winsize (%.0f, %.0f)", size.width, size.height);
+    
+    
+    KaboomGameData *data = [KaboomGameData sharedData];
+    if (data.player == PLAYER_SINGLE) CCLOG(@"PLAYER_1P");
+    else CCLOG(@"PLAYER_MULTI");
+    NSString *bgImageName = (data.player == PLAYER_SINGLE) ? @"1-00.png" : @"2-00.png";
+    CGPoint bgPosition = (data.player == PLAYER_SINGLE) ? ccp(size.width * 3 / 2, size.height / 2) : ccp(512, size.width + 128);
+//    [self removeChildByTag:BACKGROUND_TAG cleanup:YES];
+    [self removeChildByTag:BACKGROUND_TAG cleanup:YES];
+    
+//    CCSprite *background = (CCSprite *) [self getChildByTag:BACKGROUND_TAG];
+//    CCTexture2D *texture = [[CCTextureCache sharedTextureCache] addImage:bgImageName];
+//    [background setTexture:texture];
+//    
+    CCSprite *background = [CCSprite spriteWithFile:bgImageName];
+    background.tag = BACKGROUND_TAG;
+    background.position = bgPosition;
+    [self addChild:background z:-1];
+    
+    
+    _oneDrum1P.visible = !_oneDrum1P.visible;
+    _twoDrum1P.visible = !_twoDrum1P.visible;
+    _fourDrum1P.visible = !_fourDrum1P.visible;
+    _twoDrum2P.visible = !_twoDrum2P.visible;
+    _fourDrum2P.visible = !_fourDrum2P.visible;
+}
 
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -176,31 +237,39 @@
 {
     [self updateMode];
     KaboomGameData *data = [KaboomGameData sharedData];
-    switch(data.mode) {
-        case MODE_UNDETERMINED:
+    if (data.mode == MODE_UNDETERMINED) {
             CCLOG(@"MODE_UNDETERMINED");
-            [self makeShow:_oneDrum];
-            [self makeShow:_twoDrum];
-            [self makeShow:_fourDrum];
-            break;
-        case MODE_ONE_DRUM:
-            CCLOG(@"MODE_ONE_DRUM");
-            [self makeShow:_oneDrum];
-            [self makeDisapear:_twoDrum];
-            [self makeDisapear:_fourDrum];
-            break;
-        case MODE_TWO_DRUM:
-            CCLOG(@"MODE_TWO_DRUM");
-            [self makeDisapear:_oneDrum];
-            [self makeShow:_twoDrum];
-            [self makeDisapear:_fourDrum];
-            break;
-        case MODE_FOUR_DRUM:
-            CCLOG(@"MODE_FOUR_DRUM");
-            [self makeDisapear:_oneDrum];
-            [self makeDisapear:_twoDrum];
-            [self makeShow:_fourDrum];
-            break;
+        if (data.player == PLAYER_SINGLE) {
+            [self makeShow:_oneDrum1P];
+            [self makeShow:_twoDrum1P];
+            [self makeShow:_fourDrum1P];
+        } else {
+            [self makeShow:_twoDrum2P];
+            [self makeShow:_fourDrum2P];
+        }
+    } else if (data.mode == MODE_ONE_DRUM) {
+            [self makeShow:_oneDrum1P];
+            [self makeDisapear:_twoDrum1P];
+            [self makeDisapear:_fourDrum1P];
+    } else if (data.mode == MODE_TWO_DRUM) {
+        if (data.player == PLAYER_SINGLE) {
+            [self makeDisapear:_oneDrum1P];
+            [self makeShow:_twoDrum1P];
+            [self makeDisapear:_fourDrum1P];
+        } else {
+            [self makeShow:_twoDrum2P];
+            [self makeDisapear:_fourDrum2P];
+        }
+    } else if (data.mode == MODE_FOUR_DRUM) {
+//        CCLOG(@"MODE_FOUR_DRUM");
+        if (data.player == PLAYER_SINGLE) {
+            [self makeDisapear:_oneDrum1P];
+            [self makeDisapear:_twoDrum1P];
+            [self makeShow:_fourDrum1P];
+        } else {
+            [self makeDisapear:_twoDrum2P];
+            [self makeShow:_fourDrum2P];
+        }
     }
     [self checkDrum];
 }
@@ -248,7 +317,7 @@
                                      DETECTION_AREA_WIDTH, DETECTION_AREA_HEIGHT);
         
         
-        if (CGRectContainsPoint(box_d1, touchLocation)) {
+        if (CGRectContainsPoint(box_d1, touchLocation) && data.player == PLAYER_SINGLE  ) {
             data.mode = MODE_ONE_DRUM;
             [_drums addObject:@(DRUM_ONE)];
             
@@ -286,14 +355,14 @@
 {
     KaboomGameData *data = [KaboomGameData sharedData];
     if (data.mode == MODE_ONE_DRUM && [_drums containsObject:@(DRUM_ONE)]) {
-        NSLog(@"DRUM = SINGLE_ONE");
+        NSLog(@"DRUM = 1P_ONE");
         [self schedule:@selector(makeTransition:) interval:0.5f];
     } else if (data.mode == MODE_TWO_DRUM && [_drums containsObject:@(DRUM_TWO_LEFT)] && [_drums containsObject:@(DRUM_TWO_RIGHT)]) {
-        NSLog(@"DRUM = SINGLE_TWO");
+        NSLog(@"DRUM = 1P_TWO");
         [self schedule:@selector(makeTransition:) interval:0.5f];
     } else if (data.mode == MODE_FOUR_DRUM && [_drums containsObject:@(DRUM_FOUR_UPPER_LEFT)] && [_drums containsObject:@(DRUM_FOUR_UPPER_RIGHT)] &&
                [_drums containsObject:@(DRUM_FOUR_LOWER_LEFT)] && [_drums containsObject:@(DRUM_FOUR_LOWER_RIGHT)]) {
-        NSLog(@"DRUM = SINGLE_FOUR");
+        NSLog(@"DRUM = 1P_FOUR");
         [self schedule:@selector(makeTransition:) interval:0.5f];
     }
 }

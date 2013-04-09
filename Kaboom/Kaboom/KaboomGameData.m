@@ -28,6 +28,7 @@
     if (self = ([super init])) {
         
         _drumEffect = [NSMutableDictionary dictionary];
+        _player = PLAYER_SINGLE;
     }
     
     return self;
