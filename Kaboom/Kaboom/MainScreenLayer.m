@@ -183,20 +183,20 @@
             [self makeShow:_twoDrum];
             [self makeShow:_fourDrum];
             break;
-        case MODE_SINGLE_ONE:
-            CCLOG(@"MODE_SINGLE_ONE");
+        case MODE_ONE_DRUM:
+            CCLOG(@"MODE_ONE_DRUM");
             [self makeShow:_oneDrum];
             [self makeDisapear:_twoDrum];
             [self makeDisapear:_fourDrum];
             break;
-        case MODE_SINGLE_TWO:
-            CCLOG(@"MODE_SINGLE_TWO");
+        case MODE_TWO_DRUM:
+            CCLOG(@"MODE_TWO_DRUM");
             [self makeDisapear:_oneDrum];
             [self makeShow:_twoDrum];
             [self makeDisapear:_fourDrum];
             break;
-        case MODE_SINGLE_FOUR:
-            CCLOG(@"MODE_SINGLE_FOUR");
+        case MODE_FOUR_DRUM:
+            CCLOG(@"MODE_FOUR_DRUM");
             [self makeDisapear:_oneDrum];
             [self makeDisapear:_twoDrum];
             [self makeShow:_fourDrum];
@@ -249,31 +249,31 @@
         
         
         if (CGRectContainsPoint(box_d1, touchLocation)) {
-            data.mode = MODE_SINGLE_ONE;
+            data.mode = MODE_ONE_DRUM;
             [_drums addObject:@(DRUM_ONE)];
             
         } else if (CGRectContainsPoint(box_d2_1, touchLocation)) {
-            data.mode = MODE_SINGLE_TWO;
+            data.mode = MODE_TWO_DRUM;
             [_drums addObject:@(DRUM_TWO_LEFT)];
             
         } else if (CGRectContainsPoint(box_d2_2, touchLocation)) {
-            data.mode = MODE_SINGLE_TWO;
+            data.mode = MODE_TWO_DRUM;
             [_drums addObject:@(DRUM_TWO_RIGHT)];
             
         } else if (CGRectContainsPoint(box_d4_1, touchLocation)) {
-            data.mode = MODE_SINGLE_FOUR;
+            data.mode = MODE_FOUR_DRUM;
             [_drums addObject:@(DRUM_FOUR_UPPER_LEFT)];
             
         } else if (CGRectContainsPoint(box_d4_2, touchLocation)) {
-            data.mode = MODE_SINGLE_FOUR;
+            data.mode = MODE_FOUR_DRUM;
             [_drums addObject:@(DRUM_FOUR_UPPER_RIGHT)];
             
         } else if (CGRectContainsPoint(box_d4_3, touchLocation)) {
-            data.mode = MODE_SINGLE_FOUR;
+            data.mode = MODE_FOUR_DRUM;
             [_drums addObject:@(DRUM_FOUR_LOWER_LEFT)];
             
         } else if (CGRectContainsPoint(box_d4_4, touchLocation)) {
-            data.mode = MODE_SINGLE_FOUR;
+            data.mode = MODE_FOUR_DRUM;
             [_drums addObject:@(DRUM_FOUR_LOWER_RIGHT)];
             
         } else {
@@ -285,13 +285,13 @@
 - (void)checkDrum
 {
     KaboomGameData *data = [KaboomGameData sharedData];
-    if (data.mode == MODE_SINGLE_ONE && [_drums containsObject:@(DRUM_ONE)]) {
+    if (data.mode == MODE_ONE_DRUM && [_drums containsObject:@(DRUM_ONE)]) {
         NSLog(@"DRUM = SINGLE_ONE");
         [self schedule:@selector(makeTransition:) interval:0.5f];
-    } else if (data.mode == MODE_SINGLE_TWO && [_drums containsObject:@(DRUM_TWO_LEFT)] && [_drums containsObject:@(DRUM_TWO_RIGHT)]) {
+    } else if (data.mode == MODE_TWO_DRUM && [_drums containsObject:@(DRUM_TWO_LEFT)] && [_drums containsObject:@(DRUM_TWO_RIGHT)]) {
         NSLog(@"DRUM = SINGLE_TWO");
         [self schedule:@selector(makeTransition:) interval:0.5f];
-    } else if (data.mode == MODE_SINGLE_FOUR && [_drums containsObject:@(DRUM_FOUR_UPPER_LEFT)] && [_drums containsObject:@(DRUM_FOUR_UPPER_RIGHT)] &&
+    } else if (data.mode == MODE_FOUR_DRUM && [_drums containsObject:@(DRUM_FOUR_UPPER_LEFT)] && [_drums containsObject:@(DRUM_FOUR_UPPER_RIGHT)] &&
                [_drums containsObject:@(DRUM_FOUR_LOWER_LEFT)] && [_drums containsObject:@(DRUM_FOUR_LOWER_RIGHT)]) {
         NSLog(@"DRUM = SINGLE_FOUR");
         [self schedule:@selector(makeTransition:) interval:0.5f];

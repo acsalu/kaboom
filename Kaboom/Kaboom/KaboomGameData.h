@@ -8,20 +8,27 @@
 
 #import <Foundation/Foundation.h>
 
-enum MODE {
+enum mode {
     MODE_UNDETERMINED,
-    MODE_SINGLE_ONE,
-    MODE_SINGLE_TWO,
-    MODE_SINGLE_FOUR
+    MODE_ONE_DRUM,
+    MODE_TWO_DRUM,
+    MODE_FOUR_DRUM
 };
 
-typedef enum MODE MODE;
+enum player {
+    PLAYER_SINGLE,
+    PLAYER_TWO
+};
+
+typedef enum mode MODE;
+typedef enum player PLAYER;
 
 @interface KaboomGameData : NSObject
 
 + (KaboomGameData *)sharedData;
 
 @property (nonatomic) MODE mode;
+@property (nonatomic) PLAYER player;
 @property (strong, nonatomic) NSMutableDictionary *drumEffect;
 
 @end

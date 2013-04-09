@@ -10,7 +10,7 @@
 #import "KaboomGameData.h"
 #import "SimpleAudioEngine.h"
 #import "Const.h"
-#import "SongSelectionLayer.h";
+#import "SongSelectionLayer.h"
 
 #define ONE_DRUM_OFFST_Y 100
 #define DRUM_DIFF_Y 192
@@ -55,13 +55,13 @@
         
         NSString *drumImageName = nil;
         switch (data.mode) {
-            case MODE_SINGLE_ONE:
+            case MODE_ONE_DRUM:
                 drumImageName = @"1p1d.png";
                 break;
-            case MODE_SINGLE_TWO:
+            case MODE_TWO_DRUM:
                 drumImageName = @"1p2d.png";
                 break;
-            case MODE_SINGLE_FOUR:
+            case MODE_FOUR_DRUM:
                 drumImageName = @"1p4d.png";
                 break;
             default:
@@ -83,7 +83,7 @@
         
         CCMenu *startMenu = [CCMenu menuWithItems:startMenuItem, nil];
 
-        if (data.mode == MODE_SINGLE_ONE)
+        if (data.mode == MODE_ONE_DRUM)
             startMenu.position = ccp(size.width / 2, size.height / 2 + ONE_DRUM_OFFST_Y);
         else
             startMenu.position = center;
@@ -175,13 +175,13 @@
     KaboomGameData *data = [KaboomGameData sharedData];
     CGSize size = [[CCDirector sharedDirector] winSize];
     NSString *currentDrumEffect = [NSString stringWithFormat:@"d%d.mp3", _currentDrum];
-    if (data.mode == MODE_SINGLE_ONE) {
+    if (data.mode == MODE_ONE_DRUM) {
         CGPoint drumCenter = ccp(size.width / 2, 0);
         if ([self distanceBetween:location and:drumCenter] < kDrumEffectiveRadius) {
             [data.drumEffect setObject:currentDrumEffect forKey:@"ONE"];
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
         }
-    } else if (data.mode == MODE_SINGLE_TWO) {
+    } else if (data.mode == MODE_TWO_DRUM) {
         CGPoint leftDrumCenter = ccp(0, size.height / 2);
         CGPoint rightDrumCenter = ccp(size.width, size.height / 2);
         if ([self distanceBetween:location and:leftDrumCenter] < kDrumEffectiveRadius) {
@@ -195,10 +195,11 @@
         }
         
         
-    } else if (data.mode == MODE_SINGLE_FOUR) {
+    } else if (data.mode == MODE_FOUR_DRUM) {
         
     }
 }
+
 
 - (CGFloat)distanceBetween:(CGPoint)p1 and:(CGPoint)p2
 {
