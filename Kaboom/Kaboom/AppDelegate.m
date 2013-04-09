@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "IntroLayer.h"
 #import "MainScreenLayer.h"
+#import "SimpleAudioEngine.h"
 
 @implementation AppController
 
@@ -72,6 +73,13 @@
 
 	// Assume that PVR images have premultiplied alpha
 	[CCTexture2D PVRImagesHavePremultipliedAlpha:YES];
+    
+    [[SimpleAudioEngine sharedEngine] preloadEffect:@"d1.mp3"];
+    [[SimpleAudioEngine sharedEngine] preloadEffect:@"d2.mp3"];
+    [[SimpleAudioEngine sharedEngine] preloadEffect:@"d3.mp3"];
+    [[SimpleAudioEngine sharedEngine] preloadEffect:@"d4.mp3"];
+    [[SimpleAudioEngine sharedEngine] preloadEffect:@"d5.mp3"];
+    
 
 	// and add the scene to the stack. The director will run it when it automatically when the view is displayed.
 	[director_ pushScene: [IntroLayer scene]]; 

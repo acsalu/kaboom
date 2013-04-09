@@ -135,7 +135,6 @@
     for (CCSprite *drum in _drums) {
         if (CGRectContainsPoint(drum.boundingBox,location) && _currentDrum == 0){
             _currentDrum = [_drums indexOfObject:drum] + 1;
-            [Simple]
             break;
         }
     }
