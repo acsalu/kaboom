@@ -27,8 +27,10 @@
         
 		CGSize size = [[CCDirector sharedDirector] winSize];
         
-        CCSprite *background;
-        CGPoint center = ccp(size.width/2, size.height/2);
+        CCSprite *background = [CCSprite spriteWithFile:@"1-00.png"];
+        background.position = ccp(- size.width * 1 / 2, size.height / 2);
+        
+        [self addChild:background];
 	}
 	return self;
 }

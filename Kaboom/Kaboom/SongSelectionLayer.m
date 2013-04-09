@@ -31,7 +31,7 @@
         CCSprite *background;
         CGPoint center = ccp(size.width/2, size.height/2);
         
-        background = [CCSprite spriteWithFile:@"drum-selection.png"];
+        background = [CCSprite spriteWithFile:@"1-00.png"];
         background.position = center;
         
         CCMenuItem *song = [CCMenuItemImage itemWithNormalImage:@"list1.png" selectedImage:@"list1.png" block:^(id sender) {

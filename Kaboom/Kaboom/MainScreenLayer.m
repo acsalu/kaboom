@@ -54,8 +54,8 @@
         CCSprite *background;
         CGPoint center = ccp(size.width/2, size.height/2);
 
-        background = [CCSprite spriteWithFile:@"main-screen-single.png"];
-        background.position = center;
+        background = [CCSprite spriteWithFile:@"1-00.png"];
+        background.position = ccp(size.width * 3 / 2, size.height / 2);
         
         _oneDrum = [CCSprite spriteWithFile:@"1p1d.png"];
         _oneDrum.position = center;
