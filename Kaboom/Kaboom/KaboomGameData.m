@@ -34,6 +34,22 @@
     return self;
 }
 
-
+- (CCSprite *) drumSprite {
+    NSString *imageName = nil;
+    if (_player == PLAYER_SINGLE) {
+        if (_mode == MODE_ONE_DRUM) imageName = @"1p1d.png";
+        else if (_mode == MODE_TWO_DRUM) imageName = @"1p2d.png";
+        else imageName = @"1p4d.png";
+    } else {
+        if (_mode == MODE_TWO_DRUM) imageName = @"2p2d.png";
+        else imageName = @"2p4d.png";
+    }
+    
+    CCSprite *drum = [CCSprite spriteWithFile:imageName];
+    CGPoint position = ccp(512, 384);
+    drum.position = position;
+    
+    return drum;
+}
 
 @end

@@ -54,7 +54,6 @@
         
         CCSprite *background;
         CGPoint center = ccp(size.width/2, size.height/2);
-        CGPoint v_center = ccp(size.height / 2, size.width / 2);
 
         background = [CCSprite spriteWithFile:@"1-00.png"];
         background.position = ccp(size.width * 3 / 2, size.height / 2);
@@ -70,11 +69,11 @@
         _fourDrum1P.position = center;
         
         _twoDrum2P = [CCSprite spriteWithFile:@"2p2d.png"];
-        _twoDrum2P.position = v_center;
+        _twoDrum2P.position = center;
         _twoDrum2P.visible = NO;
         
         _fourDrum2P = [CCSprite spriteWithFile:@"2p4d.png"];
-        _fourDrum2P.position = v_center;
+        _fourDrum2P.position = center;
         _fourDrum2P.visible = NO;
         
         [self addChild:background];
@@ -369,6 +368,16 @@
 
 -(void) makeTransition:(ccTime)dt
 {
+//    KaboomGameData *data = [KaboomGameData sharedData];
+//    if (data.player == PLAYER_SINGLE) {
+//        if (data.mode == MODE_ONE_DRUM) data.drumSprite = _oneDrum1P;
+//        else if (data.mode == MODE_TWO_DRUM) data.drumSprite = _twoDrum1P;
+//        else data.drumSprite = _fourDrum1P;
+//    } else {
+//        if (data.mode == MODE_TWO_DRUM) data.drumSprite = _twoDrum2P;
+//        else data.drumSprite = _fourDrum2P;
+//    }
+    
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.4 scene:[DrumSelectionLayer scene] withColor:ccWHITE]];
     [self unschedule:@selector(makeTransition:)];
 }

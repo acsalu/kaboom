@@ -53,25 +53,8 @@
         
         KaboomGameData *data = [KaboomGameData sharedData];
         
-        NSString *drumImageName = nil;
-        switch (data.mode) {
-            case MODE_ONE_DRUM:
-                drumImageName = @"1p1d.png";
-                break;
-            case MODE_TWO_DRUM:
-                drumImageName = @"1p2d.png";
-                break;
-            case MODE_FOUR_DRUM:
-                drumImageName = @"1p4d.png";
-                break;
-            default:
-                NSLog(@"fatal error, no game mode specified");
-                exit(1);
-        }
-        
-        CCSprite *drum = [CCSprite spriteWithFile:drumImageName];
-        drum.position = center;
-        
+        CCSprite *drum = [data drumSprite];
+         
         CCMenuItem *startMenuItem = [CCMenuItemImage itemWithNormalImage:@"start.png" selectedImage:@"startp.png" block:^(id sender){
             CCLOG(@"start button pressed");
             [[CCDirector sharedDirector] replaceScene:[SongSelectionLayer scene]];

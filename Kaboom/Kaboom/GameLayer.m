@@ -7,6 +7,7 @@
 //
 
 #import "GameLayer.h"
+#import "KaboomGameData.h"
 
 @implementation GameLayer
 
@@ -29,8 +30,13 @@
         
         CCSprite *background = [CCSprite spriteWithFile:@"1-00.png"];
         background.position = ccp(- size.width * 1 / 2, size.height / 2);
+        KaboomGameData *data = [KaboomGameData sharedData];
+        
+        CCSprite *drum = [data drumSprite];
+        
         
         [self addChild:background];
+        [self addChild:drum];
 	}
 	return self;
 }
