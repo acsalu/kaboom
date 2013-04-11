@@ -6,10 +6,16 @@
 //
 //
 
-#ifndef Kaboom_Const_h
-#define Kaboom_Const_h
-
 #define kDrumRadius 300
 #define kDrumEffectiveRadius 320
 
-#endif
+
+
+#import "cocos2d.h"
+
+
+@interface Const: NSObject
+
++ (NSArray *)getDrumHitRects;
+
+@end

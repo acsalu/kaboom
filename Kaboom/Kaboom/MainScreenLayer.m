@@ -368,7 +368,7 @@
 
 -(void) makeTransition:(ccTime)dt
 {
-//    KaboomGameData *data = [KaboomGameData sharedData];
+    KaboomGameData *data = [KaboomGameData sharedData];
 //    if (data.player == PLAYER_SINGLE) {
 //        if (data.mode == MODE_ONE_DRUM) data.drumSprite = _oneDrum1P;
 //        else if (data.mode == MODE_TWO_DRUM) data.drumSprite = _twoDrum1P;

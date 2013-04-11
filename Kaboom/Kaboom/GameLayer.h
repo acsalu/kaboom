@@ -12,4 +12,6 @@
 
 +(CCScene *) scene;
 
+@property (strong, nonatomic) NSArray *hitRects;
+
 @end
