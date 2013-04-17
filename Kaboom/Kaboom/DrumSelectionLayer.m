@@ -11,11 +11,16 @@
 #import "SimpleAudioEngine.h"
 #import "Const.h"
 #import "SongSelectionLayer.h"
+#import "CCTouchDispatcher.h"
+#import "TouchTracker.h"
 
 #define ONE_DRUM_OFFST_Y 100
 #define DRUM_DIFF_Y 192
 #define SIDE_DRUM_DIFF_X 164
 #define SIDE_DRUM_DIFF_Y 92
+
+#define START_MENU_TAG 0
+#define START_ITEM_TAG 1
 
 @implementation DrumSelectionLayer
 
@@ -37,6 +42,8 @@
 - (id)init
 {
     if( (self=[super init]) ) {
+
+        self.draggedDrums = [NSMutableArray arrayWithCapacity:11];
         self.isTouchEnabled = YES;
         
 		CGSize size = [[CCDirector sharedDirector] winSize];
@@ -47,9 +54,6 @@
         background = [CCSprite spriteWithFile:@"1-00.png"];
         background.position = center;
        
-        
-        
-        
         
         KaboomGameData *data = [KaboomGameData sharedData];
         
@@ -62,10 +66,12 @@
         
         NSLog(@"(w, h) = (%.0f, %.0f)", [startMenuItem boundingBox].size.width, [startMenuItem boundingBox].size.height);
         
-//        startMenuItem.isEnabled = NO;
+        startMenuItem.isEnabled = NO;
+        startMenuItem.tag = START_ITEM_TAG;
         
         CCMenu *startMenu = [CCMenu menuWithItems:startMenuItem, nil];
-
+        startMenu.tag = START_MENU_TAG;
+        
         if (data.mode == MODE_ONE_DRUM)
             startMenu.position = ccp(size.width / 2, size.height / 2 + ONE_DRUM_OFFST_Y);
         else
@@ -113,51 +119,71 @@
 	return self;
 }
 
+- (void)registerWithTouchDispatcher
+{
+    [[[CCDirector sharedDirector] touchDispatcher] addStandardDelegate:self priority:0];
+}
+
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    UITouch * touch = [touches anyObject];
-    CGPoint location = [touch locationInView:[touch view]];
-    location = [[CCDirector sharedDirector] convertToGL:location];
-    
-    for (CCSprite *drum in _drums) {
-        if (CGRectContainsPoint(drum.boundingBox,location) && _currentDrum == 0){
-            _currentDrum = [_drums indexOfObject:drum] + 1;
-            [[SimpleAudioEngine sharedEngine] playEffect:[NSString stringWithFormat:@"d%d.mp3", _currentDrum]];
-            break;
+    for (UITouch *touch in touches) {
+        CGPoint location = [self convertTouchToNodeSpace:touch];
+        
+        for (CCSprite *drum in _drums) {
+            if (CGRectContainsPoint(drum.boundingBox, location)){
+                int currentDrum = [_drums indexOfObject:drum] + 1;
+                [[SimpleAudioEngine sharedEngine] playEffect:[NSString stringWithFormat:@"d%d.mp3", currentDrum]];
+                
+                CCSprite *draggedDrum = [CCSprite spriteWithTexture:[drum texture]];
+                draggedDrum.position = drum.position;
+                [self addChild:draggedDrum];
+                // should handle exception of touchID == -1 too
+                int touchID = addNewTouch((__bridge void *)(touch), currentDrum);
+                [self.draggedDrums insertObject:draggedDrum atIndex:touchID];
+                break;
+            }
         }
     }
 }
 
-
 - (void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (_currentDrum != 0) {
-        UITouch * touch = [touches anyObject];
-        CGPoint location = [touch locationInView:[touch view]];
-        location = [[CCDirector sharedDirector] convertToGL:location];
-        ((CCSprite *) _drums[_currentDrum - 1]).position = location;
-        [self checkDrumWithLocation:location];
+    for (UITouch* touch in touches) {
+        CGPoint location = [self convertTouchToNodeSpace:touch];
+        
+        int touchID = getTouchID((__bridge void *)(touch));
+        if (touchID != -1) {
+            CCSprite *dSprite = [self.draggedDrums objectAtIndex:touchID];
+            dSprite.position = location;
+        }
     }
 }
 
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (_currentDrum != 0) {
-        UITouch * touch = [touches anyObject];
-        CGPoint location = [touch locationInView:[touch view]];
-        location = [[CCDirector sharedDirector] convertToGL:location];
-        CCSprite *drum = _drums[_currentDrum - 1];
-        drum.position = location;
+    for (UITouch* touch in touches) {
+        CGPoint location = [self convertTouchToNodeSpace:touch];
         
-        [self checkDrumWithLocation:location];
-        
-        [drum runAction:[CCMoveTo actionWithDuration:0.2f position:[_initialLocations[_currentDrum - 1] CGPointValue]]];
-        _currentDrum = 0;
+        int touchID = getTouchID((__bridge void *)(touch));
+        if (touchID != -1) {
+            CCSprite *dSprite = [self.draggedDrums objectAtIndex:touchID];
+            dSprite.position = location;
+            [self removeChild:dSprite cleanup:YES];
+            [self checkDrumWithLocation:location andDrumIndex:touchTracker[touchID].drumIdx];
+            touchTracker[touchID].touchPtr = 0;
+        }
     }
 }
 
-- (void)checkDrumWithLocation:(CGPoint)location
+- (void)readyToStart
+{
+    CCMenu *startMenu = (CCMenu *)[self getChildByTag:START_MENU_TAG];
+    CCMenuItem *startButton = (CCMenuItem *)[startMenu getChildByTag:START_ITEM_TAG];
+    startButton.isEnabled = YES;
+}
+
+- (void)checkDrumWithLocation:(CGPoint)location andDrumIndex:(int)drumIndex
 {
     KaboomGameData *data = [KaboomGameData sharedData];
     CGSize size = [[CCDirector sharedDirector] winSize];
-    NSString *currentDrumEffect = [NSString stringWithFormat:@"d%d.mp3", _currentDrum];
+    NSString *currentDrumEffect = [NSString stringWithFormat:@"d%d.mp3", drumIndex];
     if (data.mode == MODE_ONE_DRUM) {
         CGPoint drumCenter = ccp(size.width / 2, 0);
         if ([self distanceBetween:location and:drumCenter] < kDrumEffectiveRadius) {
@@ -177,9 +203,12 @@
             
         }
         
-        
     } else if (data.mode == MODE_FOUR_DRUM) {
         
+    }
+    
+    if ([data allDrumsAreSet]) {
+        [self readyToStart];
     }
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0FABB38D171E9C8800C46023 /* TouchTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FABB38C171E9C8800C46023 /* TouchTracker.m */; };
 		900386D21715D21100E542EF /* time machine.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 900386D11715D21100E542EF /* time machine.mp3 */; };
 		900386D41716E7AF00E542EF /* Const.m in Sources */ = {isa = PBXBuildFile; fileRef = 900386D31716E7AF00E542EF /* Const.m */; };
 		900386D61717090400E542EF /* sourcedot.png in Resources */ = {isa = PBXBuildFile; fileRef = 900386D51717090400E542EF /* sourcedot.png */; };
@@ -55,7 +56,6 @@
 		90C14EF216F6C96800DFF0ED /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 90C14EF116F6C96800DFF0ED /* iTunesArtwork */; };
 		90C1504F16F6C96A00DFF0ED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C1504E16F6C96A00DFF0ED /* main.m */; };
 		90C1505216F6C96A00DFF0ED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C1505116F6C96A00DFF0ED /* AppDelegate.m */; };
-		90C1505516F6C96A00DFF0ED /* HelloWorldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C1505416F6C96A00DFF0ED /* HelloWorldLayer.m */; };
 		90C1505816F6C96A00DFF0ED /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C1505716F6C96A00DFF0ED /* IntroLayer.m */; };
 		90C2767F1709602200D8F93B /* MainScreenLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C2767E1709602200D8F93B /* MainScreenLayer.m */; };
 		90C2768C1709674D00D8F93B /* KaboomGameData.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C2768B1709674D00D8F93B /* KaboomGameData.m */; };
@@ -199,6 +199,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0FABB38B171E9C8700C46023 /* TouchTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchTracker.h; sourceTree = "<group>"; };
+		0FABB38C171E9C8800C46023 /* TouchTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchTracker.m; sourceTree = "<group>"; };
 		900386D11715D21100E542EF /* time machine.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "time machine.mp3"; sourceTree = "<group>"; };
 		900386D31716E7AF00E542EF /* Const.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Const.m; sourceTree = "<group>"; };
 		900386D51717090400E542EF /* sourcedot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sourcedot.png; sourceTree = "<group>"; };
@@ -251,8 +253,6 @@
 		90C1504E16F6C96A00DFF0ED /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		90C1505016F6C96A00DFF0ED /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		90C1505116F6C96A00DFF0ED /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		90C1505316F6C96A00DFF0ED /* HelloWorldLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorldLayer.h; sourceTree = "<group>"; };
-		90C1505416F6C96A00DFF0ED /* HelloWorldLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldLayer.m; sourceTree = "<group>"; };
 		90C1505616F6C96A00DFF0ED /* IntroLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		90C1505716F6C96A00DFF0ED /* IntroLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
 		90C2767D1709602200D8F93B /* MainScreenLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreenLayer.h; sourceTree = "<group>"; };
@@ -630,10 +630,10 @@
 				90C2768B1709674D00D8F93B /* KaboomGameData.m */,
 				90C1505016F6C96A00DFF0ED /* AppDelegate.h */,
 				90C1505116F6C96A00DFF0ED /* AppDelegate.m */,
-				90C1505316F6C96A00DFF0ED /* HelloWorldLayer.h */,
-				90C1505416F6C96A00DFF0ED /* HelloWorldLayer.m */,
 				90C2767D1709602200D8F93B /* MainScreenLayer.h */,
 				90C2767E1709602200D8F93B /* MainScreenLayer.m */,
+				0FABB38B171E9C8700C46023 /* TouchTracker.h */,
+				0FABB38C171E9C8800C46023 /* TouchTracker.m */,
 				90C2780D1709DC4200D8F93B /* DrumSelectionLayer.h */,
 				90C2780E1709DC4200D8F93B /* DrumSelectionLayer.m */,
 				90DB8B2B171447AF00EE785D /* SongSelectionLayer.h */,
@@ -1232,7 +1232,6 @@
 			files = (
 				90C1504F16F6C96A00DFF0ED /* main.m in Sources */,
 				90C1505216F6C96A00DFF0ED /* AppDelegate.m in Sources */,
-				90C1505516F6C96A00DFF0ED /* HelloWorldLayer.m in Sources */,
 				90C1505816F6C96A00DFF0ED /* IntroLayer.m in Sources */,
 				90C2767F1709602200D8F93B /* MainScreenLayer.m in Sources */,
 				90C2768C1709674D00D8F93B /* KaboomGameData.m in Sources */,
@@ -1240,6 +1239,7 @@
 				90DB8B2D171447AF00EE785D /* SongSelectionLayer.m in Sources */,
 				90DB8B30171447BE00EE785D /* GameLayer.m in Sources */,
 				900386D41716E7AF00E542EF /* Const.m in Sources */,
+				0FABB38D171E9C8800C46023 /* TouchTracker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

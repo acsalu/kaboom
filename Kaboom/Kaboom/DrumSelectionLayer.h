@@ -12,7 +12,9 @@
 
 @property (strong, nonatomic) NSArray *drums;
 @property (strong, nonatomic) NSArray *initialLocations;
+@property (strong, nonatomic) NSMutableArray *draggedDrums;
 @property (nonatomic) int currentDrum;
+
 
 +(CCScene *) scene;
 

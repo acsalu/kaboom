@@ -52,4 +52,14 @@
     return drum;
 }
 
+- (BOOL)allDrumsAreSet {
+    if (self.mode == MODE_UNDETERMINED) {
+        return NO;
+    } else if (self.mode == [self.drumEffect count]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 @end

@@ -10,10 +10,10 @@
 #import "cocos2d.h"
 
 enum mode {
-    MODE_UNDETERMINED,
-    MODE_ONE_DRUM,
-    MODE_TWO_DRUM,
-    MODE_FOUR_DRUM
+    MODE_UNDETERMINED = 0,
+    MODE_ONE_DRUM = 1,
+    MODE_TWO_DRUM = 2,
+    MODE_FOUR_DRUM = 4
 };
 
 enum player {
@@ -28,6 +28,7 @@ typedef enum player PLAYER;
 
 + (KaboomGameData *)sharedData;
 - (CCSprite *)drumSprite;
+- (BOOL) allDrumsAreSet;
 
 @property (nonatomic) MODE mode;
 @property (nonatomic) PLAYER player;
