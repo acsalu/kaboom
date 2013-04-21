@@ -13,5 +13,7 @@
 +(CCScene *) scene;
 
 @property (strong, nonatomic) NSArray *hitRects;
+@property (nonatomic) int count;
+@property (strong, nonatomic) CCSprite *countdownSprite;
 
 @end

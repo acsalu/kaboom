@@ -174,6 +174,12 @@
 		90C2780F1709DC4300D8F93B /* DrumSelectionLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C2780E1709DC4200D8F93B /* DrumSelectionLayer.m */; };
 		90C278121709DF6E00D8F93B /* drum-selection-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 90C278101709DF6E00D8F93B /* drum-selection-hd.png */; };
 		90C278131709DF6E00D8F93B /* drum-selection.png in Resources */ = {isa = PBXBuildFile; fileRef = 90C278111709DF6E00D8F93B /* drum-selection.png */; };
+		90C373261723A9A50034A8BB /* countdown-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 90C373201723A9A50034A8BB /* countdown-2.png */; };
+		90C373271723A9A50034A8BB /* countdown-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 90C373211723A9A50034A8BB /* countdown-3.png */; };
+		90C373281723A9A50034A8BB /* countdown-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 90C373221723A9A50034A8BB /* countdown-1.png */; };
+		90C373291723A9A50034A8BB /* countdown-2-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 90C373231723A9A50034A8BB /* countdown-2-hd.png */; };
+		90C3732A1723A9A50034A8BB /* countdown-3-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 90C373241723A9A50034A8BB /* countdown-3-hd.png */; };
+		90C3732B1723A9A50034A8BB /* countdown-1-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 90C373251723A9A50034A8BB /* countdown-1-hd.png */; };
 		90DB8B2D171447AF00EE785D /* SongSelectionLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DB8B2C171447AF00EE785D /* SongSelectionLayer.m */; };
 		90DB8B30171447BE00EE785D /* GameLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DB8B2F171447BE00EE785D /* GameLayer.m */; };
 		90DB8B341714496C00EE785D /* list1.png in Resources */ = {isa = PBXBuildFile; fileRef = 90DB8B331714496C00EE785D /* list1.png */; };
@@ -506,6 +512,12 @@
 		90C2780E1709DC4200D8F93B /* DrumSelectionLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrumSelectionLayer.m; sourceTree = "<group>"; };
 		90C278101709DF6E00D8F93B /* drum-selection-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "drum-selection-hd.png"; sourceTree = "<group>"; };
 		90C278111709DF6E00D8F93B /* drum-selection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "drum-selection.png"; sourceTree = "<group>"; };
+		90C373201723A9A50034A8BB /* countdown-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown-2.png"; sourceTree = "<group>"; };
+		90C373211723A9A50034A8BB /* countdown-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown-3.png"; sourceTree = "<group>"; };
+		90C373221723A9A50034A8BB /* countdown-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown-1.png"; sourceTree = "<group>"; };
+		90C373231723A9A50034A8BB /* countdown-2-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown-2-hd.png"; sourceTree = "<group>"; };
+		90C373241723A9A50034A8BB /* countdown-3-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown-3-hd.png"; sourceTree = "<group>"; };
+		90C373251723A9A50034A8BB /* countdown-1-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown-1-hd.png"; sourceTree = "<group>"; };
 		90DB8B2A171439FE00EE785D /* Const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Const.h; sourceTree = "<group>"; };
 		90DB8B2B171447AF00EE785D /* SongSelectionLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongSelectionLayer.h; sourceTree = "<group>"; };
 		90DB8B2C171447AF00EE785D /* SongSelectionLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongSelectionLayer.m; sourceTree = "<group>"; };
@@ -572,6 +584,12 @@
 		900386D71717090D00E542EF /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				90C373201723A9A50034A8BB /* countdown-2.png */,
+				90C373211723A9A50034A8BB /* countdown-3.png */,
+				90C373221723A9A50034A8BB /* countdown-1.png */,
+				90C373231723A9A50034A8BB /* countdown-2-hd.png */,
+				90C373241723A9A50034A8BB /* countdown-3-hd.png */,
+				90C373251723A9A50034A8BB /* countdown-1-hd.png */,
 				900386D51717090400E542EF /* sourcedot.png */,
 				900386D81717092A00E542EF /* sourcedot-hd.png */,
 			);
@@ -1220,6 +1238,12 @@
 				900386D21715D21100E542EF /* time machine.mp3 in Resources */,
 				900386D61717090400E542EF /* sourcedot.png in Resources */,
 				900386D91717092B00E542EF /* sourcedot-hd.png in Resources */,
+				90C373261723A9A50034A8BB /* countdown-2.png in Resources */,
+				90C373271723A9A50034A8BB /* countdown-3.png in Resources */,
+				90C373281723A9A50034A8BB /* countdown-1.png in Resources */,
+				90C373291723A9A50034A8BB /* countdown-2-hd.png in Resources */,
+				90C3732A1723A9A50034A8BB /* countdown-3-hd.png in Resources */,
+				90C3732B1723A9A50034A8BB /* countdown-1-hd.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

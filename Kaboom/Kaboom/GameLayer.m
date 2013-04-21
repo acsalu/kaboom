@@ -51,8 +51,35 @@
         [self addChild:background];
         [self addChild:drum];
         [self addChild:sourcedot];
+        
+        float delay = 1.0f;
+        _count = 3;
+        [self schedule:@selector(countdown:) interval:delay];
 	}
 	return self;
+}
+
+- (void)countdown:(ccTime)delta
+{
+    if (_count == 0) {
+        [self removeChild:_countdownSprite cleanup:YES];
+        [self unschedule:@selector(countdown:)];
+        [self startGameLoop];
+    } else {
+        CGSize size = [[CCDirector sharedDirector] winSize];
+        CGPoint center = ccp(size.width / 2, size.height / 2);
+        if (_countdownSprite) [self removeChild:_countdownSprite cleanup:YES];
+        _countdownSprite = [CCSprite spriteWithFile:[NSString stringWithFormat:@"countdown-%d.png", _count]];
+        _countdownSprite.position = center;
+        [self addChild:_countdownSprite];
+        --_count;
+    }
+}
+
+- (void)startGameLoop
+{
+    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"time machine.mp3"];
+    
 }
 
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
