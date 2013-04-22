@@ -66,7 +66,7 @@
         
         NSLog(@"(w, h) = (%.0f, %.0f)", [startMenuItem boundingBox].size.width, [startMenuItem boundingBox].size.height);
         
-        startMenuItem.isEnabled = NO;
+//        startMenuItem.isEnabled = NO;
         startMenuItem.tag = START_ITEM_TAG;
         
         CCMenu *startMenu = [CCMenu menuWithItems:startMenuItem, nil];
@@ -115,6 +115,19 @@
         [self addChild:d6];
         
         _drums = @[d1, d2, d3, d4, d5, d6];
+        
+        NSString *defaultDrumEffect = @"d1.mp3";
+        if (data.mode == MODE_ONE_DRUM) {
+            [data.drumEffect setObject:defaultDrumEffect forKey:@"ONE"];
+        } else if (data.mode == MODE_TWO_DRUM) {
+            [data.drumEffect setObject:defaultDrumEffect forKey:@"TWO_LEFT"];
+            [data.drumEffect setObject:defaultDrumEffect forKey:@"TWO_RIGHT"];
+        } else if (data.mode == MODE_FOUR_DRUM) {
+            [data.drumEffect setObject:defaultDrumEffect forKey:@"TWO_LEFT_TOP"];
+            [data.drumEffect setObject:defaultDrumEffect forKey:@"TWO_LEFT_BOTTOM"];
+            [data.drumEffect setObject:defaultDrumEffect forKey:@"TWO_RIGHT_TOP"];
+            [data.drumEffect setObject:defaultDrumEffect forKey:@"TWO_RIGHT_BOTTOM"];
+        }
 	}
 	return self;
 }
@@ -200,16 +213,31 @@
         } else if ([self distanceBetween:location and:rightDrumCenter] < kDrumEffectiveRadius) {
             [data.drumEffect setObject:currentDrumEffect forKey:@"TWO_RIGHT"];
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
-            
         }
         
     } else if (data.mode == MODE_FOUR_DRUM) {
-        
+        CGPoint leftTopDrumCenter = ccp(0, 0);
+        CGPoint leftBottomDrumCenter = ccp(0, size.height);
+        CGPoint rightTopDrumCenter = ccp(size.width, 0);
+        CGPoint rightBottomDrumCenter = ccp(size.width, size.height);
+        if ([self distanceBetween:location and:leftTopDrumCenter] < kDrumEffectiveRadius) {
+            [data.drumEffect setObject:currentDrumEffect forKey:@"TWO_LEFT_TOP"];
+            [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
+        } else if ([self distanceBetween:location and:leftBottomDrumCenter] < kDrumEffectiveRadius) {
+            [data.drumEffect setObject:currentDrumEffect forKey:@"TWO_LEFT_BOTTOM"];
+            [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
+        } else if ([self distanceBetween:location and:rightTopDrumCenter] < kDrumEffectiveRadius) {
+            [data.drumEffect setObject:currentDrumEffect forKey:@"TWO_RIGHT_TOP"];
+            [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
+        } else if ([self distanceBetween:location and:rightBottomDrumCenter] < kDrumEffectiveRadius) {
+            [data.drumEffect setObject:currentDrumEffect forKey:@"TWO_RIGHT_BOTTOM"];
+            [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
+        }
     }
-    
-    if ([data allDrumsAreSet]) {
-        [self readyToStart];
-    }
+
+//    if ([data allDrumsAreSet]) {
+//        [self readyToStart];
+//    }
 }
 
 
