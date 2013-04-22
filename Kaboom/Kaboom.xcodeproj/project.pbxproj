@@ -180,6 +180,7 @@
 		90C373291723A9A50034A8BB /* countdown-2-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 90C373231723A9A50034A8BB /* countdown-2-hd.png */; };
 		90C3732A1723A9A50034A8BB /* countdown-3-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 90C373241723A9A50034A8BB /* countdown-3-hd.png */; };
 		90C3732B1723A9A50034A8BB /* countdown-1-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 90C373251723A9A50034A8BB /* countdown-1-hd.png */; };
+		90C3732E1724EE400034A8BB /* Song.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C3732D1724EE3F0034A8BB /* Song.m */; };
 		90DB8B2D171447AF00EE785D /* SongSelectionLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DB8B2C171447AF00EE785D /* SongSelectionLayer.m */; };
 		90DB8B30171447BE00EE785D /* GameLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DB8B2F171447BE00EE785D /* GameLayer.m */; };
 		90DB8B341714496C00EE785D /* list1.png in Resources */ = {isa = PBXBuildFile; fileRef = 90DB8B331714496C00EE785D /* list1.png */; };
@@ -518,6 +519,8 @@
 		90C373231723A9A50034A8BB /* countdown-2-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown-2-hd.png"; sourceTree = "<group>"; };
 		90C373241723A9A50034A8BB /* countdown-3-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown-3-hd.png"; sourceTree = "<group>"; };
 		90C373251723A9A50034A8BB /* countdown-1-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown-1-hd.png"; sourceTree = "<group>"; };
+		90C3732C1724EE3F0034A8BB /* Song.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Song.h; sourceTree = "<group>"; };
+		90C3732D1724EE3F0034A8BB /* Song.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Song.m; sourceTree = "<group>"; };
 		90DB8B2A171439FE00EE785D /* Const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Const.h; sourceTree = "<group>"; };
 		90DB8B2B171447AF00EE785D /* SongSelectionLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongSelectionLayer.h; sourceTree = "<group>"; };
 		90DB8B2C171447AF00EE785D /* SongSelectionLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongSelectionLayer.m; sourceTree = "<group>"; };
@@ -662,6 +665,8 @@
 				90C1505716F6C96A00DFF0ED /* IntroLayer.m */,
 				90DB8B2A171439FE00EE785D /* Const.h */,
 				900386D31716E7AF00E542EF /* Const.m */,
+				90C3732C1724EE3F0034A8BB /* Song.h */,
+				90C3732D1724EE3F0034A8BB /* Song.m */,
 				90C14ED916F6C96800DFF0ED /* Resources */,
 				90C1504C16F6C96A00DFF0ED /* Supporting Files */,
 			);
@@ -1264,6 +1269,7 @@
 				90DB8B30171447BE00EE785D /* GameLayer.m in Sources */,
 				900386D41716E7AF00E542EF /* Const.m in Sources */,
 				0FABB38D171E9C8800C46023 /* TouchTracker.m in Sources */,
+				90C3732E1724EE400034A8BB /* Song.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

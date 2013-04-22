@@ -10,6 +10,7 @@
 #import "KaboomGameData.h"
 #import "Const.h"
 #import "SimpleAudioEngine.h"
+#import "Song.h"
 
 @implementation GameLayer
 
@@ -52,6 +53,8 @@
         [self addChild:drum];
         [self addChild:sourcedot];
         
+        _song = [Song newSong];
+        
         float delay = 1.0f;
         _count = 3;
         [self schedule:@selector(countdown:) interval:delay];
@@ -64,7 +67,8 @@
     if (_count == 0) {
         [self removeChild:_countdownSprite cleanup:YES];
         [self unschedule:@selector(countdown:)];
-        [self startGameLoop];
+        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"time machine.mp3"];
+        [self fire:0.0f];
     } else {
         CGSize size = [[CCDirector sharedDirector] winSize];
         CGPoint center = ccp(size.width / 2, size.height / 2);
@@ -78,8 +82,40 @@
 
 - (void)startGameLoop
 {
-    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"time machine.mp3"];
     
+//    CCLOG(@"%@", _song.melody);
+//    while (_song.currentIdx < _song.melody.count) {
+//        NSString *msg = [Song noteLengthString:((NSNumber *) _song.melody[_song.currentIdx][@"length"]).intValue];
+//        for (NSNumber *note in _song.melody[_song.currentIdx][@"notes"]) {
+//            msg = [NSString stringWithFormat:@"%@ %@", msg, [Song noteTypeString:note.intValue]];
+//        }
+//        CCLOG(@"%@", msg);
+//        ++_song.currentIdx;
+//    }
+    if (_song.currentIdx < _song.melody.count) {
+//        NSString *msg = [Song noteLengthString:((NSNumber *) _song.melody[_song.currentIdx][@"length"]).intValue];
+//        
+//        
+//        for (NSNumber *note in _song.melody[_song.currentIdx][@"notes"]) {
+//            msg = [NSString stringWithFormat:@"%@ %@", msg, [Song noteTypeString:note.intValue]];
+//        }
+//        CCLOG(@"%@", msg);
+        [self schedule:@selector(fire:) interval:[_song lengthInFloat:((NSNumber *) _song.melody[_song.currentIdx][@"length"]).intValue]];        
+        ++_song.currentIdx;
+    }
+
+}
+
+
+- (void)fire:(ccTime)delta
+{
+    [self unschedule:@selector(fire:)];
+    if (_song.currentIdx == _song.melody.count) return;
+    CCLOG(@"%d", _song.currentIdx);
+    for (NSNumber *note in _song.melody[_song.currentIdx][@"notes"]) {
+        CCLOG(@"%@", [Song noteTypeString:note.intValue]);
+    }
+    [self startGameLoop];
 }
 
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
