@@ -18,5 +18,6 @@
 @property (strong, nonatomic) CCSprite *countdownSprite;
 @property (nonatomic) bool isPause;
 @property (strong, nonatomic) Song *song;
+@property (strong, nonatomic) NSMutableArray *noteQueue;
 
 @end

@@ -41,7 +41,7 @@
         
         CCMenuItem *song = [CCMenuItemImage itemWithNormalImage:@"list1.png" selectedImage:@"list1.png" block:^(id sender) {
             NSLog(@"song is chosen!");
-            [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:1.0f scene:[GameLayer scene]]];
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.0f scene:[GameLayer scene]]];
         }];
         
         

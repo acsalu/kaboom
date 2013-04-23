@@ -11,10 +11,10 @@
 #import "cocos2d.h"
 
 
-#define kDrumHitRectOffsetX 30
-#define kDrumHitRectOffsetY 30
-#define kDrumHitRectWidth 40
-#define kDrumHitRectHeight 40
+#define kDrumHitRectOffsetX 0
+#define kDrumHitRectOffsetY 0
+#define kDrumHitRectWidth 100
+#define kDrumHitRectHeight 100
 
 @implementation Const
 

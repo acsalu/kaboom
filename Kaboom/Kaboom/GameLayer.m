@@ -27,6 +27,8 @@
 - (id)init
 {
     if( (self=[super init]) ) {
+        _noteQueue = [NSMutableArray array];
+        
         _hitRects = [Const getDrumHitRects];
         for (NSValue *rectValue in _hitRects) {
             CGRect rect = [rectValue CGRectValue];
@@ -121,29 +123,85 @@
             CGPoint destinationPointP2;
             switch (note.intValue) {
                 case NOTE_TYPE_LEFT:
-                    destinationPointP1 = ccp(0, 0);
-                    destinationPointP2 = ccp(size.width, size.height);
+                case NOTE_TYPE_BOUNCE_LR:
+                    destinationPointP1 = ccp(0 + size.width * 0.05, 0 + size.height * 0.05);
+                    destinationPointP2 = ccp(size.width * 0.95, size.height * 0.95);
                     break;
                 case NOTE_TYPE_RIGHT:
-                    destinationPointP1 = ccp(0, size.height);
-                    destinationPointP2 = ccp(size.width, 0);
+                case NOTE_TYPE_BOUNCE_RL:
+                    destinationPointP1 = ccp(0 + size.width * 0.05, size.height * 0.95);
+                    destinationPointP2 = ccp(size.width * 0.95, 0 + size.height * 0.05);
                     break;
+                case  NOTE_TYPE_CLAP:
+                    destinationPointP1 = ccp(0, size.height / 2);
+                    destinationPointP2 = ccp(size.width, size.height / 2);
+                    break;
+                
                 default:
                     break;
             }
-        CCSprite *note1 = [CCSprite spriteWithFile:@"notedot.png"];
+            
+        id callback = [CCCallFuncN actionWithTarget:self selector:@selector(removeNote:)];
+            
+        CCSprite *note1;
+        
+        
+        CCSequence *sequence1;
+        if (note.intValue == NOTE_TYPE_BOUNCE_LR) {
+            sequence1 = [CCSequence actions:[CCMoveTo actionWithDuration:_song.interval * 2 position:destinationPointP1],
+                         [CCMoveTo actionWithDuration:_song.interval position:ccp(0 + size.width * 0.05, size.height * 0.95)],
+                         callback, nil];
+            note1 = [CCSprite spriteWithFile:@"notedot-arrow-L2R.png"];
+        } else if (note.intValue == NOTE_TYPE_BOUNCE_RL) {
+            sequence1 = [CCSequence actions:[CCMoveTo actionWithDuration:_song.interval * 2 position:destinationPointP1],
+                         [CCMoveTo actionWithDuration:_song.interval position:ccp(0 + size.width * 0.05, 0 + size.height * 0.05)],
+                         callback, nil];
+            note1 = [CCSprite spriteWithFile:@"notedot-arrow-R2L.png"];
+        } else {
+            sequence1 = [CCSequence actions: [CCMoveTo actionWithDuration:_song.interval * 2 position:destinationPointP1],
+            callback, nil];
+            note1 = [CCSprite spriteWithFile:@"notedot.png"];
+        }
+            
         note1.position = ccp(size.width / 2, size.height / 2);
         [self addChild:note1];
-        [note1 runAction:[CCMoveTo actionWithDuration:_song.interval * 2 position:destinationPointP1]];
+        [note1 runAction:sequence1];
+        [_noteQueue addObject:note1];
     
-        CCSprite *note2 = [CCSprite spriteWithFile:@"notedot.png"];
+        CCSprite *note2;
+        
+
+        CCSequence *sequence2;
+        if (note.intValue == NOTE_TYPE_BOUNCE_LR) {
+            sequence2 = [CCSequence actions:[CCMoveTo actionWithDuration:_song.interval * 2 position:destinationPointP2],
+                         [CCMoveTo actionWithDuration:_song.interval position:ccp(size.width * 0.95, 0 + size.height * 0.05)],
+                         callback, nil];
+            note2 = [CCSprite spriteWithFile:@"notedot-arrow-L2R.png"];
+        } else if (note.intValue == NOTE_TYPE_BOUNCE_RL) {
+            sequence2 = [CCSequence actions:[CCMoveTo actionWithDuration:_song.interval * 2 position:destinationPointP2],
+                         [CCMoveTo actionWithDuration:_song.interval position:ccp(size.width * 0.95, size.height * 0.95)],
+                         callback, nil];
+            note2 = [CCSprite spriteWithFile:@"notedot-arrow-R2L.png"];
+        } else {
+            sequence2 = [CCSequence actions: [CCMoveTo actionWithDuration:_song.interval * 2 position:destinationPointP2],
+                         callback, nil];
+            note2 = [CCSprite spriteWithFile:@"notedot.png"];
+        }
+        
         note2.position = ccp(size.width / 2, size.height / 2);
         [self addChild:note2];
-        [note2 runAction:[CCMoveTo actionWithDuration:_song.interval * 2 position:destinationPointP2]];
-
+        [note2 runAction:sequence2];
+        [_noteQueue addObject:note2];
         }
     }
     [self startGameLoop];
+}
+
+- (void)removeNote:(id)note
+{
+    [self stopAllActions];
+    [self removeChild:note cleanup:YES];
+    [_noteQueue removeObject:note];
 }
 
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -151,10 +209,20 @@
     CCDirector* director = [CCDirector sharedDirector];
     for (UITouch *touch in touches) {
         CGPoint p = [touch locationInView:director.view];
-        NSLog(@"(%.0f, %.0f)", p.x, p.y);
+//        NSLog(@"(%.0f, %.0f)", p.x, p.y);
         for (NSValue *rectValue in _hitRects) {
             if (CGRectContainsPoint([rectValue CGRectValue], p)) {
                 NSLog(@"HIT!");
+                CCSprite *closest;
+                CGFloat distance = 5000;
+                for (CCSprite *note in _noteQueue) {
+                    if ([self distanceBetween:p and:note.position] < distance) closest = note;
+                }
+                
+                if (closest) {
+                    [self removeNote:closest];
+                }
+                
                 KaboomGameData *data = [KaboomGameData sharedData];
                 NSString *effect = data.drumEffect[@"drum1"];
                 if (effect) [[SimpleAudioEngine sharedEngine] playEffect:effect];
@@ -163,6 +231,14 @@
         }
     }
     
+}
+
+- (CGFloat)distanceBetween:(CGPoint)p1 and:(CGPoint)p2
+{
+    CGFloat xDist = (p2.x - p1.x);
+    CGFloat yDist = (p2.y - p1.y);
+    CGFloat distance = sqrt((xDist * xDist) + (yDist * yDist));
+    return distance;
 }
 
 @end
