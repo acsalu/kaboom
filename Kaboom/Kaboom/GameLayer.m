@@ -55,7 +55,7 @@
         
         _song = [Song newSong];
         
-        float delay = 1.0f;
+        float delay = _song.interval;
         _count = 3;
         [self schedule:@selector(countdown:) interval:delay];
 	}
@@ -68,8 +68,8 @@
         [self removeChild:_countdownSprite cleanup:YES];
         [self unschedule:@selector(countdown:)];
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"time machine.mp3"];
-        [self fire:0.0f];
     } else {
+        if (_count == 1) [self fire:0.0f];
         CGSize size = [[CCDirector sharedDirector] winSize];
         CGPoint center = ccp(size.width / 2, size.height / 2);
         if (_countdownSprite) [self removeChild:_countdownSprite cleanup:YES];
@@ -112,8 +112,36 @@
     [self unschedule:@selector(fire:)];
     if (_song.currentIdx == _song.melody.count) return;
     CCLOG(@"%d", _song.currentIdx);
+    CGSize size = [[CCDirector sharedDirector] winSize];
     for (NSNumber *note in _song.melody[_song.currentIdx][@"notes"]) {
         CCLOG(@"%@", [Song noteTypeString:note.intValue]);
+        
+        if (note.intValue != NOTE_TYPE_REST) {
+            CGPoint destinationPointP1;
+            CGPoint destinationPointP2;
+            switch (note.intValue) {
+                case NOTE_TYPE_LEFT:
+                    destinationPointP1 = ccp(0, 0);
+                    destinationPointP2 = ccp(size.width, size.height);
+                    break;
+                case NOTE_TYPE_RIGHT:
+                    destinationPointP1 = ccp(0, size.height);
+                    destinationPointP2 = ccp(size.width, 0);
+                    break;
+                default:
+                    break;
+            }
+        CCSprite *note1 = [CCSprite spriteWithFile:@"notedot.png"];
+        note1.position = ccp(size.width / 2, size.height / 2);
+        [self addChild:note1];
+        [note1 runAction:[CCMoveTo actionWithDuration:_song.interval * 2 position:destinationPointP1]];
+    
+        CCSprite *note2 = [CCSprite spriteWithFile:@"notedot.png"];
+        note2.position = ccp(size.width / 2, size.height / 2);
+        [self addChild:note2];
+        [note2 runAction:[CCMoveTo actionWithDuration:_song.interval * 2 position:destinationPointP2]];
+
+        }
     }
     [self startGameLoop];
 }
