@@ -527,8 +527,10 @@
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
                     @{@"length":@(NOTE_LENGTH_2ND), @"notes":@[@(NOTE_TYPE_REST)]}
                     
+                    
+                    
                 ];
-    song.interval = 0.5031;
+    song.interval = 0.457;
     return song;
 }
 
