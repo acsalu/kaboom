@@ -26,11 +26,7 @@
 {
     CCLayer *layer = [[CCLayer alloc] init];
     
-    //int largeFont = [CCDirector sharedDirector].winSize.height / 9;
-    //CCLabelTTF *image =  [CCLabelTTF labelWithString:name fontName:@"Marker Felt" fontSize:largeFont];
-    
     CCSprite *image = [CCSprite spriteWithFile:name];
-    //image.position =  ccp( screenSize.width / 2 , screenSize.height / 2 + 10 );
     [layer addChild:image];
     
     return layer;
@@ -52,17 +48,7 @@
         
         CCSprite *drum = [data drumSprite];
         
-//        CCMenuItem *song = [CCMenuItemImage itemWithNormalImage:@"list1.png" selectedImage:@"list1.png" block:^(id sender) {
-//            NSLog(@"song is chosen!");
-//            [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.0f scene:[GameLayer scene]]];
-//        }];
-//        
-//        
-//        CCMenu *songMenu = [CCMenu menuWithArray:@[song]];
-        
-        
         [self addChild:background];
-//        [self addChild:songMenu];
         [self addChild:drum];
         
         
@@ -76,14 +62,11 @@
             
             [_layers addObject:layer];
         }
-        
-        //FGScrollLayer *scroller = [[FGScrollLayer alloc] initWithLayers:_layers widthOffset:100];
-        
+                
         CGRect rect = CGRectMake(size.width/2, 100, 100, 300);
         CGSize smallsize = CGSizeMake(size.width/2, size.height/3);
         
         FGScrollLayer *scroller = [[FGScrollLayer alloc] initWithLayers:_layers pageSize:smallsize pagesOffset:100 visibleRect:rect];
-        //[scroller selectPage:0];
         
         [self addChild:scroller];
 

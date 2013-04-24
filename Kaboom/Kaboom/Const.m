@@ -54,7 +54,6 @@
 + (CGPoint)basePointForDrum:(int)drumId
 {
     CGSize size = [[CCDirector sharedDirector] winSize];
-    NSArray *result = nil;
     KaboomGameData *data = [KaboomGameData sharedData];
     
     

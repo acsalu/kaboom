@@ -9,8 +9,13 @@
 #import <GameKit/GameKit.h>
 #import "cocos2d.h"
 
-
-
+extern const int DRUM_ONE;
+extern const int DRUM_TWO_LEFT;
+extern const int DRUM_TWO_RIGHT;
+extern const int DRUM_FOUR_UPPER_LEFT;
+extern const int DRUM_FOUR_UPPER_RIGHT;
+extern const int DRUM_FOUR_LOWER_RIGHT;
+extern const int DRUM_FOUR_LOWER_LEFT;
 
 @interface MainScreenLayer : CCLayer
 {

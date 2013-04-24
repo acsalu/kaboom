@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface ShowResultLayer : CCLayer {
-    
-}
+
+@interface ShowResultLayer : CCLayer
+
++ (CCLayer *) showResultLayerWithScore:(NSMutableArray *)score andTotalNotes:(int)totalNotes;
 
 @end

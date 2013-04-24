@@ -11,6 +11,7 @@
 #import "Const.h"
 #import "SimpleAudioEngine.h"
 #import "Song.h"
+#import "ShowResultLayer.h"
 #import "SongSelectionLayer.h"
 
 #define SCORE_DISTANCE_LOWER_BOUND 660
@@ -245,35 +246,41 @@
     for (NSNumber *score in _scores) {
         NSLog(@"player%d - %@", [_scores indexOfObject:score], score);
     }
+    CCLayer *scoreLayer = [ShowResultLayer showResultLayerWithScore:_scores andTotalNotes:total];
+    if ([[KaboomGameData sharedData] player] == PLAYER_TWO) {
+        scoreLayer.rotation = 90;
+    }
+    [self addChild:scoreLayer];
 }
 
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     CCDirector* director = [CCDirector sharedDirector];
+    KaboomGameData *data = [KaboomGameData sharedData];
+    NSString *effect;
     for (UITouch *touch in touches) {
         CGPoint p = [touch locationInView:director.view];
-//        NSLog(@"(%.0f, %.0f)", p.x, p.y);
         for (NSValue *rectValue in _hitRects) {
             if (CGRectContainsPoint([rectValue CGRectValue], p)) {
-                NSLog(@"HIT! at drum %d", [_hitRects indexOfObject:rectValue]);
-                CCSprite *closest;
+                int index = [_hitRects indexOfObject:rectValue];
                 NSMutableArray *queue = _noteQueue[[_hitRects indexOfObject:rectValue]];
                 if (queue.count > 0) {
                     [self updateScoresWithNote:queue[0] forDrum:[_hitRects indexOfObject:rectValue]];
                     [self removeNote:queue[0]];
                 }
-                
-//                CGFloat distance = 5000;
-//                for (CCSprite *note in _noteQueue) {
-//                    if ([self distanceBetween:p and:note.position] < distance) closest = note;
-//                }
-//                
-//                if (closest) {
-//                    [self removeNote:closest];
-//                }
-                
-                KaboomGameData *data = [KaboomGameData sharedData];
-                NSString *effect = data.drumEffect[@"drum1"];
+               
+                if (index == 0) {
+                    effect = data.drumEffect[@"TWO_LEFT_TOP"];
+                } else if (index == 1) {
+                    effect = data.drumEffect[@"TWO_RIGHT_TOP"];
+                } else if (index == 2) {
+                    effect = data.drumEffect[@"TWO_RIGHT_BOTTOM"];
+                } else if (index == 3) {
+                    effect = data.drumEffect[@"TWO_LEFT_BOTTOM"];
+                } else {
+                    NSLog(@"BUG!! FUCK YOU!!");
+                }
+
                 if (effect) [[SimpleAudioEngine sharedEngine] playEffect:effect];
                 else [[SimpleAudioEngine sharedEngine] playEffect:@"d1.mp3"];
             }

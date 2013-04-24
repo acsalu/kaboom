@@ -14,13 +14,13 @@
 #define DETECTION_AREA_WIDTH 40
 #define DETECTION_AREA_HEIGHT 40
 
-#define DRUM_ONE                0
-#define DRUM_TWO_LEFT           1
-#define DRUM_TWO_RIGHT          2
-#define DRUM_FOUR_UPPER_LEFT    3
-#define DRUM_FOUR_UPPER_RIGHT   4
-#define DRUM_FOUR_LOWER_LEFT    5
-#define DRUM_FOUR_LOWER_RIGHT   6
+const int DRUM_ONE               = 0;
+const int DRUM_TWO_LEFT          = 1;
+const int DRUM_TWO_RIGHT         = 2;
+const int DRUM_FOUR_UPPER_LEFT   = 3;
+const int DRUM_FOUR_UPPER_RIGHT  = 4;
+const int DRUM_FOUR_LOWER_RIGHT  = 5;
+const int DRUM_FOUR_LOWER_LEFT   = 6;
 
 #define BACKGROUND_TAG 1000
 
@@ -29,23 +29,15 @@
 
 +(CCScene *) scene
 {
-	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
-	
-	// 'layer' is an autorelease object.
 	MainScreenLayer *layer = [MainScreenLayer node];
-	
-	// add layer as a child to scene
 	[scene addChild: layer];
-	
-	// return the scene
+
 	return scene;
 }
 
 -(id) init
 {
-	// always call "super" init
-	// Apple recommends to re-assign "self" with the "super's" return value
 	if( (self=[super init]) ) {
         self.isTouchEnabled = YES;
         _points = [NSMutableArray array];
@@ -285,7 +277,6 @@
 {
     KaboomGameData *data = [KaboomGameData sharedData];
     CGSize size = [[CCDirector sharedDirector] winSize];
-    CCDirector* director = [CCDirector sharedDirector];
     
     if (_points.count == 0) {
         data.mode = MODE_UNDETERMINED;
@@ -381,18 +372,8 @@
 
 -(void) makeTransition:(ccTime)dt
 {
-    KaboomGameData *data = [KaboomGameData sharedData];
-    //    if (data.player == PLAYER_SINGLE) {
-    //        if (data.mode == MODE_ONE_DRUM) data.drumSprite = _oneDrum1P;
-    //        else if (data.mode == MODE_TWO_DRUM) data.drumSprite = _twoDrum1P;
-    //        else data.drumSprite = _fourDrum1P;
-    //    } else {
-    //        if (data.mode == MODE_TWO_DRUM) data.drumSprite = _twoDrum2P;
-    //        else data.drumSprite = _fourDrum2P;
-    //    }
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc removeObserver:self];
-    
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.4 scene:[DrumSelectionLayer scene] withColor:ccWHITE]];
     [self unschedule:@selector(makeTransition:)];
 }

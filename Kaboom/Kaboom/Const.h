@@ -9,8 +9,6 @@
 #define kDrumRadius 300
 #define kDrumEffectiveRadius 320
 
-
-
 #import "cocos2d.h"
 
 
