@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0FABB38D171E9C8800C46023 /* TouchTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FABB38C171E9C8800C46023 /* TouchTracker.m */; };
+		0FC771EF1727CD8D0085D8CC /* SlapSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC771EE1727CD8C0085D8CC /* SlapSprite.m */; };
 		900386D21715D21100E542EF /* time machine.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 900386D11715D21100E542EF /* time machine.mp3 */; };
 		900386D41716E7AF00E542EF /* Const.m in Sources */ = {isa = PBXBuildFile; fileRef = 900386D31716E7AF00E542EF /* Const.m */; };
 		900386D61717090400E542EF /* sourcedot.png in Resources */ = {isa = PBXBuildFile; fileRef = 900386D51717090400E542EF /* sourcedot.png */; };
@@ -220,6 +221,8 @@
 /* Begin PBXFileReference section */
 		0FABB38B171E9C8700C46023 /* TouchTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchTracker.h; sourceTree = "<group>"; };
 		0FABB38C171E9C8800C46023 /* TouchTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchTracker.m; sourceTree = "<group>"; };
+		0FC771ED1727CD8C0085D8CC /* SlapSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlapSprite.h; path = ../SlapSprite.h; sourceTree = "<group>"; };
+		0FC771EE1727CD8C0085D8CC /* SlapSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlapSprite.m; path = ../SlapSprite.m; sourceTree = "<group>"; };
 		900386D11715D21100E542EF /* time machine.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "time machine.mp3"; sourceTree = "<group>"; };
 		900386D31716E7AF00E542EF /* Const.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Const.m; sourceTree = "<group>"; };
 		900386D51717090400E542EF /* sourcedot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sourcedot.png; sourceTree = "<group>"; };
@@ -686,6 +689,8 @@
 				90C2767E1709602200D8F93B /* MainScreenLayer.m */,
 				0FABB38B171E9C8700C46023 /* TouchTracker.h */,
 				0FABB38C171E9C8800C46023 /* TouchTracker.m */,
+				0FC771ED1727CD8C0085D8CC /* SlapSprite.h */,
+				0FC771EE1727CD8C0085D8CC /* SlapSprite.m */,
 				90C2780D1709DC4200D8F93B /* DrumSelectionLayer.h */,
 				90C2780E1709DC4200D8F93B /* DrumSelectionLayer.m */,
 				90DB8B2B171447AF00EE785D /* SongSelectionLayer.h */,
@@ -1320,6 +1325,7 @@
 				0FABB38D171E9C8800C46023 /* TouchTracker.m in Sources */,
 				90C3732E1724EE400034A8BB /* Song.m in Sources */,
 				90523BF31726B489001DBCBB /* DrumLayer.m in Sources */,
+				0FC771EF1727CD8D0085D8CC /* SlapSprite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

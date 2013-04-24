@@ -8,20 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
-#define MAX_TOUCH_POINTS 11
-
 typedef struct
 {
     int drumIdx;
     void *touchPtr;
 } TouchTrack;
 
-TouchTrack touchTracker[MAX_TOUCH_POINTS];
-
-int getTouchID(void* touch);
-int addNewTouch(void* touch, int drumIdx);
-
 @interface TouchTracker : NSObject
 
+@property (assign, nonatomic) TouchTrack *touchTracks;
+
++ (TouchTracker *)sharedTouchTracker;
+- (int)getTouchID:(void *)touch;
+- (int)addNewTouch:(void *)touch withDrumIndex:(int)drumIndex;
+- (void)clearAllTracks;
 
 @end

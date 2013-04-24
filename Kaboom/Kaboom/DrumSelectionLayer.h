@@ -7,6 +7,7 @@
 //
 
 #import "cocos2d.h"
+#import "TouchTracker.h"
 
 @interface DrumSelectionLayer : CCLayer
 
@@ -15,6 +16,7 @@
 @property (strong, nonatomic) NSMutableArray *draggedDrums;
 @property (nonatomic) int currentDrum;
 
+@property (strong, nonatomic) TouchTracker *sharedTouchTracker;
 
 +(CCScene *) scene;
 
