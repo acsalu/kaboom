@@ -19,5 +19,6 @@
 @property (nonatomic) bool isPause;
 @property (strong, nonatomic) Song *song;
 @property (strong, nonatomic) NSMutableArray *noteQueue;
+@property (strong, nonatomic) NSMutableArray *scores;
 
 @end

@@ -14,13 +14,13 @@
 #define DETECTION_AREA_WIDTH 40
 #define DETECTION_AREA_HEIGHT 40
 
-#define DRUM_ONE                0
-#define DRUM_TWO_LEFT           1
-#define DRUM_TWO_RIGHT          2
-#define DRUM_FOUR_UPPER_LEFT    3
-#define DRUM_FOUR_UPPER_RIGHT   4
-#define DRUM_FOUR_LOWER_LEFT    5
-#define DRUM_FOUR_LOWER_RIGHT   6
+const int DRUM_ONE               = 0;
+const int DRUM_TWO_LEFT          = 1;
+const int DRUM_TWO_RIGHT         = 2;
+const int DRUM_FOUR_UPPER_LEFT   = 3;
+const int DRUM_FOUR_UPPER_RIGHT  = 4;
+const int DRUM_FOUR_LOWER_RIGHT  = 5;
+const int DRUM_FOUR_LOWER_LEFT   = 6;
 
 #define BACKGROUND_TAG 1000
 

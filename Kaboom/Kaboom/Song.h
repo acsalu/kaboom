@@ -41,5 +41,6 @@ typedef enum NoteLength NoteLength;
 + (NSString *)noteTypeString:(NoteType)type;
 
 - (float)lengthInFloat:(NoteLength)length;
+- (int)totalBeatableNotes;
 
 @end

@@ -135,7 +135,7 @@
 
 - (void)registerWithTouchDispatcher
 {
-    [[[CCDirector sharedDirector] touchDispatcher] addStandardDelegate:self priority:10];
+    [[[CCDirector sharedDirector] touchDispatcher] addStandardDelegate:self priority:0];
 }
 
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
