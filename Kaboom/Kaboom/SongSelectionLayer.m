@@ -29,6 +29,7 @@
     CCSprite *image = [CCSprite spriteWithFile:name];
     [layer addChild:image];
     
+    
     return layer;
 }
 
@@ -67,6 +68,7 @@
         CGSize smallsize = CGSizeMake(size.width/2, size.height/3);
         
         FGScrollLayer *scroller = [[FGScrollLayer alloc] initWithLayers:_layers pageSize:smallsize pagesOffset:100 visibleRect:rect];
+        scroller.rotation = 90;
         
         [self addChild:scroller];
 

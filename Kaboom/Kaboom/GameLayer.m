@@ -70,8 +70,8 @@
         
         CCSprite *drum = [data drumSprite];
         
-        [self createPauseButton];
-        [self createPausedMenu];
+//        [self createPauseButton];
+//        [self createPausedMenu];
         
         CCMenuItem *sourcedot = [CCMenuItemImage itemWithNormalImage:@"sourcedot.png" selectedImage:@"sourcedot.png" block:^(id sender) {
             NSLog(@"should open pause menu!");
@@ -284,7 +284,7 @@
                     }
                 }
                 
-                blinkSprite = [CCSprite spriteWithFile:@"Drum_bump_Red.png"];
+                blinkSprite = [CCSprite spriteWithFile:@"Drum_Bump_Red.png"];
                 blinkSprite.position = [Const basePointForDrum:index];
 
                 if (index == 0) {
