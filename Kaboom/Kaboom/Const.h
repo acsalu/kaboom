@@ -17,5 +17,7 @@
 @interface Const: NSObject
 
 + (NSArray *)getDrumHitRects;
++ (CGPoint)basePointForDrum:(int)drumId;
++ (int)playerIdForDrum:(int)drumId;
 
 @end

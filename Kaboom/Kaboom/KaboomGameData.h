@@ -17,7 +17,7 @@ enum mode {
 };
 
 enum player {
-    PLAYER_SINGLE,
+    PLAYER_SINGLE = 1,
     PLAYER_TWO
 };
 

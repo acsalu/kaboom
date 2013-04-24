@@ -61,198 +61,198 @@
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
                     
-                    // 9
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_RL)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
-                    
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    
-                    // 13
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    
-                    // 17
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_CLAP)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_2ND), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_CLAP)]},
-                    
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_CLAP)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_2ND), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_CLAP)]},
-                    
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_CLAP)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_2ND), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_CLAP)]},
-                    
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_CLAP)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_2ND), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_CLAP)]},
-                    
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    
-                    // 22
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_RL)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    
-                    // 26
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    
-                    // 29
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    
-                    
-                    // 31
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
-                    
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
-                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    // 9
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_RL)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
+//                    
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    
+//                    // 13
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    
+//                    // 17
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_CLAP)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    @{@"length":@(NOTE_LENGTH_2ND), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_CLAP)]},
+//                    
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_CLAP)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    @{@"length":@(NOTE_LENGTH_2ND), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_CLAP)]},
+//                    
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_CLAP)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    @{@"length":@(NOTE_LENGTH_2ND), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_CLAP)]},
+//                    
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_CLAP)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    @{@"length":@(NOTE_LENGTH_2ND), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_CLAP)]},
+//                    
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    
+//                    // 22
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_RL)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    
+//                    // 26
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    
+//                    // 29
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    
+//                    
+//                    // 31
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
+//                    
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
+//                    @{@"length":@(NOTE_LENGTH_16TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
                     
                     // 33
                     
@@ -300,5 +300,14 @@
     }
 }
 
+- (int)totalBeatableNotes
+{
+    int result = 0;
+    for (NSDictionary *note in _melody) {
+        if (((NSNumber *) note[@"notes"][0]).integerValue != NOTE_TYPE_REST) ++result;
+    }
+    
+    return result;
+}
 
 @end

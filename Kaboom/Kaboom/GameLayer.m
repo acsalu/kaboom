@@ -12,6 +12,11 @@
 #import "SimpleAudioEngine.h"
 #import "Song.h"
 
+#define SCORE_DISTANCE_LOWER_BOUND 660
+#define SCORE_DISTANCE_HIGHER_BOUND 680
+
+#define SCORE_FOR_EACH_HIT 1
+
 @implementation GameLayer
 
 +(CCScene *) scene
@@ -44,6 +49,8 @@
                 break;
         }
         
+        _scores = [NSMutableArray arrayWithCapacity:data.player];
+        for (int i = 0; i < data.player; ++i) _scores[i] = @(0);
         
         _hitRects = [Const getDrumHitRects];
         for (NSValue *rectValue in _hitRects) {
@@ -99,28 +106,10 @@
 
 - (void)startGameLoop
 {
-    
-//    CCLOG(@"%@", _song.melody);
-//    while (_song.currentIdx < _song.melody.count) {
-//        NSString *msg = [Song noteLengthString:((NSNumber *) _song.melody[_song.currentIdx][@"length"]).intValue];
-//        for (NSNumber *note in _song.melody[_song.currentIdx][@"notes"]) {
-//            msg = [NSString stringWithFormat:@"%@ %@", msg, [Song noteTypeString:note.intValue]];
-//        }
-//        CCLOG(@"%@", msg);
-//        ++_song.currentIdx;
-//    }
     if (_song.currentIdx < _song.melody.count) {
-//        NSString *msg = [Song noteLengthString:((NSNumber *) _song.melody[_song.currentIdx][@"length"]).intValue];
-//        
-//        
-//        for (NSNumber *note in _song.melody[_song.currentIdx][@"notes"]) {
-//            msg = [NSString stringWithFormat:@"%@ %@", msg, [Song noteTypeString:note.intValue]];
-//        }
-//        CCLOG(@"%@", msg);
         [self schedule:@selector(fire:) interval:[_song lengthInFloat:((NSNumber *) _song.melody[_song.currentIdx][@"length"]).intValue]];        
         ++_song.currentIdx;
     }
-
 }
 
 
@@ -129,6 +118,7 @@
     [self unschedule:@selector(fire:)];
     if (_song.currentIdx == _song.melody.count) {
         [self schedule:@selector(showScore:) interval:1.0f];
+        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
         return;
     }
     CCLOG(@"%d", _song.currentIdx);
@@ -243,7 +233,13 @@
 
 - (void)showScore:(ccTime)delta
 {
+    [self unschedule:@selector(showScore:)];
     CCLOG(@"show score");
+    int total = [_song totalBeatableNotes];
+    CCLOG(@"total %d beatable notes", total);
+    for (NSNumber *score in _scores) {
+        NSLog(@"player%d - %@", [_scores indexOfObject:score], score);
+    }
 }
 
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -258,6 +254,7 @@
                 CCSprite *closest;
                 NSMutableArray *queue = _noteQueue[[_hitRects indexOfObject:rectValue]];
                 if (queue.count > 0) {
+                    [self updateScoresWithNote:queue[0] forDrum:[_hitRects indexOfObject:rectValue]];
                     [self removeNote:queue[0]];
                 }
                 
@@ -278,6 +275,19 @@
         }
     }
     
+}
+
+- (void)updateScoresWithNote:(CCSprite *)note forDrum:(int)drumId
+{
+    CGPoint basePoint = [Const basePointForDrum:drumId];
+    CCLOG(@"basePoint (%.0f, %.0f)", basePoint.x, basePoint.y);
+    CGFloat distance = [self distanceBetween:note.position and:basePoint];
+    CCLOG(@"distance %f", distance);
+    if (distance <= SCORE_DISTANCE_HIGHER_BOUND && distance >= SCORE_DISTANCE_LOWER_BOUND) {
+        int playerId = [Const playerIdForDrum:drumId];
+        CCLOG(@"player %d SCORES!", playerId);
+        _scores[playerId] = @(((NSNumber *) _scores[playerId]).integerValue + SCORE_FOR_EACH_HIT);
+    }
 }
 
 - (CGFloat)distanceBetween:(CGPoint)p1 and:(CGPoint)p2
