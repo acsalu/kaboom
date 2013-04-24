@@ -49,14 +49,26 @@
         data.mode = MODE_FOUR_DRUM;
         
         CCSprite *background = (data.player == PLAYER_SINGLE) ? [CCSprite spriteWithFile:@"background2-landscape.png"] : [CCSprite spriteWithFile:@"background2-portrait.png"];
-        background.position = ccp(size.width * 1 / 2, size.height / 2);
+        background.position = ccp(size.width / 2, size.height / 2);
+        
+        CCSprite *startBackground = [CCSprite spriteWithFile:@"start_lightBack.png"];
+        startBackground.position = center;
+//        [self addChild:startBackground];
         
         CCSprite *drum = [data drumSprite];
         
-        CCMenuItem *startMenuItem = [CCMenuItemImage itemWithNormalImage:@"start.png" selectedImage:@"startp.png" block:^(id sender){
-            CCLOG(@"start button pressed");
+        CCMenuItem *startMenuItem = [CCMenuItemImage itemWithNormalImage:@"start_light.png" selectedImage:@"start_dark.png" block:^(id sender) {
+//            CGPoint center = ccp(size.width/2, size.height/2);
+//            CCLOG(@"center (%.0f, %.0f)", center.x, center.y);
+//            [self removeChild:startBackground cleanup:YES];
+//            CCSprite *startBackgroundPressed = [CCSprite spriteWithFile:@"start_darkBack.png"];
+//            startBackgroundPressed.position = center;
+//            [self addChild:startBackgroundPressed];
+//            CCLOG(@"start button pressed");
             [[CCDirector sharedDirector] replaceScene:[SongSelectionLayer scene]];
         }];
+        
+        
         
         NSLog(@"(w, h) = (%.0f, %.0f)", [startMenuItem boundingBox].size.width, [startMenuItem boundingBox].size.height);
         
@@ -64,6 +76,7 @@
         startMenuItem.tag = START_ITEM_TAG;
         
         CCMenu *startMenu = [CCMenu menuWithItems:startMenuItem, nil];
+        [startMenu alignItemsVertically];
         startMenu.tag = START_MENU_TAG;
         
         if (data.mode == MODE_ONE_DRUM)
@@ -98,6 +111,7 @@
         
         
         [self addChild:background];
+        [self addChild:startBackground];
         [self addChild:startMenu];
         [self addChild:drum];
         [self addChild:d1];

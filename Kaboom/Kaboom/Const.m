@@ -13,8 +13,8 @@
 
 #define kDrumHitRectOffsetX 0
 #define kDrumHitRectOffsetY 0
-#define kDrumHitRectWidth 100
-#define kDrumHitRectHeight 100
+#define kDrumHitRectWidth 130
+#define kDrumHitRectHeight 130
 
 @implementation Const
 
