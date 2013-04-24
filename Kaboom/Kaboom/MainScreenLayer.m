@@ -377,6 +377,8 @@
 //        if (data.mode == MODE_TWO_DRUM) data.drumSprite = _twoDrum2P;
 //        else data.drumSprite = _fourDrum2P;
 //    }
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver:self];
     
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.4 scene:[DrumSelectionLayer scene] withColor:ccWHITE]];
     [self unschedule:@selector(makeTransition:)];
