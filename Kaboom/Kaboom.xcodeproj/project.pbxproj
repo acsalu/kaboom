@@ -202,6 +202,7 @@
 		90DB8B3C17145E9B00EE785D /* 2-00-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 90DB8B3B17145E9A00EE785D /* 2-00-hd.png */; };
 		90DB8B4017146CDC00EE785D /* 2p2d.png in Resources */ = {isa = PBXBuildFile; fileRef = 90DB8B3F17146CDB00EE785D /* 2p2d.png */; };
 		90DB8B4217146EAD00EE785D /* 2p4d.png in Resources */ = {isa = PBXBuildFile; fileRef = 90DB8B4117146EAC00EE785D /* 2p4d.png */; };
+		90ED822A1728127800710FC9 /* ShowResultLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90ED82291728127800710FC9 /* ShowResultLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -558,6 +559,8 @@
 		90DB8B3B17145E9A00EE785D /* 2-00-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2-00-hd.png"; sourceTree = "<group>"; };
 		90DB8B3F17146CDB00EE785D /* 2p2d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2p2d.png; sourceTree = "<group>"; };
 		90DB8B4117146EAC00EE785D /* 2p4d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2p4d.png; sourceTree = "<group>"; };
+		90ED82281728127800710FC9 /* ShowResultLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowResultLayer.h; sourceTree = "<group>"; };
+		90ED82291728127800710FC9 /* ShowResultLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowResultLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -692,6 +695,8 @@
 				90DB8B2C171447AF00EE785D /* SongSelectionLayer.m */,
 				90DB8B2E171447BD00EE785D /* GameLayer.h */,
 				90DB8B2F171447BE00EE785D /* GameLayer.m */,
+				90ED82281728127800710FC9 /* ShowResultLayer.h */,
+				90ED82291728127800710FC9 /* ShowResultLayer.m */,
 				90C1505616F6C96A00DFF0ED /* IntroLayer.h */,
 				90C1505716F6C96A00DFF0ED /* IntroLayer.m */,
 				90523BF11726B487001DBCBB /* DrumLayer.h */,
@@ -1320,6 +1325,7 @@
 				0FABB38D171E9C8800C46023 /* TouchTracker.m in Sources */,
 				90C3732E1724EE400034A8BB /* Song.m in Sources */,
 				90523BF31726B489001DBCBB /* DrumLayer.m in Sources */,
+				90ED822A1728127800710FC9 /* ShowResultLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
