@@ -47,12 +47,15 @@
         self.isTouchEnabled = YES;
         
 		CGSize size = [[CCDirector sharedDirector] winSize];
+        
+        CCSprite *background;
         CGPoint center = ccp(size.width/2, size.height/2);
         
-        KaboomGameData *data = [KaboomGameData sharedData];
+        background = [CCSprite spriteWithFile:@"1-00.png"];
+        background.position = center;
+       
         
-        CCSprite *background = (data.player == PLAYER_SINGLE) ? [CCSprite spriteWithFile:@"background2-landscape.png"] : [CCSprite spriteWithFile:@"background2-portrait.png"];
-        background.position = ccp(size.width * 1 / 2, size.height / 2);
+        KaboomGameData *data = [KaboomGameData sharedData];
         
         CCSprite *drum = [data drumSprite];
          

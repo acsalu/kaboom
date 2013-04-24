@@ -36,7 +36,6 @@
 
 - (CCSprite *) drumSprite {
     NSString *imageName = nil;
-    CGSize size = [CCDirector sharedDirector].winSize;
     if (_player == PLAYER_SINGLE) {
         if (_mode == MODE_ONE_DRUM) imageName = @"1p1d.png";
         else if (_mode == MODE_TWO_DRUM) imageName = @"1p2d.png";
@@ -47,9 +46,8 @@
     }
     
     CCSprite *drum = [CCSprite spriteWithFile:imageName];
-//    CGPoint position = ccp(512, 384);
-//    drum.position = position;
-    drum.position = ccp(size.width / 2, size.height / 2);
+    CGPoint position = ccp(512, 384);
+    drum.position = position;
     
     return drum;
 }
