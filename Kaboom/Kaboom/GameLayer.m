@@ -227,7 +227,6 @@
 
 - (void)removeNote:(id)note
 {
-    [self stopAllActions];
     [self removeChild:note cleanup:YES];
     for (NSMutableArray *queue in _noteQueue) {
         if ([queue containsObject:note]) {
@@ -235,6 +234,11 @@
             break;
         }
     }
+}
+
+- (void)removeDrumBlink:(id)blink
+{
+    [self removeChild:blink cleanup:YES];
 }
 
 - (void)showScore:(ccTime)delta
@@ -258,29 +262,48 @@
     CCDirector* director = [CCDirector sharedDirector];
     KaboomGameData *data = [KaboomGameData sharedData];
     NSString *effect;
+    CCSprite *blinkSprite;
+    
     for (UITouch *touch in touches) {
+        id callback = [CCCallFuncN actionWithTarget:self selector:@selector(removeDrumBlink:)];
+        id scaleAction = [CCScaleTo actionWithDuration:0.2 scale:1.3];
+        id easeScaleAction = [CCEaseInOut actionWithAction:scaleAction rate:2];
+        CCSequence *sequence = [CCSequence actions:easeScaleAction, callback, nil];
+        
         CGPoint p = [touch locationInView:director.view];
+        
         for (NSValue *rectValue in _hitRects) {
             if (CGRectContainsPoint([rectValue CGRectValue], p)) {
                 int index = [_hitRects indexOfObject:rectValue];
                 NSMutableArray *queue = _noteQueue[[_hitRects indexOfObject:rectValue]];
                 if (queue.count > 0) {
-                    [self updateScoresWithNote:queue[0] forDrum:[_hitRects indexOfObject:rectValue]];
-                    [self removeNote:queue[0]];
+                    CCSprite *note = queue[0];
+                    if ([self distanceBetween:note.position and:[Const basePointForDrum:index]] < kDrumEffectiveRadius) {
+                        [self updateScoresWithNote:note forDrum:[_hitRects indexOfObject:rectValue]];
+                        [self removeNote:note];
+                    }
                 }
-               
+                
+                blinkSprite = [CCSprite spriteWithFile:@"Drum_bump_Red.png"];
+                blinkSprite.position = [Const basePointForDrum:index];
+
                 if (index == 0) {
+                    blinkSprite.rotation = 90;
                     effect = data.drumEffect[@"TWO_LEFT_TOP"];
                 } else if (index == 1) {
+                    blinkSprite.rotation = 180;
                     effect = data.drumEffect[@"TWO_RIGHT_TOP"];
                 } else if (index == 2) {
+                    blinkSprite.rotation = 270;
                     effect = data.drumEffect[@"TWO_RIGHT_BOTTOM"];
                 } else if (index == 3) {
                     effect = data.drumEffect[@"TWO_LEFT_BOTTOM"];
                 } else {
                     NSLog(@"BUG!! FUCK YOU!!");
                 }
-
+                [self addChild:blinkSprite];
+                [blinkSprite runAction:sequence];
+                
                 if (effect) [[SimpleAudioEngine sharedEngine] playEffect:effect];
                 else [[SimpleAudioEngine sharedEngine] playEffect:@"d1.mp3"];
             }
