@@ -9,7 +9,16 @@
 #import "cocos2d.h"
 
 @class Song;
-@interface GameLayer : CCLayer
+@interface GameLayer : CCLayer {
+    CCSprite *pauseButton;
+    CCSprite *pausedSprite;
+    CCMenu *pausedMenu;
+    BOOL paused;
+}
+
+- (void)quitButtonWasPressed:(id)sender;
+- (void)restartButtonWasPressed:(id)sender;
+- (void)resumeButtonWasPressed:(id)sender;
 
 +(CCScene *) scene;
 

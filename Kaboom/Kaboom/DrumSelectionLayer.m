@@ -26,39 +26,30 @@
 
 +(CCScene *) scene
 {
-	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
-	
-	// 'layer' is an autorelease object.
 	DrumSelectionLayer *layer = [DrumSelectionLayer node];
-	
-	// add layer as a child to scene
 	[scene addChild: layer];
 	
-	// return the scene
 	return scene;
 }
 
 - (id)init
 {
     if( (self=[super init]) ) {
-
+        
         self.draggedDrums = [NSMutableArray arrayWithCapacity:11];
         self.isTouchEnabled = YES;
         
 		CGSize size = [[CCDirector sharedDirector] winSize];
-        
-        CCSprite *background;
         CGPoint center = ccp(size.width/2, size.height/2);
-        
-        background = [CCSprite spriteWithFile:@"1-00.png"];
-        background.position = center;
-       
         
         KaboomGameData *data = [KaboomGameData sharedData];
         
+        CCSprite *background = (data.player == PLAYER_SINGLE) ? [CCSprite spriteWithFile:@"background2-landscape.png"] : [CCSprite spriteWithFile:@"background2-portrait.png"];
+        background.position = ccp(size.width * 1 / 2, size.height / 2);
+        
         CCSprite *drum = [data drumSprite];
-         
+        
         CCMenuItem *startMenuItem = [CCMenuItemImage itemWithNormalImage:@"start.png" selectedImage:@"startp.png" block:^(id sender){
             CCLOG(@"start button pressed");
             [[CCDirector sharedDirector] replaceScene:[SongSelectionLayer scene]];
@@ -66,7 +57,7 @@
         
         NSLog(@"(w, h) = (%.0f, %.0f)", [startMenuItem boundingBox].size.width, [startMenuItem boundingBox].size.height);
         
-//        startMenuItem.isEnabled = NO;
+        //        startMenuItem.isEnabled = NO;
         startMenuItem.tag = START_ITEM_TAG;
         
         CCMenu *startMenu = [CCMenu menuWithItems:startMenuItem, nil];
@@ -250,10 +241,10 @@
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
         }
     }
-
-//    if ([data allDrumsAreSet]) {
-//        [self readyToStart];
-//    }
+    
+    //    if ([data allDrumsAreSet]) {
+    //        [self readyToStart];
+    //    }
 }
 
 

@@ -12,6 +12,7 @@
 #import "SimpleAudioEngine.h"
 #import "Song.h"
 #import "ShowResultLayer.h"
+#import "SongSelectionLayer.h"
 
 #define SCORE_DISTANCE_LOWER_BOUND 660
 #define SCORE_DISTANCE_HIGHER_BOUND 680
@@ -63,10 +64,14 @@
         
 		CGSize size = [[CCDirector sharedDirector] winSize];
         
-        CCSprite *background = [CCSprite spriteWithFile:@"1-00.png"];
-        background.position = ccp(- size.width * 1 / 2, size.height / 2);
+        
+        CCSprite *background = (data.player == PLAYER_SINGLE) ? [CCSprite spriteWithFile:@"background3-landscape.png"] : [CCSprite spriteWithFile:@"background3-portrait.png"];
+        background.position = ccp(size.width * 1 / 2, size.height / 2);
         
         CCSprite *drum = [data drumSprite];
+        
+        [self createPauseButton];
+        [self createPausedMenu];
         
         CCMenuItem *sourcedot = [CCMenuItemImage itemWithNormalImage:@"sourcedot.png" selectedImage:@"sourcedot.png" block:^(id sender) {
             NSLog(@"should open pause menu!");
@@ -255,39 +260,15 @@
     NSString *effect;
     for (UITouch *touch in touches) {
         CGPoint p = [touch locationInView:director.view];
-//        NSLog(@"(%.0f, %.0f)", p.x, p.y);
         for (NSValue *rectValue in _hitRects) {
             if (CGRectContainsPoint([rectValue CGRectValue], p)) {
                 int index = [_hitRects indexOfObject:rectValue];
-//                NSLog(@"HIT! at drum %d", [_hitRects indexOfObject:rectValue]);
-//                CCSprite *closest;
                 NSMutableArray *queue = _noteQueue[[_hitRects indexOfObject:rectValue]];
                 if (queue.count > 0) {
                     [self updateScoresWithNote:queue[0] forDrum:[_hitRects indexOfObject:rectValue]];
                     [self removeNote:queue[0]];
                 }
-                
-//                CGFloat distance = 5000;
-//                for (CCSprite *note in _noteQueue) {
-//                    if ([self distanceBetween:p and:note.position] < distance) closest = note;
-//                }
-//                
-//                if (closest) {
-//                    [self removeNote:closest];
-//                }
-                
-//                
-//                :@"TWO_LEFT_TOP"];
-//                [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
-//            } else if ([self distanceBetween:location and:leftBottomDrumCenter] < kDrumEffectiveRadius) {
-//                [data.drumEffect setObject:currentDrumEffect forKey:@"TWO_LEFT_BOTTOM"];
-//                [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
-//            } else if ([self distanceBetween:location and:rightTopDrumCenter] < kDrumEffectiveRadius) {
-//                [data.drumEffect setObject:currentDrumEffect forKey:@"TWO_RIGHT_TOP"];
-//                [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
-//            } else if ([self distanceBetween:location and:rightBottomDrumCenter] < kDrumEffectiveRadius) {
-//                [data.drumEffect setObject:currentDrumEffect forKey:@"TWO_RIGHT_BOTTOM"];
-                
+               
                 if (index == 0) {
                     effect = data.drumEffect[@"TWO_LEFT_TOP"];
                 } else if (index == 1) {
@@ -300,7 +281,6 @@
                     NSLog(@"BUG!! FUCK YOU!!");
                 }
 
-//                NSString *effect = data.drumEffect[@"drum1"];
                 if (effect) [[SimpleAudioEngine sharedEngine] playEffect:effect];
                 else [[SimpleAudioEngine sharedEngine] playEffect:@"d1.mp3"];
             }
@@ -329,5 +309,135 @@
     CGFloat distance = sqrt((xDist * xDist) + (yDist * yDist));
     return distance;
 }
+
+- (void)quitButtonWasPressed:(id)sender{
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0f scene:[SongSelectionLayer scene]]];
+}
+
+- (void)restartButtonWasPressed:(id)sender{
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:1.0f scene:[GameLayer scene]]];
+}
+
+- (void)resumeButtonWasPressed:(id)sender{
+    
+    paused = NO;
+    
+    // hide the sprite that shows the word 'Paused' from view
+    [pausedSprite runAction:[CCMoveTo actionWithDuration:0.3
+                                                position:ccp([CCDirector sharedDirector].winSize.width/2,
+                                                             [CCDirector sharedDirector].winSize.height + 700)]];
+    // hide the paued menu from view
+    [pausedMenu runAction:[CCMoveTo actionWithDuration:0.3
+                                              position:ccp([CCDirector sharedDirector].winSize.width/2,
+                                                           [CCDirector sharedDirector].winSize.height + 700)]];
+    
+}
+
+- (void)pauseButtonWasPressed:(id)sender {
+    
+    paused = YES;
+    
+    [pausedSprite runAction:[CCMoveTo actionWithDuration:0.3
+                                                position:ccp([CCDirector sharedDirector].winSize.width/2,
+                                                             [CCDirector sharedDirector].winSize.height/2)]];
+    KaboomGameData *data = [KaboomGameData sharedData];
+    
+    if (data.player == PLAYER_SINGLE) {
+        [pausedMenu runAction:[CCMoveTo actionWithDuration:0.3
+                                                  position:ccp([CCDirector sharedDirector].winSize.width/2 - 100,
+                                                               [CCDirector sharedDirector].winSize.height/2)]];
+    }
+    else if (data.player == PLAYER_TWO) {
+        [pausedMenu runAction:[CCMoveTo actionWithDuration:0.3
+                                                  position:ccp([CCDirector sharedDirector].winSize.width/2,
+                                                               [CCDirector sharedDirector].winSize.height/2 - 150)]];
+    }
+    
+}
+- (void)createPauseButton {
+    
+    // create sprite for the pause button
+    pauseButton = [CCSprite spriteWithFile:@"startp.png"];    // horizonal or vertical
+    
+    // create menu item for the pause button from the pause sprite
+    CCMenuItemSprite *item = [CCMenuItemSprite itemWithNormalSprite:pauseButton
+                                                     selectedSprite:nil
+                                                             target:self
+                                                           selector:@selector(pauseButtonWasPressed:)];
+    
+    // create menu for the pause button and put the menu item on the menu
+    CCMenu *menu = [CCMenu menuWithItems: item, nil];
+    [menu setAnchorPoint:ccp(0, 0)];
+    [menu setPosition:ccp([CCDirector sharedDirector].winSize.width/2, [CCDirector sharedDirector].winSize.height/2)];
+    [self addChild:menu];
+}
+
+- (void)createPausedMenu {
+    
+    KaboomGameData *data = [KaboomGameData sharedData];
+    
+    if (data.player == PLAYER_SINGLE) {
+        pausedSprite = [CCSprite spriteWithFile:@"pause_horizontal_ipad.png"];
+        
+        CCMenuItemSprite *item1 = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"resume_ipad.png"]
+                                                          selectedSprite:nil
+                                                                  target:self
+                                                                selector:@selector(resumeButtonWasPressed:)];
+        
+        CCMenuItemSprite *item2 = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"restart_ipad.png"]
+                                                          selectedSprite:nil
+                                                                  target:self
+                                                                selector:@selector(restartButtonWasPressed:)];
+        
+        CCMenuItemSprite *item3 = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"menu_ipad.png"]
+                                                          selectedSprite:nil
+                                                                  target:self
+                                                                selector:@selector(quitButtonWasPressed:)];
+        
+        pausedMenu = [CCMenu menuWithItems:item1, item2, item3, nil];
+        [pausedMenu alignItemsInColumns: [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
+        [pausedMenu alignItemsVerticallyWithPadding:40];
+        
+        // create the paused sprite and paused menu buttons off screen
+        [pausedSprite setPosition:ccp([CCDirector sharedDirector].winSize.width/2, [CCDirector sharedDirector].winSize.height + 700)];
+        [pausedMenu setPosition:ccp([CCDirector sharedDirector].winSize.width/2, [CCDirector sharedDirector].winSize.height + 700)];
+        
+        // add the Paused sprite and menu to the current layer
+        [self addChild:pausedSprite z:100];
+        [self addChild:pausedMenu z:100];
+        
+    }
+    else if (data.player == PLAYER_TWO){
+        pausedSprite = [CCSprite spriteWithFile:@"pause_vertical_ipad.png"];
+        
+        CCMenuItemSprite *item1 = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"resume_ipad.png"]
+                                                          selectedSprite:nil
+                                                                  target:self
+                                                                selector:@selector(resumeButtonWasPressed:)];
+        
+        CCMenuItemSprite *item2 = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"restart_ipad.png"]
+                                                          selectedSprite:nil
+                                                                  target:self
+                                                                selector:@selector(restartButtonWasPressed:)];
+        
+        CCMenuItemSprite *item3 = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"menu_ipad.png"]
+                                                          selectedSprite:nil
+                                                                  target:self
+                                                                selector:@selector(quitButtonWasPressed:)];
+        
+        pausedMenu = [CCMenu menuWithItems:item1, item2, item3, nil];
+        [pausedMenu alignItemsInRows: [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
+        [pausedMenu alignItemsVerticallyWithPadding:40];
+        
+        // create the paused sprite and paused menu buttons off screen
+        [pausedSprite setPosition:ccp([CCDirector sharedDirector].winSize.width/2, [CCDirector sharedDirector].winSize.height + 700)];
+        [pausedMenu setPosition:ccp([CCDirector sharedDirector].winSize.width/2, [CCDirector sharedDirector].winSize.height + 700)];
+        
+        // add the Paused sprite and menu to the current layer
+        [self addChild:pausedSprite z:100];
+        [self addChild:pausedMenu z:100];
+    }
+}
+
 
 @end

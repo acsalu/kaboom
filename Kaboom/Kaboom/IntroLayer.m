@@ -20,25 +20,17 @@
 // Helper class method that creates a Scene with the HelloWorldLayer as the only child.
 +(CCScene *) scene
 {
-	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
-	
-	// 'layer' is an autorelease object.
 	IntroLayer *layer = [IntroLayer node];
-	
-	// add layer as a child to scene
 	[scene addChild: layer];
 	
-	// return the scene
 	return scene;
 }
 
-// 
 -(void) onEnter
 {
 	[super onEnter];
 
-	// ask director for the window size
 	CGSize size = [[CCDirector sharedDirector] winSize];
 
 	CCSprite *background = [CCSprite spriteWithFile:@"splash.png"];
@@ -55,7 +47,6 @@
 -(void) makeTransition:(ccTime)dt
 {
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.1 scene:[MainScreenLayer scene] withColor:ccWHITE]];
-//    [[CCDirector sharedDirector] replaceScene:[MainScreenLayer scene]];
     [self unschedule:@selector(makeTransition:)];
 }
 @end

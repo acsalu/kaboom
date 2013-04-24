@@ -29,23 +29,15 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
 
 +(CCScene *) scene
 {
-	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
-	
-	// 'layer' is an autorelease object.
 	MainScreenLayer *layer = [MainScreenLayer node];
-	
-	// add layer as a child to scene
 	[scene addChild: layer];
-	
-	// return the scene
+
 	return scene;
 }
 
 -(id) init
 {
-	// always call "super" init
-	// Apple recommends to re-assign "self" with the "super's" return value
 	if( (self=[super init]) ) {
         self.isTouchEnabled = YES;
         _points = [NSMutableArray array];
@@ -54,9 +46,17 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
         
         CCSprite *background;
         CGPoint center = ccp(size.width/2, size.height/2);
-
-        background = [CCSprite spriteWithFile:@"1-00.png"];
-        background.position = ccp(size.width * 3 / 2, size.height / 2);
+        
+        KaboomGameData *data = [KaboomGameData sharedData];
+        
+        if (UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
+            data.player = PLAYER_TWO;
+            background = [CCSprite spriteWithFile:@"background1-portrait.png"];
+        } else {
+            data.player = PLAYER_SINGLE;
+            background = [CCSprite spriteWithFile:@"background1-landscape.png"];
+        }
+        background.position = ccp(size.width / 2, size.height / 2);
         background.tag = BACKGROUND_TAG;
         
         _oneDrum1P = [CCSprite spriteWithFile:@"1p1d.png"];
@@ -92,7 +92,7 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
 
 - (void)orientationChanged:(NSNotification *)notification
 {
-    NSLog(@"Orientation  has changed: %d", [[notification object] orientation]);
+    NSLog(@"Orientation has changed: %d", [[notification object] orientation]);
     UIInterfaceOrientation orientation = [[notification object] orientation];
     KaboomGameData *data = [KaboomGameData sharedData];
     if (UIInterfaceOrientationIsPortrait(orientation) && data.player != PLAYER_TWO) {
@@ -113,15 +113,15 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
     KaboomGameData *data = [KaboomGameData sharedData];
     if (data.player == PLAYER_SINGLE) CCLOG(@"PLAYER_1P");
     else CCLOG(@"PLAYER_MULTI");
-    NSString *bgImageName = (data.player == PLAYER_SINGLE) ? @"1-00.png" : @"2-00.png";
-    CGPoint bgPosition = (data.player == PLAYER_SINGLE) ? ccp(size.width * 3 / 2, size.height / 2) : ccp(512, size.width + 128);
-//    [self removeChildByTag:BACKGROUND_TAG cleanup:YES];
+    NSString *bgImageName = (data.player == PLAYER_SINGLE) ? @"background1-landscape.png" : @"background1-portrait.png";
+    CGPoint bgPosition = ccp(size.width / 2, size.height / 2);
+    //    [self removeChildByTag:BACKGROUND_TAG cleanup:YES];
     [self removeChildByTag:BACKGROUND_TAG cleanup:YES];
     
-//    CCSprite *background = (CCSprite *) [self getChildByTag:BACKGROUND_TAG];
-//    CCTexture2D *texture = [[CCTextureCache sharedTextureCache] addImage:bgImageName];
-//    [background setTexture:texture];
-//    
+    //    CCSprite *background = (CCSprite *) [self getChildByTag:BACKGROUND_TAG];
+    //    CCTexture2D *texture = [[CCTextureCache sharedTextureCache] addImage:bgImageName];
+    //    [background setTexture:texture];
+    //
     CCSprite *background = [CCSprite spriteWithFile:bgImageName];
     background.tag = BACKGROUND_TAG;
     background.position = bgPosition;
@@ -167,13 +167,13 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
     }
     
     [self changeDisplay];
-
-
+    
+    
 }
 
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-
+    
     CCDirector* director = [CCDirector sharedDirector];
     for (UITouch *touch in touches) {
         CGPoint p = [touch locationInView:director.view];
@@ -208,11 +208,11 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
     node.visible = YES;
     [node runAction:[CCFadeIn actionWithDuration:1.0f]];
     /*
-    if (node.visible) return;
-    CCAction *action1 = [CCFadeOut actionWithDuration:0.3];
-    CCAction *action2 = [CCShow action];
-    [node runAction:[CCSequence actions:action1, action2, nil]];
-    */
+     if (node.visible) return;
+     CCAction *action1 = [CCFadeOut actionWithDuration:0.3];
+     CCAction *action2 = [CCShow action];
+     [node runAction:[CCSequence actions:action1, action2, nil]];
+     */
 }
 
 - (CGFloat)distanceBetween:(CGPoint)p1 and:(CGPoint)p2
@@ -237,7 +237,7 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
     [self updateMode];
     KaboomGameData *data = [KaboomGameData sharedData];
     if (data.mode == MODE_UNDETERMINED) {
-            CCLOG(@"MODE_UNDETERMINED");
+        CCLOG(@"MODE_UNDETERMINED");
         if (data.player == PLAYER_SINGLE) {
             [self makeShow:_oneDrum1P];
             [self makeShow:_twoDrum1P];
@@ -247,9 +247,9 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
             [self makeShow:_fourDrum2P];
         }
     } else if (data.mode == MODE_ONE_DRUM) {
-            [self makeShow:_oneDrum1P];
-            [self makeDisapear:_twoDrum1P];
-            [self makeDisapear:_fourDrum1P];
+        [self makeShow:_oneDrum1P];
+        [self makeDisapear:_twoDrum1P];
+        [self makeDisapear:_fourDrum1P];
     } else if (data.mode == MODE_TWO_DRUM) {
         if (data.player == PLAYER_SINGLE) {
             [self makeDisapear:_oneDrum1P];
@@ -260,7 +260,7 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
             [self makeDisapear:_fourDrum2P];
         }
     } else if (data.mode == MODE_FOUR_DRUM) {
-//        CCLOG(@"MODE_FOUR_DRUM");
+        //        CCLOG(@"MODE_FOUR_DRUM");
         if (data.player == PLAYER_SINGLE) {
             [self makeDisapear:_oneDrum1P];
             [self makeDisapear:_twoDrum1P];
@@ -277,7 +277,6 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
 {
     KaboomGameData *data = [KaboomGameData sharedData];
     CGSize size = [[CCDirector sharedDirector] winSize];
-    CCDirector* director = [CCDirector sharedDirector];
     
     if (_points.count == 0) {
         data.mode = MODE_UNDETERMINED;
@@ -356,28 +355,23 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
     if (data.mode == MODE_ONE_DRUM && [_drums containsObject:@(DRUM_ONE)]) {
         NSLog(@"DRUM = 1P_ONE");
         [self schedule:@selector(makeTransition:) interval:0.5f];
-    } else if (data.mode == MODE_TWO_DRUM && [_drums containsObject:@(DRUM_TWO_LEFT)] && [_drums containsObject:@(DRUM_TWO_RIGHT)]) {
+    }
+    
+    else if (data.mode == MODE_TWO_DRUM && [_drums containsObject:@(DRUM_TWO_LEFT)]) {//&& [_drums containsObject:@(DRUM_TWO_RIGHT)]
         NSLog(@"DRUM = 1P_TWO");
         [self schedule:@selector(makeTransition:) interval:0.5f];
-    } else if (data.mode == MODE_FOUR_DRUM && [_drums containsObject:@(DRUM_FOUR_UPPER_LEFT)] && [_drums containsObject:@(DRUM_FOUR_UPPER_RIGHT)] &&
-               [_drums containsObject:@(DRUM_FOUR_LOWER_LEFT)] && [_drums containsObject:@(DRUM_FOUR_LOWER_RIGHT)]) {
+    }
+    
+    else if (data.mode == MODE_FOUR_DRUM && [_drums containsObject:@(DRUM_FOUR_UPPER_LEFT)] && [_drums containsObject:@(DRUM_FOUR_UPPER_RIGHT)] &&
+             [_drums containsObject:@(DRUM_FOUR_LOWER_LEFT)] && [_drums containsObject:@(DRUM_FOUR_LOWER_RIGHT)]) {
         NSLog(@"DRUM = 1P_FOUR");
         [self schedule:@selector(makeTransition:) interval:0.5f];
     }
+    
 }
 
 -(void) makeTransition:(ccTime)dt
 {
-    KaboomGameData *data = [KaboomGameData sharedData];
-//    if (data.player == PLAYER_SINGLE) {
-//        if (data.mode == MODE_ONE_DRUM) data.drumSprite = _oneDrum1P;
-//        else if (data.mode == MODE_TWO_DRUM) data.drumSprite = _twoDrum1P;
-//        else data.drumSprite = _fourDrum1P;
-//    } else {
-//        if (data.mode == MODE_TWO_DRUM) data.drumSprite = _twoDrum2P;
-//        else data.drumSprite = _fourDrum2P;
-//    }
-    
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc removeObserver:self];
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.4 scene:[DrumSelectionLayer scene] withColor:ccWHITE]];
