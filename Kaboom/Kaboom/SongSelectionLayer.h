@@ -7,6 +7,7 @@
 //
 
 #import "cocos2d.h"
+#import "FGScrollLayer.h"
 
 @interface SongSelectionLayer : CCLayer
 

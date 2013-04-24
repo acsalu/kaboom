@@ -59,7 +59,7 @@
     
     
     if (data.mode == MODE_ONE_DRUM) {
-        return ccp(size.width / 2, size.height);
+        return ccp(size.width / 2, 0);
         
     } else if (data.mode == MODE_TWO_DRUM) {
         if (drumId == 0) return ccp(0, size.height / 2);
@@ -67,10 +67,10 @@
         
     } else {
         switch (drumId) {
-            case 0: return ccp(0, 0);
-            case 1: return ccp(size.width, 0);
-            case 2: return ccp(size.width, size.height);
-            case 3: return ccp(0, size.height);
+            case 0: return ccp(0, size.height);
+            case 1: return ccp(size.width, size.height);
+            case 2: return ccp(size.width, 0);
+            case 3: return ccp(0, 0);
         }
     }
     
