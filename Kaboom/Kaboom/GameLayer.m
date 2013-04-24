@@ -35,7 +35,7 @@
     if( (self=[super init]) ) {
         _noteQueue = [NSMutableArray array];
         KaboomGameData *data = [KaboomGameData sharedData];
-        
+        data.mode = MODE_FOUR_DRUM;
         switch (data.mode) {
             case MODE_ONE_DRUM:
                 [_noteQueue addObjectsFromArray:@[[NSMutableArray array], [NSMutableArray array]]];
