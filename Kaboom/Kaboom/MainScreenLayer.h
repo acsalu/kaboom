@@ -26,7 +26,10 @@ extern const int DRUM_FOUR_LOWER_LEFT;
     CCSprite *_fourDrum2P;
     NSMutableArray *_points;
     NSMutableSet *_drums;
+    
 }
+
+@property (nonatomic) int detectCounter;
 
 +(CCScene *) scene;
 

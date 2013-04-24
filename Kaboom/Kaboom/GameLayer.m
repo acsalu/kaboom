@@ -14,8 +14,8 @@
 #import "ShowResultLayer.h"
 #import "SongSelectionLayer.h"
 
-#define SCORE_DISTANCE_LOWER_BOUND 660
-#define SCORE_DISTANCE_HIGHER_BOUND 680
+#define SCORE_DISTANCE_LOWER_BOUND 160
+#define SCORE_DISTANCE_HIGHER_BOUND 190
 
 #define SCORE_FOR_EACH_HIT 1
 
@@ -342,7 +342,7 @@
 }
 
 - (void)resumeButtonWasPressed:(id)sender{
-    
+    [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
     paused = NO;
     
     // hide the sprite that shows the word 'Paused' from view
@@ -357,7 +357,7 @@
 }
 
 - (void)pauseButtonWasPressed:(id)sender {
-    
+    [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
     paused = YES;
     
     [pausedSprite runAction:[CCMoveTo actionWithDuration:0.3
@@ -380,6 +380,7 @@
 - (void)createPauseButton {
     
     // create sprite for the pause button
+
     pauseButton = [CCSprite spriteWithFile:@"startp.png"];    // horizonal or vertical
     
     // create menu item for the pause button from the pause sprite

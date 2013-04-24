@@ -45,6 +45,9 @@
         
         KaboomGameData *data = [KaboomGameData sharedData];
         
+        // for demo
+        data.mode = MODE_FOUR_DRUM;
+        
         CCSprite *background = (data.player == PLAYER_SINGLE) ? [CCSprite spriteWithFile:@"background2-landscape.png"] : [CCSprite spriteWithFile:@"background2-portrait.png"];
         background.position = ccp(size.width * 1 / 2, size.height / 2);
         

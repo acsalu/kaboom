@@ -11,8 +11,8 @@
 #import "KaboomGameData.h"
 #import "DrumSelectionLayer.h"
 
-#define DETECTION_AREA_WIDTH 40
-#define DETECTION_AREA_HEIGHT 40
+#define DETECTION_AREA_WIDTH 130
+#define DETECTION_AREA_HEIGHT 130
 
 const int DRUM_ONE               = 0;
 const int DRUM_TWO_LEFT          = 1;
@@ -90,6 +90,17 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
 	return self;
 }
 
+- (void)setDetectCounter:(int)detectCounter
+{
+    _detectCounter = detectCounter;
+    KaboomGameData *data = [KaboomGameData sharedData];
+    
+    if ((data.mode == MODE_ONE_DRUM && _detectCounter == 1) ||
+        (data.mode == MODE_TWO_DRUM && _detectCounter == 2) ||
+        (data.mode == MODE_FOUR_DRUM && _detectCounter == 4))
+        [self schedule:@selector(makeTransition:) interval:0.5f];
+}
+
 - (void)orientationChanged:(NSNotification *)notification
 {
     NSLog(@"Orientation has changed: %d", [[notification object] orientation]);
@@ -133,6 +144,7 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
     _fourDrum1P.visible = !_fourDrum1P.visible;
     _twoDrum2P.visible = !_twoDrum2P.visible;
     _fourDrum2P.visible = !_fourDrum2P.visible;
+    
 }
 
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -250,6 +262,7 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
         [self makeShow:_oneDrum1P];
         [self makeDisapear:_twoDrum1P];
         [self makeDisapear:_fourDrum1P];
+        
     } else if (data.mode == MODE_TWO_DRUM) {
         if (data.player == PLAYER_SINGLE) {
             [self makeDisapear:_oneDrum1P];
@@ -279,7 +292,7 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
     CGSize size = [[CCDirector sharedDirector] winSize];
     
     if (_points.count == 0) {
-        data.mode = MODE_UNDETERMINED;
+        //data.mode = MODE_UNDETERMINED;
         return;
     }
     
@@ -318,39 +331,56 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
         if (CGRectContainsPoint(box_d1, touchLocation) && data.player == PLAYER_SINGLE  ) {
             data.mode = MODE_ONE_DRUM;
             [_drums addObject:@(DRUM_ONE)];
+            ++self.detectCounter;
             
         } else if (CGRectContainsPoint(box_d2_1, touchLocation)) {
             data.mode = MODE_TWO_DRUM;
             [_drums addObject:@(DRUM_TWO_LEFT)];
+            ++self.detectCounter;
             
         } else if (CGRectContainsPoint(box_d2_2, touchLocation)) {
             data.mode = MODE_TWO_DRUM;
             [_drums addObject:@(DRUM_TWO_RIGHT)];
+            ++self.detectCounter;
             
         } else if (CGRectContainsPoint(box_d4_1, touchLocation)) {
             data.mode = MODE_FOUR_DRUM;
             [_drums addObject:@(DRUM_FOUR_UPPER_LEFT)];
             
+            // for demo
+            ++self.detectCounter;
+            
         } else if (CGRectContainsPoint(box_d4_2, touchLocation)) {
             data.mode = MODE_FOUR_DRUM;
             [_drums addObject:@(DRUM_FOUR_UPPER_RIGHT)];
+            
+            // for demo
+            ++self.detectCounter;
             
         } else if (CGRectContainsPoint(box_d4_3, touchLocation)) {
             data.mode = MODE_FOUR_DRUM;
             [_drums addObject:@(DRUM_FOUR_LOWER_LEFT)];
             
+            // for demo
+            ++self.detectCounter;
+            
         } else if (CGRectContainsPoint(box_d4_4, touchLocation)) {
             data.mode = MODE_FOUR_DRUM;
             [_drums addObject:@(DRUM_FOUR_LOWER_RIGHT)];
             
+            // for demo
+            ++self.detectCounter;
+                
         } else {
-            data.mode = MODE_UNDETERMINED;
+            //data.mode = MODE_UNDETERMINED;
         }
     }
 }
 
 - (void)checkDrum
 {
+    CCLOG(@"check drum should be back after demo");
+    /*
     KaboomGameData *data = [KaboomGameData sharedData];
     if (data.mode == MODE_ONE_DRUM && [_drums containsObject:@(DRUM_ONE)]) {
         NSLog(@"DRUM = 1P_ONE");
@@ -367,7 +397,7 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
         NSLog(@"DRUM = 1P_FOUR");
         [self schedule:@selector(makeTransition:) interval:0.5f];
     }
-    
+    */
 }
 
 -(void) makeTransition:(ccTime)dt
