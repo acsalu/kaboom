@@ -55,8 +55,16 @@
         CCSprite *background;
         CGPoint center = ccp(size.width/2, size.height/2);
 
-        background = [CCSprite spriteWithFile:@"1-00.png"];
-        background.position = ccp(size.width * 3 / 2, size.height / 2);
+        KaboomGameData *data = [KaboomGameData sharedData];
+        
+        if (UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
+            data.player = PLAYER_TWO;
+            background = [CCSprite spriteWithFile:@"background1-portrait.png"];
+        } else {
+            data.player = PLAYER_SINGLE;
+            background = [CCSprite spriteWithFile:@"background1-landscape.png"];
+        }
+        background.position = ccp(size.width / 2, size.height / 2);
         background.tag = BACKGROUND_TAG;
         
         _oneDrum1P = [CCSprite spriteWithFile:@"1p1d.png"];
@@ -113,8 +121,8 @@
     KaboomGameData *data = [KaboomGameData sharedData];
     if (data.player == PLAYER_SINGLE) CCLOG(@"PLAYER_1P");
     else CCLOG(@"PLAYER_MULTI");
-    NSString *bgImageName = (data.player == PLAYER_SINGLE) ? @"1-00.png" : @"2-00.png";
-    CGPoint bgPosition = (data.player == PLAYER_SINGLE) ? ccp(size.width * 3 / 2, size.height / 2) : ccp(512, size.width + 128);
+    NSString *bgImageName = (data.player == PLAYER_SINGLE) ? @"background1-landscape.png" : @"background1-portrait.png";
+    CGPoint bgPosition = ccp(size.width / 2, size.height / 2);
 //    [self removeChildByTag:BACKGROUND_TAG cleanup:YES];
     [self removeChildByTag:BACKGROUND_TAG cleanup:YES];
     

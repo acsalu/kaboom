@@ -34,6 +34,7 @@
     if( (self=[super init]) ) {
         _noteQueue = [NSMutableArray array];
         KaboomGameData *data = [KaboomGameData sharedData];
+        data.mode = MODE_FOUR_DRUM;
         
         switch (data.mode) {
             case MODE_ONE_DRUM:
@@ -62,8 +63,8 @@
         
 		CGSize size = [[CCDirector sharedDirector] winSize];
         
-        CCSprite *background = [CCSprite spriteWithFile:@"1-00.png"];
-        background.position = ccp(- size.width * 1 / 2, size.height / 2);
+        CCSprite *background = (data.player == PLAYER_SINGLE) ? [CCSprite spriteWithFile:@"background3-landscape.png"] : [CCSprite spriteWithFile:@"background3-portrait.png"];
+        background.position = ccp(size.width * 1 / 2, size.height / 2);
         
         CCSprite *drum = [data drumSprite];
         
@@ -88,17 +89,18 @@
 
 - (void)countdown:(ccTime)delta
 {
-    if (_count == 0) {
+    if (_count < 0) {
         [self removeChild:_countdownSprite cleanup:YES];
         [self unschedule:@selector(countdown:)];
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"time machine.mp3"];
     } else {
-        if (_count == 1) [self fire:0.0f];
+        if (_count == 0) [self fire:0.0f];
         CGSize size = [[CCDirector sharedDirector] winSize];
         CGPoint center = ccp(size.width / 2, size.height / 2);
         if (_countdownSprite) [self removeChild:_countdownSprite cleanup:YES];
         _countdownSprite = [CCSprite spriteWithFile:[NSString stringWithFormat:@"countdown-%d.png", _count]];
         _countdownSprite.position = center;
+//        if ([KaboomGameData sharedData].player == PLAYER_TWO) _countdownSprite.rotation = 90;
         [self addChild:_countdownSprite];
         --_count;
     }
