@@ -48,7 +48,8 @@
                     
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR1)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR2)]},
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
                     
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
@@ -58,7 +59,8 @@
                     
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR1)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR2)]},
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
                     
                     // 9
@@ -68,15 +70,20 @@
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
                     
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_RL)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR1)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR2)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_RL1)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_RL2)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR1)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR2)]},
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
                     
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR1)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR2)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR1)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR2)]},
                     
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
@@ -135,15 +142,20 @@
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
                     
                     // 22
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_RL)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR1)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR2)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_RL1)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_RL2)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR1)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR2)]},
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
                     
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR1)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR2)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR1)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR2)]},
                     
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
@@ -355,16 +367,21 @@
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
                     
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_RL)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR1)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR2)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_RL1)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_RL2)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR1)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR2)]},
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
                     
                     // 47
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT), @(NOTE_TYPE_RIGHT)]},
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
-                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR1)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR2)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR1)]},
+                    @{@"length":@(NOTE_LENGTH_8TH), @"notes":@[@(NOTE_TYPE_BOUNCE_LR2)]},
                     
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_RIGHT)]},
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_LEFT)]},
@@ -530,7 +547,7 @@
                     
                     
                 ];
-    song.interval = 0.457;
+    song.interval = 0.452;
     return song;
 }
 
@@ -552,8 +569,10 @@
         case NOTE_TYPE_REST: return @"rest";
         case NOTE_TYPE_LEFT: return @"left";
         case NOTE_TYPE_RIGHT:return @"right";
-        case NOTE_TYPE_BOUNCE_LR: return @"bounce L2R";
-        case NOTE_TYPE_BOUNCE_RL: return @"bounce R2L";
+        case NOTE_TYPE_BOUNCE_LR1: return @"bounce L2R1";
+        case NOTE_TYPE_BOUNCE_LR2: return @"bounce L2R2";
+        case NOTE_TYPE_BOUNCE_RL1: return @"bounce R2L1";
+        case NOTE_TYPE_BOUNCE_RL2: return @"bounce R2L2";
         case NOTE_TYPE_CLAP: return @"clap";
         default: return nil;
     }

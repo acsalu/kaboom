@@ -14,8 +14,8 @@
 #import "ShowResultLayer.h"
 #import "SongSelectionLayer.h"
 
-#define SCORE_DISTANCE_LOWER_BOUND 160
-#define SCORE_DISTANCE_HIGHER_BOUND 190
+#define SCORE_DISTANCE_LOWER_BOUND 150
+#define SCORE_DISTANCE_HIGHER_BOUND 200
 
 #define SCORE_FOR_EACH_HIT 1
 
@@ -70,8 +70,8 @@
         
         CCSprite *drum = [data drumSprite];
         
-//        [self createPauseButton];
-//        [self createPausedMenu];
+        [self createPauseButton];
+        [self createPausedMenu];
         
         CCMenuItem *sourcedot = [CCMenuItemImage itemWithNormalImage:@"sourcedot.png" selectedImage:@"sourcedot.png" block:^(id sender) {
             NSLog(@"should open pause menu!");
@@ -94,7 +94,7 @@
 
 - (void)countdown:(ccTime)delta
 {
-    if (_count == 0) {
+    if (_count < 0) {
         [self removeChild:_countdownSprite cleanup:YES];
         [self unschedule:@selector(countdown:)];
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"time machine.mp3"];
@@ -113,7 +113,13 @@
 - (void)startGameLoop
 {
     if (_song.currentIdx < _song.melody.count) {
-        [self schedule:@selector(fire:) interval:[_song lengthInFloat:((NSNumber *) _song.melody[_song.currentIdx][@"length"]).intValue]];        
+        ccTime interval;
+        NoteType type = ((NSNumber *) _song.melody[_song.currentIdx][@"notes"][0]).intValue;
+        if (type == NOTE_TYPE_BOUNCE_LR1 || type == NOTE_TYPE_BOUNCE_RL1)
+            interval = 2 * _song.interval;
+        else
+            interval = [_song lengthInFloat:((NSNumber *) _song.melody[_song.currentIdx][@"length"]).intValue];
+        [self schedule:@selector(fire:) interval:interval];
         ++_song.currentIdx;
     }
 }
@@ -127,10 +133,10 @@
         [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
         return;
     }
-    CCLOG(@"%d", _song.currentIdx);
+//    CCLOG(@"%d", _song.currentIdx);
     CGSize size = [[CCDirector sharedDirector] winSize];
     for (NSNumber *note in _song.melody[_song.currentIdx][@"notes"]) {
-        CCLOG(@"%@", [Song noteTypeString:note.intValue]);
+//        CCLOG(@"%@", [Song noteTypeString:note.intValue]);
         
         if (note.intValue != NOTE_TYPE_REST) {
             CGPoint destinationPointP1;
@@ -138,24 +144,51 @@
             NSMutableArray *queue1;
             NSMutableArray *queue2;
             
+            CGPoint p0 = ccp(size.width * 0.07, size.height * 0.93);
+            CGPoint p1 = ccp(size.width * 0.93, size.height * 0.93);
+            CGPoint p2 = ccp(size.width * 0.93, size.height * 0.07);
+            CGPoint p3 = ccp(size.width * 0.07, size.height * 0.07);
+            
+            CGPoint startingPointP1 = ccp(size.width / 2, size.height / 2);
+            CGPoint startingPointP2 = ccp(size.width / 2, size.height / 2);
+            
             switch (note.intValue) {
                 case NOTE_TYPE_REST:
                     return;
                 case NOTE_TYPE_LEFT:
-                case NOTE_TYPE_BOUNCE_LR:
-                    destinationPointP1 = ccp(0 + size.width * 0.05, 0 + size.height * 0.05);
-                    destinationPointP2 = ccp(size.width * 0.95, size.height * 0.95);
+                case NOTE_TYPE_BOUNCE_LR1:
+                    destinationPointP1 = p0;
+                    destinationPointP2 = p2;
+                    queue1 = _noteQueue[0];
+                    queue2 = _noteQueue[2];
+                    break;
+                case NOTE_TYPE_RIGHT:
+                case NOTE_TYPE_BOUNCE_RL1:
+                    destinationPointP1 = p3;
+                    destinationPointP2 = p1;
                     queue1 = _noteQueue[3];
                     queue2 = _noteQueue[1];
                     break;
-                case NOTE_TYPE_RIGHT:
-                case NOTE_TYPE_BOUNCE_RL:
-                    destinationPointP1 = ccp(0 + size.width * 0.05, size.height * 0.95);
-                    destinationPointP2 = ccp(size.width * 0.95, 0 + size.height * 0.05);
-                    queue1 = _noteQueue[0];
-                    queue2 = _noteQueue[2];
+                case NOTE_TYPE_BOUNCE_LR2:
+                    startingPointP1 = p0;
+                    destinationPointP1 = p3;
+                    queue1 = _noteQueue[3];
                     
+                    startingPointP2 = p2;
+                    destinationPointP2 = p1;
+                    queue2 = _noteQueue[1];
                     break;
+                
+                case NOTE_TYPE_BOUNCE_RL2:
+                    startingPointP1 = p3;
+                    destinationPointP1 = p0;
+                    queue1 = _noteQueue[0];
+                    
+                    startingPointP2 = p1;
+                    destinationPointP2 = p2;
+                    queue2 = _noteQueue[2];
+                    break;
+                
                 case  NOTE_TYPE_CLAP:
                     destinationPointP1 = ccp(0, size.height / 2);
                     destinationPointP2 = ccp(size.width, size.height / 2);
@@ -168,65 +201,53 @@
             
         id callback = [CCCallFuncN actionWithTarget:self selector:@selector(removeNote:)];
             
-        CCSprite *note1;
-        
-        CCSequence *sequence1;
-        if (note.intValue == NOTE_TYPE_BOUNCE_LR) {
-            sequence1 = [CCSequence actions:[CCMoveTo actionWithDuration:_song.interval * 2 position:destinationPointP1],
-                         [CCMoveTo actionWithDuration:_song.interval * 0.5 position:ccp(0 + size.width * 0.05, size.height * 0.95)],
-                         callback, nil];
+        NoteType type = note.intValue;
+        ccTime duration = (type == NOTE_TYPE_BOUNCE_LR2 || type == NOTE_TYPE_BOUNCE_RL2) ?
+                                _song.interval / 2 : _song.interval * 2;
+        CCSprite *note1, *note2;
+        if (type == NOTE_TYPE_BOUNCE_LR1 || type == NOTE_TYPE_BOUNCE_LR2) {
             note1 = [CCSprite spriteWithFile:@"notedot-arrow-L2R.png"];
-            note1.rotation = -90;
-        } else if (note.intValue == NOTE_TYPE_BOUNCE_RL) {
-            sequence1 = [CCSequence actions:[CCMoveTo actionWithDuration:_song.interval * 2 position:destinationPointP1],
-                         [CCMoveTo actionWithDuration:_song.interval * 0.5 position:ccp(0 + size.width * 0.05, 0 + size.height * 0.05)],
-                         callback, nil];
+            note1.rotation = 90;
+            
+            note2 = [CCSprite spriteWithFile:@"notedot-arrow-L2R.png"];
+            note2.rotation = -90;
+        } else if (type == NOTE_TYPE_BOUNCE_RL1 || type == NOTE_TYPE_BOUNCE_RL2) {
             note1 = [CCSprite spriteWithFile:@"notedot-arrow-R2L.png"];
-            note1.rotation = -90;
+            note1.rotation = 90;
+            
+            note2 = [CCSprite spriteWithFile:@"notedot-arrow-R2L.png"];
+            note2.rotation = -90;
         } else {
-            sequence1 = [CCSequence actions: [CCMoveTo actionWithDuration:_song.interval * 2 position:destinationPointP1],
-            callback, nil];
             note1 = [CCSprite spriteWithFile:@"notedot.png"];
+            note2 = [CCSprite spriteWithFile:@"notedot.png"];
         }
             
-        note1.position = ccp(size.width / 2, size.height / 2);
+        CCSequence *sequence1 = [CCSequence actions:
+                                 [CCMoveTo actionWithDuration:duration position:destinationPointP1],
+                                 callback, nil];
+
+        note1.position = startingPointP1;
         [self addChild:note1];
         [note1 runAction:sequence1];
         [queue1 addObject:note1];
-    
-        CCSprite *note2;
-        
+            
+            
+        CCSequence *sequence2 = [CCSequence actions:
+                                 [CCMoveTo actionWithDuration:duration position:destinationPointP2],
+                                 callback, nil];
 
-        CCSequence *sequence2;
-        if (note.intValue == NOTE_TYPE_BOUNCE_LR) {
-            sequence2 = [CCSequence actions:[CCMoveTo actionWithDuration:_song.interval * 2 position:destinationPointP2],
-                         [CCMoveTo actionWithDuration:_song.interval * 0.5 position:ccp(size.width * 0.95, 0 + size.height * 0.05)],
-                         callback, nil];
-            note2 = [CCSprite spriteWithFile:@"notedot-arrow-L2R.png"];
-            note2.rotation = 90;
-        } else if (note.intValue == NOTE_TYPE_BOUNCE_RL) {
-            sequence2 = [CCSequence actions:[CCMoveTo actionWithDuration:_song.interval * 2 position:destinationPointP2],
-                         [CCMoveTo actionWithDuration:_song.interval * 0.5 position:ccp(size.width * 0.95, size.height * 0.95)],
-                         callback, nil];
-            note2 = [CCSprite spriteWithFile:@"notedot-arrow-R2L.png"];
-            note2.rotation = 90;
-        } else {
-            sequence2 = [CCSequence actions: [CCMoveTo actionWithDuration:_song.interval * 2 position:destinationPointP2],
-                         callback, nil];
-            note2 = [CCSprite spriteWithFile:@"notedot.png"];
-        }
-        
-        note2.position = ccp(size.width / 2, size.height / 2);
+        note2.position = startingPointP2;
         [self addChild:note2];
         [note2 runAction:sequence2];
         [queue2 addObject:note2];
-        }
-    }
+
+        }}
     [self startGameLoop];
 }
 
 - (void)removeNote:(id)note
 {
+    [note stopAllActions];
     [self removeChild:note cleanup:YES];
     for (NSMutableArray *queue in _noteQueue) {
         if ([queue containsObject:note]) {
@@ -315,12 +336,12 @@
 - (void)updateScoresWithNote:(CCSprite *)note forDrum:(int)drumId
 {
     CGPoint basePoint = [Const basePointForDrum:drumId];
-    CCLOG(@"basePoint (%.0f, %.0f)", basePoint.x, basePoint.y);
+//    CCLOG(@"basePoint (%.0f, %.0f)", basePoint.x, basePoint.y);
     CGFloat distance = [self distanceBetween:note.position and:basePoint];
-    CCLOG(@"distance %f", distance);
+//    CCLOG(@"distance %f", distance);
     if (distance <= SCORE_DISTANCE_HIGHER_BOUND && distance >= SCORE_DISTANCE_LOWER_BOUND) {
         int playerId = [Const playerIdForDrum:drumId];
-        CCLOG(@"player %d SCORES!", playerId);
+//        CCLOG(@"player %d SCORES!", playerId);
         _scores[playerId] = @(((NSNumber *) _scores[playerId]).integerValue + SCORE_FOR_EACH_HIT);
     }
 }
@@ -342,45 +363,49 @@
 }
 
 - (void)resumeButtonWasPressed:(id)sender{
-    [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
     paused = NO;
+    [[SimpleAudioEngine sharedEngine] resumeBackgroundMusic];
+    [self resumeSchedulerAndActions];
+    for(CCSprite *sprite in [self children]) {
+        [[CCActionManager sharedManager] resumeTarget:sprite];
+    }
     
-    // hide the sprite that shows the word 'Paused' from view
-    [pausedSprite runAction:[CCMoveTo actionWithDuration:0.3
-                                                position:ccp([CCDirector sharedDirector].winSize.width/2,
-                                                             [CCDirector sharedDirector].winSize.height + 700)]];
-    // hide the paued menu from view
-    [pausedMenu runAction:[CCMoveTo actionWithDuration:0.3
-                                              position:ccp([CCDirector sharedDirector].winSize.width/2,
-                                                           [CCDirector sharedDirector].winSize.height + 700)]];
+    [pausedSprite runAction:[CCPlace actionWithPosition:ccp([CCDirector sharedDirector].winSize.width/2,
+                                                            [CCDirector sharedDirector].winSize.height + 700)]];
+    
+    
+    [pausedMenu runAction:[CCPlace actionWithPosition:ccp([CCDirector sharedDirector].winSize.width/2,
+                                                          [CCDirector sharedDirector].winSize.height + 700)]];
     
 }
 
 - (void)pauseButtonWasPressed:(id)sender {
-    [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
     paused = YES;
     
-    [pausedSprite runAction:[CCMoveTo actionWithDuration:0.3
-                                                position:ccp([CCDirector sharedDirector].winSize.width/2,
-                                                             [CCDirector sharedDirector].winSize.height/2)]];
+    [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
+    [self pauseSchedulerAndActions];
+    for(CCSprite *sprite in [self children]) {
+        [[CCActionManager sharedManager] pauseTarget:sprite];
+    }
+    
+    [pausedSprite runAction:[CCPlace actionWithPosition:ccp([CCDirector sharedDirector].winSize.width/2, [CCDirector sharedDirector].winSize.height/2)]];
+    
     KaboomGameData *data = [KaboomGameData sharedData];
     
     if (data.player == PLAYER_SINGLE) {
-        [pausedMenu runAction:[CCMoveTo actionWithDuration:0.3
-                                                  position:ccp([CCDirector sharedDirector].winSize.width/2 - 100,
-                                                               [CCDirector sharedDirector].winSize.height/2)]];
+        [pausedMenu runAction:[CCPlace actionWithPosition:ccp([CCDirector sharedDirector].winSize.width/2 - 100,
+                                                              [CCDirector sharedDirector].winSize.height/2)]];
     }
     else if (data.player == PLAYER_TWO) {
-        [pausedMenu runAction:[CCMoveTo actionWithDuration:0.3
-                                                  position:ccp([CCDirector sharedDirector].winSize.width/2,
-                                                               [CCDirector sharedDirector].winSize.height/2 - 150)]];
+        [pausedMenu runAction:[CCPlace actionWithPosition:ccp([CCDirector sharedDirector].winSize.width/2,
+                                                              [CCDirector sharedDirector].winSize.height/2 - 150)]];
     }
+
     
 }
 - (void)createPauseButton {
     
     // create sprite for the pause button
-
     pauseButton = [CCSprite spriteWithFile:@"startp.png"];    // horizonal or vertical
     
     // create menu item for the pause button from the pause sprite
@@ -459,8 +484,7 @@
         
         // add the Paused sprite and menu to the current layer
         [self addChild:pausedSprite z:100];
-        [self addChild:pausedMenu z:100];
-    }
+        [self addChild:pausedMenu z:100];    }
 }
 
 

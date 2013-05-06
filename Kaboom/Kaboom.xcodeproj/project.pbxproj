@@ -106,6 +106,8 @@
 		90A2D4AD1728677000443567 /* 2p2d@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90A2D4AB1728677000443567 /* 2p2d@2x.png */; };
 		90A2D4AE1728677000443567 /* 2p4d@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90A2D4AC1728677000443567 /* 2p4d@2x.png */; };
 		90A2D4B01728692300443567 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90A2D4AF1728692100443567 /* Icon-72@2x.png */; };
+		90B559DB17289E7700C5A2CC /* countdown-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B559D917289E7700C5A2CC /* countdown-0.png */; };
+		90B559DC17289E7700C5A2CC /* countdown-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B559DA17289E7700C5A2CC /* countdown-0@2x.png */; };
 		90C14EC716F6C96800DFF0ED /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90C14EC616F6C96800DFF0ED /* QuartzCore.framework */; };
 		90C14EC916F6C96800DFF0ED /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90C14EC816F6C96800DFF0ED /* OpenGLES.framework */; };
 		90C14ECB16F6C96800DFF0ED /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90C14ECA16F6C96800DFF0ED /* OpenAL.framework */; };
@@ -383,6 +385,8 @@
 		90A2D4AB1728677000443567 /* 2p2d@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2p2d@2x.png"; sourceTree = "<group>"; };
 		90A2D4AC1728677000443567 /* 2p4d@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2p4d@2x.png"; sourceTree = "<group>"; };
 		90A2D4AF1728692100443567 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "../Icon-72@2x.png"; sourceTree = "<group>"; };
+		90B559D917289E7700C5A2CC /* countdown-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown-0.png"; sourceTree = "<group>"; };
+		90B559DA17289E7700C5A2CC /* countdown-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown-0@2x.png"; sourceTree = "<group>"; };
 		90C14EC316F6C96800DFF0ED /* Kaboom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kaboom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90C14EC616F6C96800DFF0ED /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		90C14EC816F6C96800DFF0ED /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -756,9 +760,11 @@
 				90C373201723A9A50034A8BB /* countdown-2.png */,
 				90C373211723A9A50034A8BB /* countdown-3.png */,
 				90C373221723A9A50034A8BB /* countdown-1.png */,
+				90B559D917289E7700C5A2CC /* countdown-0.png */,
 				90C373231723A9A50034A8BB /* countdown-2@2x.png */,
 				90C373241723A9A50034A8BB /* countdown-3@2x.png */,
 				90C373251723A9A50034A8BB /* countdown-1@2x.png */,
+				90B559DA17289E7700C5A2CC /* countdown-0@2x.png */,
 				900386D51717090400E542EF /* sourcedot.png */,
 				900386D81717092A00E542EF /* sourcedot@2x.png */,
 				0F590E5117284C9C002752A9 /* notedot@2x.png */,
@@ -1549,6 +1555,8 @@
 				0F1DFC3B17288C1E009FF18B /* start_light@2x.png in Resources */,
 				0F1DFC3C17288C1E009FF18B /* start_lightBack.png in Resources */,
 				0F1DFC3D17288C1E009FF18B /* start_lightBack@2x.png in Resources */,
+				90B559DB17289E7700C5A2CC /* countdown-0.png in Resources */,
+				90B559DC17289E7700C5A2CC /* countdown-0@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
