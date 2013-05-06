@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
-#import "SlapSprite.h"
 
 enum mode {
     MODE_UNDETERMINED = 0,

@@ -30,7 +30,7 @@
 		0F590E5417284C9D002752A9 /* notedot.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F590E5217284C9C002752A9 /* notedot.png */; };
 		0F77964017287F64008CDCC1 /* splash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F77963F17287F63008CDCC1 /* splash@2x.png */; };
 		0FABB38D171E9C8800C46023 /* TouchTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FABB38C171E9C8800C46023 /* TouchTracker.m */; };
-		0FC771EF1727CD8D0085D8CC /* SlapSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC771EE1727CD8C0085D8CC /* SlapSprite.m */; };
+		0FC771EF1727CD8D0085D8CC /* DrumEffectSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC771EE1727CD8C0085D8CC /* DrumEffectSprite.m */; };
 		0FEA148F1728799100E02F70 /* Drum_Bump_Red.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FEA148D1728798800E02F70 /* Drum_Bump_Red.png */; };
 		0FEA14901728799100E02F70 /* Drum_Bump_Red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FEA148E1728798B00E02F70 /* Drum_Bump_Red@2x.png */; };
 		900386D21715D21100E542EF /* time machine.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 900386D11715D21100E542EF /* time machine.mp3 */; };
@@ -302,8 +302,8 @@
 		0F77963F17287F63008CDCC1 /* splash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash@2x.png"; sourceTree = "<group>"; };
 		0FABB38B171E9C8700C46023 /* TouchTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchTracker.h; sourceTree = "<group>"; };
 		0FABB38C171E9C8800C46023 /* TouchTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchTracker.m; sourceTree = "<group>"; };
-		0FC771ED1727CD8C0085D8CC /* SlapSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlapSprite.h; path = ../SlapSprite.h; sourceTree = "<group>"; };
-		0FC771EE1727CD8C0085D8CC /* SlapSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlapSprite.m; path = ../SlapSprite.m; sourceTree = "<group>"; };
+		0FC771ED1727CD8C0085D8CC /* DrumEffectSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DrumEffectSprite.h; path = ../DrumEffectSprite.h; sourceTree = "<group>"; };
+		0FC771EE1727CD8C0085D8CC /* DrumEffectSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrumEffectSprite.m; path = ../DrumEffectSprite.m; sourceTree = "<group>"; };
 		0FEA148D1728798800E02F70 /* Drum_Bump_Red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Drum_Bump_Red.png; sourceTree = "<group>"; };
 		0FEA148E1728798B00E02F70 /* Drum_Bump_Red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Drum_Bump_Red@2x.png"; sourceTree = "<group>"; };
 		900386D11715D21100E542EF /* time machine.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "time machine.mp3"; sourceTree = "<group>"; };
@@ -831,8 +831,8 @@
 				90C2767E1709602200D8F93B /* MainScreenLayer.m */,
 				0FABB38B171E9C8700C46023 /* TouchTracker.h */,
 				0FABB38C171E9C8800C46023 /* TouchTracker.m */,
-				0FC771ED1727CD8C0085D8CC /* SlapSprite.h */,
-				0FC771EE1727CD8C0085D8CC /* SlapSprite.m */,
+				0FC771ED1727CD8C0085D8CC /* DrumEffectSprite.h */,
+				0FC771EE1727CD8C0085D8CC /* DrumEffectSprite.m */,
 				90C2780D1709DC4200D8F93B /* DrumSelectionLayer.h */,
 				90C2780E1709DC4200D8F93B /* DrumSelectionLayer.m */,
 				90DB8B2B171447AF00EE785D /* SongSelectionLayer.h */,
@@ -1571,7 +1571,7 @@
 				0FABB38D171E9C8800C46023 /* TouchTracker.m in Sources */,
 				90C3732E1724EE400034A8BB /* Song.m in Sources */,
 				90523BF31726B489001DBCBB /* DrumLayer.m in Sources */,
-				0FC771EF1727CD8D0085D8CC /* SlapSprite.m in Sources */,
+				0FC771EF1727CD8D0085D8CC /* DrumEffectSprite.m in Sources */,
 				90ED822A1728127800710FC9 /* ShowResultLayer.m in Sources */,
 				0F1610E117281E8700A3493B /* Utility.m in Sources */,
 				900398D117284815007A5C7B /* CCScrollLayer.m in Sources */,

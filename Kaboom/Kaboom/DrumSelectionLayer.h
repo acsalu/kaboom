@@ -18,6 +18,7 @@
 
 @property (strong, nonatomic) TouchTracker *sharedTouchTracker;
 
+
 +(CCScene *) scene;
 
 @end

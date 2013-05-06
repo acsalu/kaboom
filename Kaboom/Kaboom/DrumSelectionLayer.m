@@ -12,6 +12,7 @@
 #import "Const.h"
 #import "SongSelectionLayer.h"
 #import "CCTouchDispatcher.h"
+#import "DrumEffectSprite.h"
 
 
 #define ONE_DRUM_OFFST_Y 100
@@ -53,18 +54,10 @@
         
         CCSprite *startBackground = [CCSprite spriteWithFile:@"start_lightBack.png"];
         startBackground.position = center;
-//        [self addChild:startBackground];
         
         CCSprite *drum = [data drumSprite];
         
         CCMenuItem *startMenuItem = [CCMenuItemImage itemWithNormalImage:@"start_light.png" selectedImage:@"start_dark.png" block:^(id sender) {
-//            CGPoint center = ccp(size.width/2, size.height/2);
-//            CCLOG(@"center (%.0f, %.0f)", center.x, center.y);
-//            [self removeChild:startBackground cleanup:YES];
-//            CCSprite *startBackgroundPressed = [CCSprite spriteWithFile:@"start_darkBack.png"];
-//            startBackgroundPressed.position = center;
-//            [self addChild:startBackgroundPressed];
-//            CCLOG(@"start button pressed");
             [[CCDirector sharedDirector] replaceScene:[SongSelectionLayer scene]];
         }];
         
@@ -72,7 +65,7 @@
         
         NSLog(@"(w, h) = (%.0f, %.0f)", [startMenuItem boundingBox].size.width, [startMenuItem boundingBox].size.height);
         
-        //        startMenuItem.isEnabled = NO;
+//        startMenuItem.isEnabled = NO;
         startMenuItem.tag = START_ITEM_TAG;
         
         CCMenu *startMenu = [CCMenu menuWithItems:startMenuItem, nil];
@@ -143,69 +136,77 @@
 
 - (void)registerWithTouchDispatcher
 {
-    [[[CCDirector sharedDirector] touchDispatcher] addStandardDelegate:self priority:0];
+    [[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:NO];
 }
 
-- (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)onEnter
 {
-    for (UITouch *touch in touches) {
-        CGPoint location = [self convertTouchToNodeSpace:touch];
-        
-        for (CCSprite *drum in _drums) {
-            if (CGRectContainsPoint(drum.boundingBox, location)){
-                int currentDrum = [_drums indexOfObject:drum] + 1;
-                int touchID = [self.sharedTouchTracker addNewTouch:(__bridge void *)(touch) withDrumIndex:currentDrum];
-                if (touchID != -1) {
-                    [[SimpleAudioEngine sharedEngine] playEffect:[NSString stringWithFormat:@"d%d.mp3", currentDrum]];
-                    CCSprite *draggedDrum = [CCSprite spriteWithTexture:[drum texture]];
-                    draggedDrum.position = drum.position;
-                    [self addChild:draggedDrum];
-                    
-                    [self.draggedDrums insertObject:draggedDrum atIndex:touchID];
-                    break;
-                }
+    [super onEnter];
+    CCMenu *menu = (CCMenu *)[self getChildByTag:START_MENU_TAG];
+    [[[CCDirector sharedDirector] touchDispatcher] setPriority:10 forDelegate:menu];
+}
+
+- (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    CGPoint location = [self convertTouchToNodeSpace:touch];
+
+    for (CCSprite *drum in _drums) {
+        if (CGRectContainsPoint(drum.boundingBox, location)){
+            int currentDrum = [_drums indexOfObject:drum] + 1;
+            int touchID = [self.sharedTouchTracker addNewTouch:(__bridge void *)(touch) withDrumIndex:currentDrum];
+            if (touchID != -1) {
+                [[SimpleAudioEngine sharedEngine] playEffect:[NSString stringWithFormat:@"d%d.mp3", currentDrum]];
+                CCSprite *draggedDrum = [CCSprite spriteWithTexture:[drum texture]];
+                draggedDrum.position = drum.position;
+                [self addChild:draggedDrum];
+                [self.draggedDrums insertObject:draggedDrum atIndex:touchID];
+                
+                id enlargeAction = [CCScaleTo actionWithDuration:0.15 scale:1.5];
+                enlargeAction = [CCEaseOut actionWithAction:enlargeAction rate:2];
+                id narrowAction = [CCScaleTo actionWithDuration:0.05 scale:1];
+                narrowAction = [CCEaseInOut actionWithAction:narrowAction rate:2];
+                CCSequence *actionsForDrumTap = [CCSequence actions:enlargeAction, narrowAction, nil];
+                [draggedDrum runAction:actionsForDrumTap];
+                
+                return YES;
             }
         }
     }
+    return NO;
 }
 
-- (void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    for (UITouch* touch in touches) {
-        CGPoint location = [self convertTouchToNodeSpace:touch];
-        
-        int touchID = [self.sharedTouchTracker getTouchID:(__bridge void *)(touch)];
-        if (touchID != -1) {
-            CCSprite *dSprite = [self.draggedDrums objectAtIndex:touchID];
-            dSprite.position = location;
-        }
+    CGPoint location = [self convertTouchToNodeSpace:touch];
+    
+    int touchID = [self.sharedTouchTracker getTouchID:(__bridge void *)(touch)];
+    if (touchID != -1) {
+        CCSprite *dSprite = [self.draggedDrums objectAtIndex:touchID];
+        dSprite.position = location;
     }
 }
 
-- (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    for (UITouch* touch in touches) {
-        CGPoint location = [self convertTouchToNodeSpace:touch];
-        
-        int touchID = [self.sharedTouchTracker getTouchID:(__bridge void *)(touch)];
-        if (touchID != -1) {
-            CCSprite *dSprite = [self.draggedDrums objectAtIndex:touchID];
-            dSprite.position = location;
-            [self removeChild:dSprite cleanup:YES];
-            [self checkDrumWithLocation:location andDrumIndex:self.sharedTouchTracker.touchTracks[touchID].drumIdx];
-            self.sharedTouchTracker.touchTracks[touchID].touchPtr = 0;
-        }
+    CGPoint location = [self convertTouchToNodeSpace:touch];
+    
+    int touchID = [self.sharedTouchTracker getTouchID:(__bridge void *)(touch)];
+    if (touchID != -1) {
+        CCSprite *dSprite = [self.draggedDrums objectAtIndex:touchID];
+        dSprite.position = location;
+        [self removeChild:dSprite cleanup:YES];
+        [self checkDrumWithLocation:location andDrumIndex:self.sharedTouchTracker.touchTracks[touchID].drumIdx];
+        self.sharedTouchTracker.touchTracks[touchID].touchPtr = 0;
     }
 }
 
-- (void)ccTouchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)ccTouchCancelled:(UITouch *)touch withEvent:(UIEvent *)event
 {
     TouchTracker *sharedTouchTracker = [TouchTracker sharedTouchTracker];
-    for (UITouch* touch in touches) {
-        int touchID = [sharedTouchTracker getTouchID:(__bridge void *)(touch)];
-        if (touchID != -1) {
-            self.sharedTouchTracker.touchTracks[touchID].touchPtr = 0;
-        }
+    int touchID = [sharedTouchTracker getTouchID:(__bridge void *)(touch)];
+    if (touchID != -1) {
+        self.sharedTouchTracker.touchTracks[touchID].touchPtr = 0;
+        [self removeChild:[self.draggedDrums objectAtIndex:touchID] cleanup:YES];
     }
 }
 
@@ -258,10 +259,6 @@
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
         }
     }
-    
-    //    if ([data allDrumsAreSet]) {
-    //        [self readyToStart];
-    //    }
 }
 
 
