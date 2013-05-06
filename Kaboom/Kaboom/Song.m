@@ -547,7 +547,7 @@
                     
                     
                 ];
-    song.interval = 0.457;
+    song.interval = 0.452;
     return song;
 }
 

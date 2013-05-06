@@ -14,8 +14,8 @@
 #import "ShowResultLayer.h"
 #import "SongSelectionLayer.h"
 
-#define SCORE_DISTANCE_LOWER_BOUND 160
-#define SCORE_DISTANCE_HIGHER_BOUND 190
+#define SCORE_DISTANCE_LOWER_BOUND 150
+#define SCORE_DISTANCE_HIGHER_BOUND 200
 
 #define SCORE_FOR_EACH_HIT 1
 
@@ -70,8 +70,8 @@
         
         CCSprite *drum = [data drumSprite];
         
-//        [self createPauseButton];
-//        [self createPausedMenu];
+        [self createPauseButton];
+        [self createPausedMenu];
         
         CCMenuItem *sourcedot = [CCMenuItemImage itemWithNormalImage:@"sourcedot.png" selectedImage:@"sourcedot.png" block:^(id sender) {
             NSLog(@"should open pause menu!");
@@ -94,7 +94,7 @@
 
 - (void)countdown:(ccTime)delta
 {
-    if (_count == 0) {
+    if (_count < 0) {
         [self removeChild:_countdownSprite cleanup:YES];
         [self unschedule:@selector(countdown:)];
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"time machine.mp3"];
@@ -133,10 +133,10 @@
         [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
         return;
     }
-    CCLOG(@"%d", _song.currentIdx);
+//    CCLOG(@"%d", _song.currentIdx);
     CGSize size = [[CCDirector sharedDirector] winSize];
     for (NSNumber *note in _song.melody[_song.currentIdx][@"notes"]) {
-        CCLOG(@"%@", [Song noteTypeString:note.intValue]);
+//        CCLOG(@"%@", [Song noteTypeString:note.intValue]);
         
         if (note.intValue != NOTE_TYPE_REST) {
             CGPoint destinationPointP1;
@@ -144,10 +144,10 @@
             NSMutableArray *queue1;
             NSMutableArray *queue2;
             
-            CGPoint p0 = ccp(size.width * 0.05, size.height * 0.95);
-            CGPoint p1 = ccp(size.width * 0.95, size.height * 0.95);
-            CGPoint p2 = ccp(size.width * 0.95, size.height * 0.05);
-            CGPoint p3 = ccp(size.width * 0.05, size.height * 0.05);
+            CGPoint p0 = ccp(size.width * 0.07, size.height * 0.93);
+            CGPoint p1 = ccp(size.width * 0.93, size.height * 0.93);
+            CGPoint p2 = ccp(size.width * 0.93, size.height * 0.07);
+            CGPoint p3 = ccp(size.width * 0.07, size.height * 0.07);
             
             CGPoint startingPointP1 = ccp(size.width / 2, size.height / 2);
             CGPoint startingPointP2 = ccp(size.width / 2, size.height / 2);
@@ -207,13 +207,13 @@
         CCSprite *note1, *note2;
         if (type == NOTE_TYPE_BOUNCE_LR1 || type == NOTE_TYPE_BOUNCE_LR2) {
             note1 = [CCSprite spriteWithFile:@"notedot-arrow-L2R.png"];
-            note1.rotation = -90;
+            note1.rotation = 90;
             
             note2 = [CCSprite spriteWithFile:@"notedot-arrow-L2R.png"];
             note2.rotation = -90;
         } else if (type == NOTE_TYPE_BOUNCE_RL1 || type == NOTE_TYPE_BOUNCE_RL2) {
             note1 = [CCSprite spriteWithFile:@"notedot-arrow-R2L.png"];
-            note1.rotation = -90;
+            note1.rotation = 90;
             
             note2 = [CCSprite spriteWithFile:@"notedot-arrow-R2L.png"];
             note2.rotation = -90;
@@ -336,12 +336,12 @@
 - (void)updateScoresWithNote:(CCSprite *)note forDrum:(int)drumId
 {
     CGPoint basePoint = [Const basePointForDrum:drumId];
-    CCLOG(@"basePoint (%.0f, %.0f)", basePoint.x, basePoint.y);
+//    CCLOG(@"basePoint (%.0f, %.0f)", basePoint.x, basePoint.y);
     CGFloat distance = [self distanceBetween:note.position and:basePoint];
-    CCLOG(@"distance %f", distance);
+//    CCLOG(@"distance %f", distance);
     if (distance <= SCORE_DISTANCE_HIGHER_BOUND && distance >= SCORE_DISTANCE_LOWER_BOUND) {
         int playerId = [Const playerIdForDrum:drumId];
-        CCLOG(@"player %d SCORES!", playerId);
+//        CCLOG(@"player %d SCORES!", playerId);
         _scores[playerId] = @(((NSNumber *) _scores[playerId]).integerValue + SCORE_FOR_EACH_HIT);
     }
 }
@@ -363,45 +363,49 @@
 }
 
 - (void)resumeButtonWasPressed:(id)sender{
-    [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
     paused = NO;
+    [[SimpleAudioEngine sharedEngine] resumeBackgroundMusic];
+    [self resumeSchedulerAndActions];
+    for(CCSprite *sprite in [self children]) {
+        [[CCActionManager sharedManager] resumeTarget:sprite];
+    }
     
-    // hide the sprite that shows the word 'Paused' from view
-    [pausedSprite runAction:[CCMoveTo actionWithDuration:0.3
-                                                position:ccp([CCDirector sharedDirector].winSize.width/2,
-                                                             [CCDirector sharedDirector].winSize.height + 700)]];
-    // hide the paued menu from view
-    [pausedMenu runAction:[CCMoveTo actionWithDuration:0.3
-                                              position:ccp([CCDirector sharedDirector].winSize.width/2,
-                                                           [CCDirector sharedDirector].winSize.height + 700)]];
+    [pausedSprite runAction:[CCPlace actionWithPosition:ccp([CCDirector sharedDirector].winSize.width/2,
+                                                            [CCDirector sharedDirector].winSize.height + 700)]];
+    
+    
+    [pausedMenu runAction:[CCPlace actionWithPosition:ccp([CCDirector sharedDirector].winSize.width/2,
+                                                          [CCDirector sharedDirector].winSize.height + 700)]];
     
 }
 
 - (void)pauseButtonWasPressed:(id)sender {
-    [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
     paused = YES;
     
-    [pausedSprite runAction:[CCMoveTo actionWithDuration:0.3
-                                                position:ccp([CCDirector sharedDirector].winSize.width/2,
-                                                             [CCDirector sharedDirector].winSize.height/2)]];
+    [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
+    [self pauseSchedulerAndActions];
+    for(CCSprite *sprite in [self children]) {
+        [[CCActionManager sharedManager] pauseTarget:sprite];
+    }
+    
+    [pausedSprite runAction:[CCPlace actionWithPosition:ccp([CCDirector sharedDirector].winSize.width/2, [CCDirector sharedDirector].winSize.height/2)]];
+    
     KaboomGameData *data = [KaboomGameData sharedData];
     
     if (data.player == PLAYER_SINGLE) {
-        [pausedMenu runAction:[CCMoveTo actionWithDuration:0.3
-                                                  position:ccp([CCDirector sharedDirector].winSize.width/2 - 100,
-                                                               [CCDirector sharedDirector].winSize.height/2)]];
+        [pausedMenu runAction:[CCPlace actionWithPosition:ccp([CCDirector sharedDirector].winSize.width/2 - 100,
+                                                              [CCDirector sharedDirector].winSize.height/2)]];
     }
     else if (data.player == PLAYER_TWO) {
-        [pausedMenu runAction:[CCMoveTo actionWithDuration:0.3
-                                                  position:ccp([CCDirector sharedDirector].winSize.width/2,
-                                                               [CCDirector sharedDirector].winSize.height/2 - 150)]];
+        [pausedMenu runAction:[CCPlace actionWithPosition:ccp([CCDirector sharedDirector].winSize.width/2,
+                                                              [CCDirector sharedDirector].winSize.height/2 - 150)]];
     }
+
     
 }
 - (void)createPauseButton {
     
     // create sprite for the pause button
-
     pauseButton = [CCSprite spriteWithFile:@"startp.png"];    // horizonal or vertical
     
     // create menu item for the pause button from the pause sprite
@@ -480,8 +484,7 @@
         
         // add the Paused sprite and menu to the current layer
         [self addChild:pausedSprite z:100];
-        [self addChild:pausedMenu z:100];
-    }
+        [self addChild:pausedMenu z:100];    }
 }
 
 
