@@ -21,7 +21,15 @@
         return ONE_STAR;
     } else {
         return ZERO_STAR;
-    }
+    }    
+}
+
++ (CGFloat)distanceBetween:(CGPoint)p1 and:(CGPoint)p2
+{
+    CGFloat xDist = (p2.x - p1.x);
+    CGFloat yDist = (p2.y - p1.y);
+    CGFloat distance = sqrt((xDist * xDist) + (yDist * yDist));
+    return distance;
 }
 
 @end

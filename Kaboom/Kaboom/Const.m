@@ -16,6 +16,21 @@
 #define kDrumHitRectWidth 130
 #define kDrumHitRectHeight 130
 
+const int TouchPriorityDrumSprite         = -50;
+const int TouchPriorityDrumLayer          = -40;
+const int TouchPriorityDrumEffectSprite   = -10;
+const int TouchPriorityDrumSelectionLayer = 0;
+const int TouchPriorityStartButton        = 10;
+
+NSString * const DrumKey_ONE            = @"DrumKey_ONE";
+NSString * const DrumKey_LEFT           = @"DrumKey_LEFT";
+NSString * const DrumKey_RIGHT          = @"DrumKey_RIGHT";
+NSString * const DrumKey_LEFT_TOP       = @"DrumKey_LEFT_TOP";
+NSString * const DrumKey_RIGHT_TOP      = @"DrumKey_RIGHT_TOP";
+NSString * const DrumKey_RIGHT_BOTTOM   = @"DrumKey_RIGHT_BOTTOM";
+NSString * const DrumKey_LEFT_BOTTOM    = @"DrumKey_LEFT_BOTTOM";
+
+
 @implementation Const
 
 + (NSArray *) getDrumHitRects
@@ -74,6 +89,31 @@
     }
     
     return ccp(-1, -1);
+}
+
++ (NSArray *)getAllDrumBasePoints
+{
+    CGSize size = [[CCDirector sharedDirector] winSize];
+    KaboomGameData *data = [KaboomGameData sharedData];
+    
+    if (data.mode == MODE_ONE_DRUM) {
+        return [NSArray arrayWithObject:[NSValue valueWithCGPoint:ccp(size.width / 2, 0)]];
+        
+    } else if (data.mode == MODE_TWO_DRUM) {
+        return [NSArray arrayWithObjects:[NSValue valueWithCGPoint:ccp(0, size.height / 2)],
+                                         [NSValue valueWithCGPoint:ccp(size.width, size.height / 2)],
+                                         nil];
+    
+    } else {
+        return [NSArray arrayWithObjects:[NSValue valueWithCGPoint:ccp(0, size.height)],
+                                         [NSValue valueWithCGPoint:ccp(size.width, size.height)],
+                                         [NSValue valueWithCGPoint:ccp(size.width, 0)],
+                                         [NSValue valueWithCGPoint:ccp(0, 0)],
+                                         nil];
+    
+    }
+    
+    return nil;
 }
 
 + (int)playerIdForDrum:(int)drumId

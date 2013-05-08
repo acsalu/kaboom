@@ -7,6 +7,7 @@
 //
 
 #import "DrumEffectSprite.h"
+#import "Const.h"
 
 @implementation DrumEffectSprite
 
@@ -14,7 +15,7 @@
 {
     [super onEnter];
     _touchTracks = [[NSMutableDictionary alloc] init];
-    [[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:-10 swallowsTouches:YES];
+    [[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:TouchPriorityDrumEffectSprite swallowsTouches:YES];
 }
 
 - (void)onExit

@@ -11,7 +11,6 @@
 #import "SimpleAudioEngine.h"
 #import "Const.h"
 #import "SongSelectionLayer.h"
-#import "CCTouchDispatcher.h"
 #import "DrumEffectSprite.h"
 
 
@@ -55,7 +54,7 @@
         CCSprite *startBackground = [CCSprite spriteWithFile:@"start_lightBack.png"];
         startBackground.position = center;
         
-        CCSprite *drum = [data drumSprite];
+        CCLayer *drumLayer = [data drumLayer];
         
         CCMenuItem *startMenuItem = [CCMenuItemImage itemWithNormalImage:@"start_light.png" selectedImage:@"start_dark.png" block:^(id sender) {
             [[CCDirector sharedDirector] replaceScene:[SongSelectionLayer scene]];
@@ -106,7 +105,7 @@
         [self addChild:background];
         [self addChild:startBackground];
         [self addChild:startMenu];
-        [self addChild:drum];
+        [self addChild:drumLayer];
         [self addChild:d1];
         [self addChild:d2];
         [self addChild:d3];
@@ -120,15 +119,15 @@
         
         NSString *defaultDrumEffect = @"d1.mp3";
         if (data.mode == MODE_ONE_DRUM) {
-            [data.drumEffect setObject:defaultDrumEffect forKey:@"ONE"];
+            [data.drumEffect setObject:defaultDrumEffect forKey:DrumKey_ONE];
         } else if (data.mode == MODE_TWO_DRUM) {
-            [data.drumEffect setObject:defaultDrumEffect forKey:@"TWO_LEFT"];
-            [data.drumEffect setObject:defaultDrumEffect forKey:@"TWO_RIGHT"];
+            [data.drumEffect setObject:defaultDrumEffect forKey:DrumKey_LEFT];
+            [data.drumEffect setObject:defaultDrumEffect forKey:DrumKey_RIGHT];
         } else if (data.mode == MODE_FOUR_DRUM) {
-            [data.drumEffect setObject:defaultDrumEffect forKey:@"TWO_LEFT_TOP"];
-            [data.drumEffect setObject:defaultDrumEffect forKey:@"TWO_LEFT_BOTTOM"];
-            [data.drumEffect setObject:defaultDrumEffect forKey:@"TWO_RIGHT_TOP"];
-            [data.drumEffect setObject:defaultDrumEffect forKey:@"TWO_RIGHT_BOTTOM"];
+            [data.drumEffect setObject:defaultDrumEffect forKey:DrumKey_LEFT_TOP];
+            [data.drumEffect setObject:defaultDrumEffect forKey:DrumKey_RIGHT_TOP];
+            [data.drumEffect setObject:defaultDrumEffect forKey:DrumKey_RIGHT_BOTTOM];
+            [data.drumEffect setObject:defaultDrumEffect forKey:DrumKey_LEFT_BOTTOM];
         }
 	}
 	return self;
@@ -136,14 +135,14 @@
 
 - (void)registerWithTouchDispatcher
 {
-    [[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:NO];
+    [[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:TouchPriorityDrumSelectionLayer swallowsTouches:NO];
 }
 
 - (void)onEnter
 {
     [super onEnter];
     CCMenu *menu = (CCMenu *)[self getChildByTag:START_MENU_TAG];
-    [[[CCDirector sharedDirector] touchDispatcher] setPriority:10 forDelegate:menu];
+    [[[CCDirector sharedDirector] touchDispatcher] setPriority:TouchPriorityStartButton forDelegate:menu];
 }
 
 - (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
@@ -225,37 +224,37 @@
     if (data.mode == MODE_ONE_DRUM) {
         CGPoint drumCenter = ccp(size.width / 2, 0);
         if ([self distanceBetween:location and:drumCenter] < kDrumEffectiveRadius) {
-            [data.drumEffect setObject:currentDrumEffect forKey:@"ONE"];
+            [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_ONE];
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
         }
     } else if (data.mode == MODE_TWO_DRUM) {
         CGPoint leftDrumCenter = ccp(0, size.height / 2);
         CGPoint rightDrumCenter = ccp(size.width, size.height / 2);
         if ([self distanceBetween:location and:leftDrumCenter] < kDrumEffectiveRadius) {
-            [data.drumEffect setObject:currentDrumEffect forKey:@"TWO_LEFT"];
+            [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_LEFT];
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
             
         } else if ([self distanceBetween:location and:rightDrumCenter] < kDrumEffectiveRadius) {
-            [data.drumEffect setObject:currentDrumEffect forKey:@"TWO_RIGHT"];
+            [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_RIGHT];
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
         }
         
     } else if (data.mode == MODE_FOUR_DRUM) {
-        CGPoint leftTopDrumCenter = ccp(0, 0);
-        CGPoint leftBottomDrumCenter = ccp(0, size.height);
-        CGPoint rightTopDrumCenter = ccp(size.width, 0);
-        CGPoint rightBottomDrumCenter = ccp(size.width, size.height);
+        CGPoint leftTopDrumCenter = ccp(0, size.height);
+        CGPoint rightTopDrumCenter = ccp(size.width, size.height);
+        CGPoint rightBottomDrumCenter = ccp(size.width, 0);
+        CGPoint leftBottomDrumCenter = ccp(0, 0);
         if ([self distanceBetween:location and:leftTopDrumCenter] < kDrumEffectiveRadius) {
-            [data.drumEffect setObject:currentDrumEffect forKey:@"TWO_LEFT_TOP"];
-            [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
-        } else if ([self distanceBetween:location and:leftBottomDrumCenter] < kDrumEffectiveRadius) {
-            [data.drumEffect setObject:currentDrumEffect forKey:@"TWO_LEFT_BOTTOM"];
+            [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_LEFT_TOP];
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
         } else if ([self distanceBetween:location and:rightTopDrumCenter] < kDrumEffectiveRadius) {
-            [data.drumEffect setObject:currentDrumEffect forKey:@"TWO_RIGHT_TOP"];
+            [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_RIGHT_TOP];
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
         } else if ([self distanceBetween:location and:rightBottomDrumCenter] < kDrumEffectiveRadius) {
-            [data.drumEffect setObject:currentDrumEffect forKey:@"TWO_RIGHT_BOTTOM"];
+            [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_RIGHT_BOTTOM];
+            [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
+        } else if ([self distanceBetween:location and:leftBottomDrumCenter] < kDrumEffectiveRadius) {
+            [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_LEFT_BOTTOM];
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
         }
     }

@@ -28,7 +28,9 @@ typedef enum player PLAYER;
 
 + (KaboomGameData *)sharedData;
 - (CCSprite *)drumSprite;
+- (CCLayer *)drumLayer;
 - (BOOL) allDrumsAreSet;
+
 
 @property (nonatomic) MODE mode;
 @property (nonatomic) PLAYER player;

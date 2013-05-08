@@ -2,21 +2,16 @@
 //  DrumLayer.h
 //  Kaboom
 //
-//  Created by Acsa Lu on 4/23/13.
+//  Created by LCR on 5/8/13.
 //  Copyright 2013 __MyCompanyName__. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@protocol DrumLayerDelegate <NSObject>
+@interface DrumLayer : CCLayer <CCTargetedTouchDelegate>
 
-@optional
-
-@end
-
-@interface DrumLayer : CCLayer {
-    
-}
+@property (strong, nonatomic) NSArray *hitRects;
+@property (strong, nonatomic) NSMutableArray *noteQueue;
 
 @end
