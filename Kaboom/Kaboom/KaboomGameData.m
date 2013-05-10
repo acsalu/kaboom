@@ -7,7 +7,7 @@
 //
 
 #import "KaboomGameData.h"
-#import "DrumLayer.h"
+
 
 @implementation KaboomGameData
 
@@ -34,9 +34,13 @@
     return self;
 }
 
-- (CCLayer *)drumLayer
+- (DrumLayer *)drumLayer
 {
-    DrumLayer *drumLayer = [DrumLayer node];
+    static DrumLayer *drumLayer;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        drumLayer = [DrumLayer node];
+    });
     return drumLayer;
 }
 

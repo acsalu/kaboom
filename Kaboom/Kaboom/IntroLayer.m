@@ -40,8 +40,12 @@
 	[self addChild: background];
 	
 	// In one second transition to the new scene
-//	[self scheduleOnce:@selector(makeTransition:) delay:0];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.1 scene:[MainScreenLayer scene] withColor:ccWHITE]];
+	
+//    [self scheduleOnce:@selector(makeTransition:) delay:0];
+
+//    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.1 scene:[MainScreenLayer scene] withColor:ccWHITE]];
+    [[CCDirector sharedDirector] replaceScene:[MainScreenLayer scene]];
+    
 }
 
 -(void) makeTransition:(ccTime)dt
@@ -49,4 +53,5 @@
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.1 scene:[MainScreenLayer scene] withColor:ccWHITE]];
     [self unschedule:@selector(makeTransition:)];
 }
+
 @end

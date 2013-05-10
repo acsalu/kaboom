@@ -12,6 +12,7 @@
 #import "Const.h"
 #import "SongSelectionLayer.h"
 #import "DrumEffectSprite.h"
+#import "DrumLayer.h"
 
 
 #define ONE_DRUM_OFFST_Y 100
@@ -21,6 +22,7 @@
 
 #define START_MENU_TAG 0
 #define START_ITEM_TAG 1
+#define DRUM_LAYER_TAG 2
 
 @implementation DrumSelectionLayer
 
@@ -54,10 +56,11 @@
         CCSprite *startBackground = [CCSprite spriteWithFile:@"start_lightBack.png"];
         startBackground.position = center;
         
-        CCLayer *drumLayer = [data drumLayer];
+        DrumLayer *drumLayer = [data drumLayer];
+        drumLayer.tag = DRUM_LAYER_TAG;
         
         CCMenuItem *startMenuItem = [CCMenuItemImage itemWithNormalImage:@"start_light.png" selectedImage:@"start_dark.png" block:^(id sender) {
-            [[CCDirector sharedDirector] replaceScene:[SongSelectionLayer scene]];
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[SongSelectionLayer scene]]];
         }];
         
         
@@ -220,7 +223,12 @@
 {
     KaboomGameData *data = [KaboomGameData sharedData];
     CGSize size = [[CCDirector sharedDirector] winSize];
+    NSString *currentDrum = [NSString stringWithFormat:@"drum_4_%d.png", drumIndex];
+    CCTexture2D *currentDrumTexture = [[CCTextureCache sharedTextureCache] addImage:currentDrum];
     NSString *currentDrumEffect = [NSString stringWithFormat:@"d%d.mp3", drumIndex];
+    
+    DrumLayer *drumLayer = (DrumLayer *)[self getChildByTag:DRUM_LAYER_TAG];
+    
     if (data.mode == MODE_ONE_DRUM) {
         CGPoint drumCenter = ccp(size.width / 2, 0);
         if ([self distanceBetween:location and:drumCenter] < kDrumEffectiveRadius) {
@@ -247,15 +255,19 @@
         if ([self distanceBetween:location and:leftTopDrumCenter] < kDrumEffectiveRadius) {
             [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_LEFT_TOP];
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
+            [[drumLayer.drums objectForKey:DrumKey_LEFT_TOP] setTexture:currentDrumTexture];
         } else if ([self distanceBetween:location and:rightTopDrumCenter] < kDrumEffectiveRadius) {
             [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_RIGHT_TOP];
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
+            [[drumLayer.drums objectForKey:DrumKey_RIGHT_TOP] setTexture:currentDrumTexture];
         } else if ([self distanceBetween:location and:rightBottomDrumCenter] < kDrumEffectiveRadius) {
             [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_RIGHT_BOTTOM];
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
+            [[drumLayer.drums objectForKey:DrumKey_RIGHT_BOTTOM] setTexture:currentDrumTexture];
         } else if ([self distanceBetween:location and:leftBottomDrumCenter] < kDrumEffectiveRadius) {
             [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_LEFT_BOTTOM];
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
+            [[drumLayer.drums objectForKey:DrumKey_LEFT_BOTTOM] setTexture:currentDrumTexture];
         }
     }
 }

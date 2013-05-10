@@ -8,10 +8,23 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
+#import "DrumSprite.h"
 
-@interface DrumLayer : CCLayer <CCTargetedTouchDelegate>
 
-@property (strong, nonatomic) NSArray *hitRects;
-@property (strong, nonatomic) NSMutableArray *noteQueue;
+@protocol DrumLayerScorekeeperDelegate <NSObject>
+
+@required
+- (void)addScore:(int)score toDrum:(NSString *)drumKey;
+
+
+@end
+
+
+@interface DrumLayer : CCLayer <CCTargetedTouchDelegate, DrumSpriteDelegate>
+
+@property (strong, nonatomic) NSMutableDictionary *drums;
+@property (weak, nonatomic) id<DrumLayerScorekeeperDelegate> delegate;
+
+- (void)addNote:(CCSprite *)note ToDrum:(NSString *)drumKey WithActionSequence:(CCSequence *)sequence;
 
 @end

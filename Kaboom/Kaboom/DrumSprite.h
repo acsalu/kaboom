@@ -9,10 +9,24 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
+extern const int SCORE_DISTANCE_LOWER_BOUND;
+extern const int SCORE_DISTANCE_HIGHER_BOUND;
+
+@protocol DrumSpriteDelegate <NSObject>
+
+@required
+- (void)drum:(NSString *)drumKey Hit:(CCSprite *)note andGetScore:(int)score;
+
+@end
+
+
 @interface DrumSprite : CCSprite <CCTargetedTouchDelegate>
 
+@property (weak, nonatomic) id<DrumSpriteDelegate> delegate;
+
 @property (strong, nonatomic) NSValue *hitRect;
-@property (strong, nonatomic) NSString *effectKey;
+@property (strong, nonatomic) NSString *drumKey;
 @property (strong, nonatomic) NSMutableDictionary *effectDict;
+@property (strong, nonatomic) NSMutableArray *noteQueue;
 
 @end

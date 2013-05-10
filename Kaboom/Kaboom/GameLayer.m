@@ -14,8 +14,7 @@
 #import "ShowResultLayer.h"
 #import "SongSelectionLayer.h"
 
-#define SCORE_DISTANCE_LOWER_BOUND 150
-#define SCORE_DISTANCE_HIGHER_BOUND 200
+
 
 #define SCORE_FOR_EACH_HIT 1
 
@@ -34,41 +33,46 @@
 - (id)init
 {
     if( (self=[super init]) ) {
-        _noteQueue = [NSMutableArray array];
+        self.isTouchEnabled = YES;
+        
+		CGSize size = [[CCDirector sharedDirector] winSize];
+        
         KaboomGameData *data = [KaboomGameData sharedData];
-        data.mode = MODE_FOUR_DRUM;
-        switch (data.mode) {
-            case MODE_ONE_DRUM:
-                [_noteQueue addObjectsFromArray:@[[NSMutableArray array], [NSMutableArray array]]];
-                break;
-            case MODE_TWO_DRUM:
-                [_noteQueue addObjectsFromArray:@[[NSMutableArray array], [NSMutableArray array]]];
-                break;
-            case MODE_FOUR_DRUM:
-                [_noteQueue addObjectsFromArray:@[[NSMutableArray array], [NSMutableArray array], [NSMutableArray array], [NSMutableArray array]]];
-                break;
-            default:
-                break;
-        }
+//        data.mode = MODE_FOUR_DRUM;
+//        switch (data.mode) {
+//            case MODE_ONE_DRUM:
+//                [_noteQueue addObjectsFromArray:@[[NSMutableArray array], [NSMutableArray array]]];
+//                break;
+//            case MODE_TWO_DRUM:
+//                [_noteQueue addObjectsFromArray:@[[NSMutableArray array], [NSMutableArray array]]];
+//                break;
+//            case MODE_FOUR_DRUM:
+//                [_noteQueue addObjectsFromArray:@[[NSMutableArray array], [NSMutableArray array], [NSMutableArray array], [NSMutableArray array]]];
+//                break;
+//            default:
+//                break;
+//        }
         
         _scores = [NSMutableArray arrayWithCapacity:data.player];
         for (int i = 0; i < data.player; ++i) _scores[i] = @(0);
         
-        _hitRects = [Const getDrumHitRects];
-        for (NSValue *rectValue in _hitRects) {
-            CGRect rect = [rectValue CGRectValue];
-            NSLog(@"rect (%.0f, %.0f)(%.0f, %.0f)", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
-        }
+//        _hitRects = [Const getDrumHitRects];
+//        for (NSValue *rectValue in _hitRects) {
+//            CGRect rect = [rectValue CGRectValue];
+//            NSLog(@"rect (%.0f, %.0f)(%.0f, %.0f)", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+//        }
         
-        self.isTouchEnabled = YES;
         
-		CGSize size = [[CCDirector sharedDirector] winSize];
+
         
         
         CCSprite *background = (data.player == PLAYER_SINGLE) ? [CCSprite spriteWithFile:@"background3-landscape.png"] : [CCSprite spriteWithFile:@"background3-portrait.png"];
         background.position = ccp(size.width * 1 / 2, size.height / 2);
         
-        CCSprite *drum = [data drumSprite];
+//        CCSprite *drum = [data drumSprite];
+        DrumLayer *drumLayer = [data drumLayer];
+        drumLayer.delegate = self;
+        _drumLayer = drumLayer;
         
         [self createPauseButton];
         [self createPausedMenu];
@@ -80,7 +84,8 @@
         sourcedot.position = ccp(size.width / 2, size.height / 2);
         
         [self addChild:background];
-        [self addChild:drum];
+//        [self addChild:drum];
+        [self addChild:drumLayer];
         [self addChild:sourcedot];
         
         _song = [Song newSong];
@@ -124,7 +129,6 @@
     }
 }
 
-
 - (void)fire:(ccTime)delta
 {
     [self unschedule:@selector(fire:)];
@@ -137,21 +141,21 @@
     CGSize size = [[CCDirector sharedDirector] winSize];
     for (NSNumber *note in _song.melody[_song.currentIdx][@"notes"]) {
 //        CCLOG(@"%@", [Song noteTypeString:note.intValue]);
-        
+
         if (note.intValue != NOTE_TYPE_REST) {
             CGPoint destinationPointP1;
             CGPoint destinationPointP2;
             NSMutableArray *queue1;
             NSMutableArray *queue2;
-            
+
             CGPoint p0 = ccp(size.width * 0.07, size.height * 0.93);
             CGPoint p1 = ccp(size.width * 0.93, size.height * 0.93);
             CGPoint p2 = ccp(size.width * 0.93, size.height * 0.07);
             CGPoint p3 = ccp(size.width * 0.07, size.height * 0.07);
-            
+
             CGPoint startingPointP1 = ccp(size.width / 2, size.height / 2);
             CGPoint startingPointP2 = ccp(size.width / 2, size.height / 2);
-            
+
             switch (note.intValue) {
                 case NOTE_TYPE_REST:
                     return;
@@ -173,34 +177,34 @@
                     startingPointP1 = p0;
                     destinationPointP1 = p3;
                     queue1 = _noteQueue[3];
-                    
+
                     startingPointP2 = p2;
                     destinationPointP2 = p1;
                     queue2 = _noteQueue[1];
                     break;
-                
+
                 case NOTE_TYPE_BOUNCE_RL2:
                     startingPointP1 = p3;
                     destinationPointP1 = p0;
                     queue1 = _noteQueue[0];
-                    
+
                     startingPointP2 = p1;
                     destinationPointP2 = p2;
                     queue2 = _noteQueue[2];
                     break;
-                
+
                 case  NOTE_TYPE_CLAP:
                     destinationPointP1 = ccp(0, size.height / 2);
                     destinationPointP2 = ccp(size.width, size.height / 2);
                     break;
-                
+
                 default:
                     break;
             }
-            
-            
+
+
         id callback = [CCCallFuncN actionWithTarget:self selector:@selector(removeNote:)];
-            
+
         NoteType type = note.intValue;
         ccTime duration = (type == NOTE_TYPE_BOUNCE_LR2 || type == NOTE_TYPE_BOUNCE_RL2) ?
                                 _song.interval / 2 : _song.interval * 2;
@@ -208,20 +212,20 @@
         if (type == NOTE_TYPE_BOUNCE_LR1 || type == NOTE_TYPE_BOUNCE_LR2) {
             note1 = [CCSprite spriteWithFile:@"notedot-arrow-L2R.png"];
             note1.rotation = 90;
-            
+
             note2 = [CCSprite spriteWithFile:@"notedot-arrow-L2R.png"];
             note2.rotation = -90;
         } else if (type == NOTE_TYPE_BOUNCE_RL1 || type == NOTE_TYPE_BOUNCE_RL2) {
             note1 = [CCSprite spriteWithFile:@"notedot-arrow-R2L.png"];
             note1.rotation = 90;
-            
+
             note2 = [CCSprite spriteWithFile:@"notedot-arrow-R2L.png"];
             note2.rotation = -90;
         } else {
             note1 = [CCSprite spriteWithFile:@"notedot.png"];
             note2 = [CCSprite spriteWithFile:@"notedot.png"];
         }
-            
+
         CCSequence *sequence1 = [CCSequence actions:
                                  [CCMoveTo actionWithDuration:duration position:destinationPointP1],
                                  callback, nil];
@@ -230,8 +234,8 @@
         [self addChild:note1];
         [note1 runAction:sequence1];
         [queue1 addObject:note1];
-            
-            
+
+
         CCSequence *sequence2 = [CCSequence actions:
                                  [CCMoveTo actionWithDuration:duration position:destinationPointP2],
                                  callback, nil];
@@ -245,9 +249,130 @@
     [self startGameLoop];
 }
 
+
+
+//- (void)fire:(ccTime)delta
+//{
+//    [self unschedule:@selector(fire:)];
+//    if (_song.currentIdx == _song.melody.count) {
+//        [self schedule:@selector(showScore:) interval:1.0f];
+//        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+//        return;
+//    }
+////    CCLOG(@"%d", _song.currentIdx);
+//    CGSize size = [[CCDirector sharedDirector] winSize];
+//    for (NSNumber *note in _song.melody[_song.currentIdx][@"notes"]) {
+////        CCLOG(@"%@", [Song noteTypeString:note.intValue]);
+//        
+//        if (note.intValue != NOTE_TYPE_REST) {
+//            CGPoint destinationPointP1;
+//            CGPoint destinationPointP2;
+//            NSMutableArray *queue1;
+//            NSMutableArray *queue2;
+//            
+//            CGPoint p0 = ccp(size.width * 0.07, size.height * 0.93);
+//            CGPoint p1 = ccp(size.width * 0.93, size.height * 0.93);
+//            CGPoint p2 = ccp(size.width * 0.93, size.height * 0.07);
+//            CGPoint p3 = ccp(size.width * 0.07, size.height * 0.07);
+//            
+//            CGPoint startingPointP1 = ccp(size.width / 2, size.height / 2);
+//            CGPoint startingPointP2 = ccp(size.width / 2, size.height / 2);
+//            
+//            switch (note.intValue) {
+//                case NOTE_TYPE_REST:
+//                    return;
+//                case NOTE_TYPE_LEFT:
+//                case NOTE_TYPE_BOUNCE_LR1:
+//                    destinationPointP1 = p0;
+//                    destinationPointP2 = p2;
+//                    queue1 = _noteQueue[0];
+//                    queue2 = _noteQueue[2];
+//                    break;
+//                case NOTE_TYPE_RIGHT:
+//                case NOTE_TYPE_BOUNCE_RL1:
+//                    destinationPointP1 = p3;
+//                    destinationPointP2 = p1;
+//                    queue1 = _noteQueue[3];
+//                    queue2 = _noteQueue[1];
+//                    break;
+//                case NOTE_TYPE_BOUNCE_LR2:
+//                    startingPointP1 = p0;
+//                    destinationPointP1 = p3;
+//                    queue1 = _noteQueue[3];
+//                    
+//                    startingPointP2 = p2;
+//                    destinationPointP2 = p1;
+//                    queue2 = _noteQueue[1];
+//                    break;
+//                
+//                case NOTE_TYPE_BOUNCE_RL2:
+//                    startingPointP1 = p3;
+//                    destinationPointP1 = p0;
+//                    queue1 = _noteQueue[0];
+//                    
+//                    startingPointP2 = p1;
+//                    destinationPointP2 = p2;
+//                    queue2 = _noteQueue[2];
+//                    break;
+//                
+//                case  NOTE_TYPE_CLAP:
+//                    destinationPointP1 = ccp(0, size.height / 2);
+//                    destinationPointP2 = ccp(size.width, size.height / 2);
+//                    break;
+//                
+//                default:
+//                    break;
+//            }
+//            
+//            
+//        id callback = [CCCallFuncN actionWithTarget:self selector:@selector(removeNote:)];
+//            
+//        NoteType type = note.intValue;
+//        ccTime duration = (type == NOTE_TYPE_BOUNCE_LR2 || type == NOTE_TYPE_BOUNCE_RL2) ?
+//                                _song.interval / 2 : _song.interval * 2;
+//        CCSprite *note1, *note2;
+//        if (type == NOTE_TYPE_BOUNCE_LR1 || type == NOTE_TYPE_BOUNCE_LR2) {
+//            note1 = [CCSprite spriteWithFile:@"notedot-arrow-L2R.png"];
+//            note1.rotation = 90;
+//            
+//            note2 = [CCSprite spriteWithFile:@"notedot-arrow-L2R.png"];
+//            note2.rotation = -90;
+//        } else if (type == NOTE_TYPE_BOUNCE_RL1 || type == NOTE_TYPE_BOUNCE_RL2) {
+//            note1 = [CCSprite spriteWithFile:@"notedot-arrow-R2L.png"];
+//            note1.rotation = 90;
+//            
+//            note2 = [CCSprite spriteWithFile:@"notedot-arrow-R2L.png"];
+//            note2.rotation = -90;
+//        } else {
+//            note1 = [CCSprite spriteWithFile:@"notedot.png"];
+//            note2 = [CCSprite spriteWithFile:@"notedot.png"];
+//        }
+//            
+//        CCSequence *sequence1 = [CCSequence actions:
+//                                 [CCMoveTo actionWithDuration:duration position:destinationPointP1],
+//                                 callback, nil];
+//
+//        note1.position = startingPointP1;
+//        [self addChild:note1];
+//        [note1 runAction:sequence1];
+//        [queue1 addObject:note1];
+//            
+//            
+//        CCSequence *sequence2 = [CCSequence actions:
+//                                 [CCMoveTo actionWithDuration:duration position:destinationPointP2],
+//                                 callback, nil];
+//
+//        note2.position = startingPointP2;
+//        [self addChild:note2];
+//        [note2 runAction:sequence2];
+//        [queue2 addObject:note2];
+//
+//        }}
+//    [self startGameLoop];
+//}
+
 - (void)removeNote:(id)note
 {
-    [note stopAllActions];
     [self removeChild:note cleanup:YES];
     for (NSMutableArray *queue in _noteQueue) {
         if ([queue containsObject:note]) {
@@ -281,16 +406,10 @@
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     CCDirector* director = [CCDirector sharedDirector];
-    KaboomGameData *data = [KaboomGameData sharedData];
-    NSString *effect;
-    CCSprite *blinkSprite;
+//    KaboomGameData *data = [KaboomGameData sharedData];
     
     for (UITouch *touch in touches) {
-        id callback = [CCCallFuncN actionWithTarget:self selector:@selector(removeDrumBlink:)];
-        id scaleAction = [CCScaleTo actionWithDuration:0.2 scale:1.3];
-        id easeScaleAction = [CCEaseInOut actionWithAction:scaleAction rate:2];
-        CCSequence *sequence = [CCSequence actions:easeScaleAction, callback, nil];
-        
+
         CGPoint p = [touch locationInView:director.view];
         
         for (NSValue *rectValue in _hitRects) {
@@ -304,29 +423,6 @@
                         [self removeNote:note];
                     }
                 }
-                
-                blinkSprite = [CCSprite spriteWithFile:@"Drum_Bump_Red.png"];
-                blinkSprite.position = [Const basePointForDrum:index];
-
-                if (index == 0) {
-                    blinkSprite.rotation = 90;
-                    effect = data.drumEffect[@"TWO_LEFT_TOP"];
-                } else if (index == 1) {
-                    blinkSprite.rotation = 180;
-                    effect = data.drumEffect[@"TWO_RIGHT_TOP"];
-                } else if (index == 2) {
-                    blinkSprite.rotation = 270;
-                    effect = data.drumEffect[@"TWO_RIGHT_BOTTOM"];
-                } else if (index == 3) {
-                    effect = data.drumEffect[@"TWO_LEFT_BOTTOM"];
-                } else {
-                    NSLog(@"BUG!! FUCK YOU!!");
-                }
-                [self addChild:blinkSprite];
-                [blinkSprite runAction:sequence];
-                
-                if (effect) [[SimpleAudioEngine sharedEngine] playEffect:effect];
-                else [[SimpleAudioEngine sharedEngine] playEffect:@"d1.mp3"];
             }
         }
     }
