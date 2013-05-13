@@ -195,12 +195,6 @@
                     destinationPointP2 = p2;
                     drum2 = DrumKey_RIGHT_BOTTOM;
                     break;
-
-                case  NOTE_TYPE_CLAP:
-                    destinationPointP1 = ccp(0, size.height / 2);
-                    destinationPointP2 = ccp(size.width, size.height / 2);
-                    break;
-
                 default:
                     break;
             }
