@@ -22,9 +22,6 @@
         _drums = [[NSMutableDictionary alloc] init];
         
         [self setDrumSprites];
-        
-        // for demo
-        data.mode = MODE_FOUR_DRUM;
     }
     return self;
 }
