@@ -44,7 +44,6 @@
         CCSprite *background = (data.player == PLAYER_SINGLE) ? [CCSprite spriteWithFile:@"background3-landscape.png"] : [CCSprite spriteWithFile:@"background3-portrait.png"];
         background.position = ccp(size.width * 1 / 2, size.height / 2);
         
-        //        CCSprite *drum = [data drumSprite];
         DrumLayer *drumLayer = [data drumLayer];
         drumLayer.delegate = self;
         _drumLayer = drumLayer;
@@ -243,7 +242,7 @@
     [[SimpleAudioEngine sharedEngine] resumeBackgroundMusic];
     [self resumeSchedulerAndActions];
     for(CCSprite *sprite in [self children]) {
-        [[CCActionManager sharedManager] resumeTarget:sprite];
+        [[[CCDirector sharedDirector] actionManager] resumeTarget:sprite];
     }
     
     [pausedSprite runAction:[CCPlace actionWithPosition:ccp([CCDirector sharedDirector].winSize.width/2,
@@ -261,7 +260,7 @@
     [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
     [self pauseSchedulerAndActions];
     for(CCSprite *sprite in [self children]) {
-        [[CCActionManager sharedManager] pauseTarget:sprite];
+        [[[CCDirector sharedDirector] actionManager] pauseTarget:sprite];
     }
     
     [pausedSprite runAction:[CCPlace actionWithPosition:ccp([CCDirector sharedDirector].winSize.width/2, [CCDirector sharedDirector].winSize.height/2)]];

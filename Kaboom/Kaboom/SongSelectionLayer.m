@@ -9,6 +9,7 @@
 #import "SongSelectionLayer.h"
 #import "GameLayer.h"
 #import "KaboomGameData.h"
+#import "DrumLayer.h"
 
 @implementation SongSelectionLayer
 
@@ -46,11 +47,10 @@
         background.position = ccp(size.width * 1 / 2, size.height / 2);
         
 
-        
-        CCSprite *drum = [data drumSprite];
+        DrumLayer *drumLayer = [data drumLayer];
         
         [self addChild:background];
-        [self addChild:drum];
+        [self addChild:drumLayer];
         
         
         NSMutableArray* _layers = [[NSMutableArray alloc] init];

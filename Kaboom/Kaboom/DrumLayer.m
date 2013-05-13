@@ -18,13 +18,9 @@
 {
     if (self = [super init]) {
         
-        KaboomGameData *data = [KaboomGameData sharedData];
         _drums = [[NSMutableDictionary alloc] init];
         
         [self setDrumSprites];
-        
-        // for demo
-        data.mode = MODE_FOUR_DRUM;
     }
     return self;
 }
@@ -35,32 +31,32 @@
     NSArray *hitRects = [Const getDrumHitRects];
     
     if (data.mode == MODE_ONE_DRUM) {
-//        DrumSprite *drum_1 = [DrumSprite spriteWithFile:@""];
-//        drum_1.delegate = self;
-//        drum_1.position = [Const basePointForDrum:0];
-//        drum_1.rotation = ;
-//        drum_1.hitRect = hitRects[0];
-//        drum_1.drumKey = DrumKey_ONE;
-//        [_drums setObject:drum_1 forKey:DrumKey_ONE];
+        DrumSprite *drum_1 = [DrumSprite spriteWithFile:@"drum_2_1.png"];
+        drum_1.delegate = self;
+        drum_1.position = [Const basePointForDrum:0];
+        drum_1.hitRect = hitRects[0];
+        drum_1.drumKey = DrumKey_ONE;
+        [self addChild:drum_1];
+        [_drums setObject:drum_1 forKey:DrumKey_ONE];
 
     }
     else if (data.mode == MODE_TWO_DRUM) {
-//        DrumSprite *drum_1 = [DrumSprite spriteWithFile:@""];
-//        drum_1.delegate = self;
-//        drum_1.position = [Const basePointForDrum:0];
-//        drum_1.rotation = ;
-//        drum_1.hitRect = hitRects[0];
-//        drum_1.drumKey = DrumKey_LEFT;
-//        DrumSprite *drum_2 = [DrumSprite spriteWithFile:@""];
-//        drum_2.delegate = self;
-//        drum_2.position = [Const basePointForDrum:1];
-//        drum_2.rotation = ;
-//        drum_2.hitRect = hitRects[1];
-//        drum_2.drumKey = DrumKey_RIGHT;
-//        [self addChild:drum_1];
-//        [self addChild:drum_2];
-//        [_drums setObject:drum_1 forKey:DrumKey_LEFT];
-//        [_drums setObject:drum_2 forKey:DrumKey_RIGHT];
+        DrumSprite *drum_1 = [DrumSprite spriteWithFile:@"drum_2_1.png"];
+        drum_1.delegate = self;
+        drum_1.position = [Const basePointForDrum:0];
+        drum_1.rotation = 90;
+        drum_1.hitRect = hitRects[0];
+        drum_1.drumKey = DrumKey_LEFT;
+        DrumSprite *drum_2 = [DrumSprite spriteWithFile:@"drum_2_1.png"];
+        drum_2.delegate = self;
+        drum_2.position = [Const basePointForDrum:1];
+        drum_2.rotation = 270;
+        drum_2.hitRect = hitRects[1];
+        drum_2.drumKey = DrumKey_RIGHT;
+        [self addChild:drum_1];
+        [self addChild:drum_2];
+        [_drums setObject:drum_1 forKey:DrumKey_LEFT];
+        [_drums setObject:drum_2 forKey:DrumKey_RIGHT];
         
     } else {
         DrumSprite *drum_1 = [DrumSprite spriteWithFile:@"drum_4_1.png"];

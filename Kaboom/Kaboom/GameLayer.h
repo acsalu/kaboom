@@ -24,12 +24,10 @@
 
 +(CCScene *) scene;
 
-//@property (strong, nonatomic) NSArray *hitRects;
 @property (nonatomic) int count;
 @property (strong, nonatomic) CCSprite *countdownSprite;
 @property (nonatomic) bool isPause;
 @property (strong, nonatomic) Song *song;
-//@property (strong, nonatomic) NSMutableArray *noteQueue;
 @property (strong, nonatomic) NSMutableArray *scores;
 
 @property (strong, nonatomic) DrumLayer *drumLayer;

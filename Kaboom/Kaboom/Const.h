@@ -29,7 +29,7 @@ extern NSString * const DrumKey_LEFT_BOTTOM;
 
 + (NSArray *)getDrumHitRects;
 + (CGPoint)basePointForDrum:(int)drumId;
-+ (NSArray *)getAllDrumBasePoints;
++ (NSArray *)getAllPossibleBasePoints;
 + (int)playerIdForDrum:(int)drumId;
 
 @end
