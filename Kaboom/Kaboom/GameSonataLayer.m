@@ -181,10 +181,10 @@
                 CCSequence *sequence4 = [CCSequence actions:
                                          [CCMoveTo actionWithDuration:duration position:destinationPoint4], callback, nil];
 
-                [_drumLayer addNote:note1 ToDrum:DrumKey_LEFT WithActionSequence:sequence1];
-                [_drumLayer addNote:note2 ToDrum:DrumKey_RIGHT WithActionSequence:sequence2];
-                [_drumLayer addNote:note3 ToDrum:DrumKey_LEFT WithActionSequence:sequence3];
-                [_drumLayer addNote:note4 ToDrum:DrumKey_RIGHT WithActionSequence:sequence4];
+                [_drumLayer addNote:note1 ToDrum:DrumKey_LEFT_TOP WithActionSequence:sequence1];
+                [_drumLayer addNote:note2 ToDrum:DrumKey_RIGHT_TOP WithActionSequence:sequence2];
+                [_drumLayer addNote:note3 ToDrum:DrumKey_RIGHT_BOTTOM WithActionSequence:sequence3];
+                [_drumLayer addNote:note4 ToDrum:DrumKey_LEFT_BOTTOM WithActionSequence:sequence4];
             }
             
         }}
@@ -365,7 +365,7 @@
 
 - (void)addScore:(int)score toDrum:(NSString *)drumKey
 {
-    
+    CCLOG(@"[score] %d at %@", score, drumKey);
 }
 
 
