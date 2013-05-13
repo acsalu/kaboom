@@ -1,16 +1,17 @@
 //
-//  GameLayer.h
+//  GameSonataLayer.h
 //  Kaboom
 //
-//  Created by Acsa Lu on 4/9/13.
-//
+//  Created by Acsa Lu on 5/14/13.
+//  Copyright 2013 __MyCompanyName__. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "DrumLayer.h"
 
 @class Song;
-@interface GameLayer : CCLayer <DrumLayerScorekeeperDelegate>
+@interface GameSonataLayer : CCLayer <DrumLayerScorekeeperDelegate>
 {
     CCSprite *pauseButton;
     CCSprite *pausedSprite;
@@ -24,10 +25,12 @@
 
 +(CCScene *) scene;
 
+//@property (strong, nonatomic) NSArray *hitRects;
 @property (nonatomic) int count;
 @property (strong, nonatomic) CCSprite *countdownSprite;
 @property (nonatomic) bool isPause;
 @property (strong, nonatomic) Song *song;
+//@property (strong, nonatomic) NSMutableArray *noteQueue;
 @property (strong, nonatomic) NSMutableArray *scores;
 
 @property (strong, nonatomic) DrumLayer *drumLayer;

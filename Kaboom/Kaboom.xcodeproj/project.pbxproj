@@ -124,6 +124,9 @@
 		90523BF51726B672001DBCBB /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 90523BF41726B671001DBCBB /* Default-Portrait~ipad.png */; };
 		90523BF71726B678001DBCBB /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 90523BF61726B677001DBCBB /* Default-Portrait@2x~ipad.png */; };
 		909488E21740F3A40090FA8E /* time machine.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 909488E11740F3A40090FA8E /* time machine.mp3 */; };
+		909488F2174140000090FA8E /* GameLittleStarLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 909488F1174140000090FA8E /* GameLittleStarLayer.m */; };
+		909488F5174147690090FA8E /* GameSonataLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 909488F4174147690090FA8E /* GameSonataLayer.m */; };
+		909488F7174149740090FA8E /* sonata.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 909488F6174149740090FA8E /* sonata.mp3 */; };
 		90A2D4A7172860F000443567 /* notedot-arrow-R2L.png in Resources */ = {isa = PBXBuildFile; fileRef = 90A2D4A3172860F000443567 /* notedot-arrow-R2L.png */; };
 		90A2D4A8172860F000443567 /* notedot-arrow-R2L@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90A2D4A4172860F000443567 /* notedot-arrow-R2L@2x.png */; };
 		90A2D4A9172860F000443567 /* notedot-arrow-L2R@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90A2D4A5172860F000443567 /* notedot-arrow-L2R@2x.png */; };
@@ -420,6 +423,11 @@
 		90523BF41726B671001DBCBB /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
 		90523BF61726B677001DBCBB /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
 		909488E11740F3A40090FA8E /* time machine.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "time machine.mp3"; sourceTree = "<group>"; };
+		909488F0174140000090FA8E /* GameLittleStarLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameLittleStarLayer.h; path = ../GameLittleStarLayer.h; sourceTree = "<group>"; };
+		909488F1174140000090FA8E /* GameLittleStarLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameLittleStarLayer.m; path = ../GameLittleStarLayer.m; sourceTree = "<group>"; };
+		909488F3174147690090FA8E /* GameSonataLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSonataLayer.h; sourceTree = "<group>"; };
+		909488F4174147690090FA8E /* GameSonataLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameSonataLayer.m; sourceTree = "<group>"; };
+		909488F6174149740090FA8E /* sonata.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sonata.mp3; sourceTree = "<group>"; };
 		90A2D4A3172860F000443567 /* notedot-arrow-R2L.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notedot-arrow-R2L.png"; sourceTree = "<group>"; };
 		90A2D4A4172860F000443567 /* notedot-arrow-R2L@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notedot-arrow-R2L@2x.png"; sourceTree = "<group>"; };
 		90A2D4A5172860F000443567 /* notedot-arrow-L2R@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notedot-arrow-L2R@2x.png"; sourceTree = "<group>"; };
@@ -877,6 +885,7 @@
 			isa = PBXGroup;
 			children = (
 				909488E11740F3A40090FA8E /* time machine.mp3 */,
+				909488F6174149740090FA8E /* sonata.mp3 */,
 			);
 			name = Songs;
 			sourceTree = "<group>";
@@ -978,6 +987,10 @@
 				90DB8B2C171447AF00EE785D /* SongSelectionLayer.m */,
 				90DB8B2E171447BD00EE785D /* GameLayer.h */,
 				90DB8B2F171447BE00EE785D /* GameLayer.m */,
+				909488F0174140000090FA8E /* GameLittleStarLayer.h */,
+				909488F1174140000090FA8E /* GameLittleStarLayer.m */,
+				909488F3174147690090FA8E /* GameSonataLayer.h */,
+				909488F4174147690090FA8E /* GameSonataLayer.m */,
 				90ED82281728127800710FC9 /* ShowResultLayer.h */,
 				90ED82291728127800710FC9 /* ShowResultLayer.m */,
 				90C1505616F6C96A00DFF0ED /* IntroLayer.h */,
@@ -1654,6 +1667,7 @@
 				0F199B891740D5EC00C6AF17 /* notedot_red.png in Resources */,
 				0F199B8A1740D5EC00C6AF17 /* notedot_red@2x.png in Resources */,
 				909488E21740F3A40090FA8E /* time machine.mp3 in Resources */,
+				909488F7174149740090FA8E /* sonata.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1682,6 +1696,8 @@
 				900398D117284815007A5C7B /* CCScrollLayer.m in Sources */,
 				9003990A172848DF007A5C7B /* FGScrollLayer.m in Sources */,
 				0FAC3A5D173A69F70018EF8D /* DrumSprite.m in Sources */,
+				909488F2174140000090FA8E /* GameLittleStarLayer.m in Sources */,
+				909488F5174147690090FA8E /* GameSonataLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

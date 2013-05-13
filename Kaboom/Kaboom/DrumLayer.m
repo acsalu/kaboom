@@ -18,7 +18,6 @@
 {
     if (self = [super init]) {
         
-        KaboomGameData *data = [KaboomGameData sharedData];
         _drums = [[NSMutableDictionary alloc] init];
         
         [self setDrumSprites];
@@ -35,9 +34,9 @@
         DrumSprite *drum_1 = [DrumSprite spriteWithFile:@"drum_2_1.png"];
         drum_1.delegate = self;
         drum_1.position = [Const basePointForDrum:0];
-//        drum_1.rotation = ;
         drum_1.hitRect = hitRects[0];
         drum_1.drumKey = DrumKey_ONE;
+        [self addChild:drum_1];
         [_drums setObject:drum_1 forKey:DrumKey_ONE];
 
     }

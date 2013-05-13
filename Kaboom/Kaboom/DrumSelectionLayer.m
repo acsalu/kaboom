@@ -51,7 +51,6 @@
         background.position = ccp(size.width / 2, size.height / 2);
         
         CCSprite *startBackground = [CCSprite spriteWithFile:@"start_lightBack.png"];
-        startBackground.position = center;
         
         DrumLayer *drumLayer = [data drumLayer];
         drumLayer.tag = DRUM_LAYER_TAG;
@@ -72,9 +71,9 @@
         startMenu.tag = START_MENU_TAG;
         
         if (data.mode == MODE_ONE_DRUM)
-            startMenu.position = ccp(size.width / 2, size.height / 2 + ONE_DRUM_OFFST_Y);
+            startBackground.position = startMenu.position = ccp(size.width / 2, size.height / 2 + ONE_DRUM_OFFST_Y);
         else
-            startMenu.position = center;
+            startBackground.position = startMenu.position = center;
         
         _initialLocations = @[[NSValue valueWithCGPoint:ccp(startMenu.position.x + SIDE_DRUM_DIFF_X, startMenu.position.y - SIDE_DRUM_DIFF_Y)],
                               [NSValue valueWithCGPoint:ccp(startMenu.position.x + SIDE_DRUM_DIFF_X, startMenu.position.y + SIDE_DRUM_DIFF_Y)],
