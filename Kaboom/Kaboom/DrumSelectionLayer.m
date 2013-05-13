@@ -219,13 +219,13 @@
 {
     KaboomGameData *data = [KaboomGameData sharedData];
     CGSize size = [[CCDirector sharedDirector] winSize];
-    NSString *currentDrum = [NSString stringWithFormat:@"drum_4_%d.png", drumIndex];
-    CCTexture2D *currentDrumTexture = [[CCTextureCache sharedTextureCache] addImage:currentDrum];
     NSString *currentDrumEffect = [NSString stringWithFormat:@"d%d.mp3", drumIndex];
     
     DrumLayer *drumLayer = (DrumLayer *)[self getChildByTag:DRUM_LAYER_TAG];
     
     if (data.mode == MODE_ONE_DRUM) {
+        NSString *currentDrum = [NSString stringWithFormat:@"drum_2_%d.png", drumIndex];
+        CCTexture2D *currentDrumTexture = [[CCTextureCache sharedTextureCache] addImage:currentDrum];
         CGPoint drumCenter = ccp(size.width / 2, 0);
         if ([self distanceBetween:location and:drumCenter] < kDrumEffectiveRadius) {
             [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_ONE];
@@ -233,6 +233,8 @@
             [[drumLayer.drums objectForKey:DrumKey_ONE] setTexture:currentDrumTexture];
         }
     } else if (data.mode == MODE_TWO_DRUM) {
+        NSString *currentDrum = [NSString stringWithFormat:@"drum_2_%d.png", drumIndex];
+        CCTexture2D *currentDrumTexture = [[CCTextureCache sharedTextureCache] addImage:currentDrum];
         CGPoint leftDrumCenter = ccp(0, size.height / 2);
         CGPoint rightDrumCenter = ccp(size.width, size.height / 2);
         if ([self distanceBetween:location and:leftDrumCenter] < kDrumEffectiveRadius) {
@@ -247,6 +249,8 @@
         }
         
     } else if (data.mode == MODE_FOUR_DRUM) {
+        NSString *currentDrum = [NSString stringWithFormat:@"drum_4_%d.png", drumIndex];
+        CCTexture2D *currentDrumTexture = [[CCTextureCache sharedTextureCache] addImage:currentDrum];
         CGPoint leftTopDrumCenter = ccp(0, size.height);
         CGPoint rightTopDrumCenter = ccp(size.width, size.height);
         CGPoint rightBottomDrumCenter = ccp(size.width, 0);

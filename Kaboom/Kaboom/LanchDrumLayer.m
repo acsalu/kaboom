@@ -34,7 +34,7 @@
 {
     NSArray *basePoints = [Const getAllPossibleBasePoints];
     
-    LauchDrumSprite *d_l_0 = [LauchDrumSprite spriteWithFile:@"drum_2_3.png"];
+    LauchDrumSprite *d_l_0 = [LauchDrumSprite spriteWithFile:@"drum_2_4.png"];
     d_l_0.position = [basePoints[0] CGPointValue];
     LauchDrumSprite *d_l_1 = [LauchDrumSprite spriteWithFile:@"drum_2_3.png"];
     d_l_1.position = [basePoints[1] CGPointValue];
