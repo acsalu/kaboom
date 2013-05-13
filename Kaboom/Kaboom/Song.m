@@ -423,7 +423,7 @@
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]}
                     
                     ];
-    song.interval = 0.5;
+    song.interval = 0.4;
     return song;
 }
 
@@ -449,7 +449,6 @@
         case NOTE_TYPE_BOUNCE_LR2: return @"bounce L2R2";
         case NOTE_TYPE_BOUNCE_RL1: return @"bounce R2L1";
         case NOTE_TYPE_BOUNCE_RL2: return @"bounce R2L2";
-        case NOTE_TYPE_CLAP: return @"clap";
         default: return nil;
     }
 }

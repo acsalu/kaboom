@@ -8,6 +8,7 @@
 
 #import "FGScrollLayer.h"
 #import "GameLayer.h"
+#import "GameSonataLayer.h"
 
 
 enum
@@ -383,7 +384,7 @@ BOOL isMove = NO;
             int selectPage = currentPage - delta;
             selectPage = MIN([layers_ count], selectPage);
             NSLog(@"position: %f, select: %d, current: %d",(touchPoint.y),selectPage,currentPage);   // Start Game!
-            [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameLayer scene]]];
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameSonataLayer scene]]];
         }
     }
     
