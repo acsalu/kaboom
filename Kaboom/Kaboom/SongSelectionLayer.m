@@ -48,7 +48,7 @@
         
 
         DrumLayer *drumLayer = [data drumLayer];
-        
+        [drumLayer removeFromParentAndCleanup:NO];
         [self addChild:background];
         [self addChild:drumLayer];
         

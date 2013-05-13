@@ -45,6 +45,7 @@
         background.position = ccp(size.width * 1 / 2, size.height / 2);
         
         DrumLayer *drumLayer = [data drumLayer];
+        [drumLayer removeFromParentAndCleanup:NO];
         drumLayer.delegate = self;
         _drumLayer = drumLayer;
         
