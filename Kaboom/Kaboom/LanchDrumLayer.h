@@ -9,9 +9,18 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface LanchDrumLayer : CCLayer
+typedef enum {
+    LandScape,
+    Portrait
+} ORIENTATION;
 
-@property (strong, nonatomic) NSArray *landscapeDrums;
-@property (strong, nonatomic) NSArray *portraitDrums;
+@interface LanchDrumLayer : CCLayer
+{
+    ORIENTATION orientation;
+}
+
+@property (strong, nonatomic) NSArray *drums;
+
+- (void)changeOrientation;
 
 @end

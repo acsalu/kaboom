@@ -8,6 +8,7 @@
 
 #import <GameKit/GameKit.h>
 #import "cocos2d.h"
+#import "LanchDrumLayer.h"
 
 extern const int DRUM_ONE;
 extern const int DRUM_TWO_LEFT;
@@ -30,6 +31,7 @@ extern const int DRUM_FOUR_LOWER_LEFT;
 }
 
 @property (nonatomic) int detectCounter;
+@property (strong, nonatomic) LanchDrumLayer *lanchDrumLayer;
 
 +(CCScene *) scene;
 

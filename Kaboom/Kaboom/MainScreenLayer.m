@@ -59,29 +59,34 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
         background.position = ccp(size.width / 2, size.height / 2);
         background.tag = BACKGROUND_TAG;
         
-        _oneDrum1P = [CCSprite spriteWithFile:@"1p1d.png"];
-        _oneDrum1P.position = center;
         
-        _twoDrum1P = [CCSprite spriteWithFile:@"1p2d.png"];
-        _twoDrum1P.position = center;
+        LanchDrumLayer *launchDrumLayer = [LanchDrumLayer node];
+        _lanchDrumLayer = launchDrumLayer;
         
-        _fourDrum1P = [CCSprite spriteWithFile:@"1p4d.png"];
-        _fourDrum1P.position = center;
-        
-        _twoDrum2P = [CCSprite spriteWithFile:@"2p2d.png"];
-        _twoDrum2P.position = center;
-        _twoDrum2P.visible = NO;
-        
-        _fourDrum2P = [CCSprite spriteWithFile:@"2p4d.png"];
-        _fourDrum2P.position = center;
-        _fourDrum2P.visible = NO;
+//        _oneDrum1P = [CCSprite spriteWithFile:@"1p1d.png"];
+//        _oneDrum1P.position = center;
+//        
+//        _twoDrum1P = [CCSprite spriteWithFile:@"1p2d.png"];
+//        _twoDrum1P.position = center;
+//        
+//        _fourDrum1P = [CCSprite spriteWithFile:@"1p4d.png"];
+//        _fourDrum1P.position = center;
+//        
+//        _twoDrum2P = [CCSprite spriteWithFile:@"2p2d.png"];
+//        _twoDrum2P.position = center;
+//        _twoDrum2P.visible = NO;
+//        
+//        _fourDrum2P = [CCSprite spriteWithFile:@"2p4d.png"];
+//        _fourDrum2P.position = center;
+//        _fourDrum2P.visible = NO;
         
         [self addChild:background];
-        [self addChild:_oneDrum1P];
-        [self addChild:_twoDrum1P];
-        [self addChild:_fourDrum1P];
-        [self addChild:_twoDrum2P];
-        [self addChild:_fourDrum2P];
+        [self addChild:launchDrumLayer];
+//        [self addChild:_oneDrum1P];
+//        [self addChild:_twoDrum1P];
+//        [self addChild:_fourDrum1P];
+//        [self addChild:_twoDrum2P];
+//        [self addChild:_fourDrum2P];
         
         // SETUP DEVICE ORIENTATION CHANGE NOTIFICATION
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -138,12 +143,13 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
     background.position = bgPosition;
     [self addChild:background z:-1];
     
+    [_lanchDrumLayer changeOrientation];
     
-    _oneDrum1P.visible = !_oneDrum1P.visible;
-    _twoDrum1P.visible = !_twoDrum1P.visible;
-    _fourDrum1P.visible = !_fourDrum1P.visible;
-    _twoDrum2P.visible = !_twoDrum2P.visible;
-    _fourDrum2P.visible = !_fourDrum2P.visible;
+//    _oneDrum1P.visible = !_oneDrum1P.visible;
+//    _twoDrum1P.visible = !_twoDrum1P.visible;
+//    _fourDrum1P.visible = !_fourDrum1P.visible;
+//    _twoDrum2P.visible = !_twoDrum2P.visible;
+//    _fourDrum2P.visible = !_fourDrum2P.visible;
     
 }
 

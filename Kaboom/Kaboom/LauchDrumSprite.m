@@ -15,19 +15,13 @@
 {
     [super onEnter];
     
-    [self showAnimation];
-}
-
-- (void)onExit
-{
-    [[[CCDirector sharedDirector] touchDispatcher] removeDelegate:self];
-    [super onExit];
+//    [self showAnimation];
 }
 
 - (void)showAnimation
 {
-    id small = [CCScaleTo actionWithDuration:0.01 scale:0.1];
-    id delay = [CCDelayTime actionWithDuration:0.3];
+    id small = [CCScaleTo actionWithDuration:0.01 scale:0.0];
+    id delay = [CCDelayTime actionWithDuration:0.5];
     id scaleAction = [CCScaleTo actionWithDuration:0.3 scale:1.3];
     //    scaleAction = [CCEaseInOut actionWithAction:scaleAction rate:2];
     id restoreAction = [CCScaleTo actionWithDuration:0.1 scale:1.0];
