@@ -155,6 +155,9 @@
 
             CGPoint startingPointP1 = ccp(size.width / 2, size.height / 2);
             CGPoint startingPointP2 = ccp(size.width / 2, size.height / 2);
+            
+            NSString *drum1;
+            NSString *drum2;
 
             switch (note.intValue) {
                 case NOTE_TYPE_REST:
@@ -163,34 +166,34 @@
                 case NOTE_TYPE_BOUNCE_LR1:
                     destinationPointP1 = p0;
                     destinationPointP2 = p2;
-                    queue1 = _noteQueue[0];
-                    queue2 = _noteQueue[2];
+                    drum1 = DrumKey_LEFT_TOP;
+                    drum2 = DrumKey_RIGHT_BOTTOM;
                     break;
                 case NOTE_TYPE_RIGHT:
                 case NOTE_TYPE_BOUNCE_RL1:
                     destinationPointP1 = p3;
                     destinationPointP2 = p1;
-                    queue1 = _noteQueue[3];
-                    queue2 = _noteQueue[1];
+                    drum1 = DrumKey_RIGHT_TOP;
+                    drum2 = DrumKey_LEFT_BOTTOM;
                     break;
                 case NOTE_TYPE_BOUNCE_LR2:
                     startingPointP1 = p0;
                     destinationPointP1 = p3;
-                    queue1 = _noteQueue[3];
+                    drum1 = DrumKey_LEFT_BOTTOM;
 
                     startingPointP2 = p2;
                     destinationPointP2 = p1;
-                    queue2 = _noteQueue[1];
+                    drum2 = DrumKey_RIGHT_TOP;
                     break;
 
                 case NOTE_TYPE_BOUNCE_RL2:
                     startingPointP1 = p3;
                     destinationPointP1 = p0;
-                    queue1 = _noteQueue[0];
+                    drum1 = DrumKey_LEFT_TOP;
 
                     startingPointP2 = p1;
                     destinationPointP2 = p2;
-                    queue2 = _noteQueue[2];
+                    drum2 = DrumKey_RIGHT_BOTTOM;
                     break;
 
                 case  NOTE_TYPE_CLAP:
@@ -203,7 +206,7 @@
             }
 
 
-        id callback = [CCCallFuncN actionWithTarget:self selector:@selector(removeNote:)];
+//        id callback = [CCCallFuncN actionWithTarget:self selector:@selector(removeNote:)];
 
         NoteType type = note.intValue;
         ccTime duration = (type == NOTE_TYPE_BOUNCE_LR2 || type == NOTE_TYPE_BOUNCE_RL2) ?
@@ -227,23 +230,22 @@
         }
 
         CCSequence *sequence1 = [CCSequence actions:
-                                 [CCMoveTo actionWithDuration:duration position:destinationPointP1],
-                                 callback, nil];
+                                 [CCMoveTo actionWithDuration:duration position:destinationPointP1], nil];
 
         note1.position = startingPointP1;
-        [self addChild:note1];
-        [note1 runAction:sequence1];
-        [queue1 addObject:note1];
-
+//        [self addChild:note1];
+//        [note1 runAction:sequence1];
+//        [queue1 addObject:note1];
+        [_drumLayer addNote:note1 ToDrum:drum1 WithActionSequence:sequence1];
 
         CCSequence *sequence2 = [CCSequence actions:
-                                 [CCMoveTo actionWithDuration:duration position:destinationPointP2],
-                                 callback, nil];
+                                 [CCMoveTo actionWithDuration:duration position:destinationPointP2], nil];
 
         note2.position = startingPointP2;
-        [self addChild:note2];
-        [note2 runAction:sequence2];
-        [queue2 addObject:note2];
+//        [self addChild:note2];
+//        [note2 runAction:sequence2];
+//        [queue2 addObject:note2];
+        [_drumLayer addNote:note2 ToDrum:drum2 WithActionSequence:sequence2];
 
         }}
     [self startGameLoop];
@@ -371,16 +373,16 @@
 //    [self startGameLoop];
 //}
 
-- (void)removeNote:(id)note
-{
-    [self removeChild:note cleanup:YES];
-    for (NSMutableArray *queue in _noteQueue) {
-        if ([queue containsObject:note]) {
-            [queue removeObject:note];
-            break;
-        }
-    }
-}
+//- (void)removeNote:(id)note
+//{
+//    [self removeChild:note cleanup:YES];
+//    for (NSMutableArray *queue in _noteQueue) {
+//        if ([queue containsObject:note]) {
+//            [queue removeObject:note];
+//            break;
+//        }
+//    }
+//}
 
 - (void)removeDrumBlink:(id)blink
 {
@@ -403,31 +405,31 @@
     [self addChild:scoreLayer];
 }
 
-- (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    CCDirector* director = [CCDirector sharedDirector];
-//    KaboomGameData *data = [KaboomGameData sharedData];
-    
-    for (UITouch *touch in touches) {
-
-        CGPoint p = [touch locationInView:director.view];
-        
-        for (NSValue *rectValue in _hitRects) {
-            if (CGRectContainsPoint([rectValue CGRectValue], p)) {
-                int index = [_hitRects indexOfObject:rectValue];
-                NSMutableArray *queue = _noteQueue[[_hitRects indexOfObject:rectValue]];
-                if (queue.count > 0) {
-                    CCSprite *note = queue[0];
-                    if ([self distanceBetween:note.position and:[Const basePointForDrum:index]] < kDrumEffectiveRadius) {
-                        [self updateScoresWithNote:note forDrum:[_hitRects indexOfObject:rectValue]];
-                        [self removeNote:note];
-                    }
-                }
-            }
-        }
-    }
-    
-}
+//- (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    CCDirector* director = [CCDirector sharedDirector];
+////    KaboomGameData *data = [KaboomGameData sharedData];
+//    
+//    for (UITouch *touch in touches) {
+//
+//        CGPoint p = [touch locationInView:director.view];
+//        
+//        for (NSValue *rectValue in _hitRects) {
+//            if (CGRectContainsPoint([rectValue CGRectValue], p)) {
+//                int index = [_hitRects indexOfObject:rectValue];
+//                NSMutableArray *queue = _noteQueue[[_hitRects indexOfObject:rectValue]];
+//                if (queue.count > 0) {
+//                    CCSprite *note = queue[0];
+//                    if ([self distanceBetween:note.position and:[Const basePointForDrum:index]] < kDrumEffectiveRadius) {
+//                        [self updateScoresWithNote:note forDrum:[_hitRects indexOfObject:rectValue]];
+//                        [self removeNote:note];
+//                    }
+//                }
+//            }
+//        }
+//    }
+//    
+//}
 
 - (void)updateScoresWithNote:(CCSprite *)note forDrum:(int)drumId
 {
