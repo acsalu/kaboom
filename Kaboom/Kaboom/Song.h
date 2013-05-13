@@ -13,7 +13,7 @@ enum NoteType {
     NOTE_TYPE_LEFT, NOTE_TYPE_RIGHT,
     NOTE_TYPE_BOUNCE_LR1, NOTE_TYPE_BOUNCE_LR2,
     NOTE_TYPE_BOUNCE_RL1, NOTE_TYPE_BOUNCE_RL2,
-    NOTE_TYPE_CLAP
+    NOTE_TYPE_FIRE
 };
 
 enum NoteLength {
@@ -40,6 +40,7 @@ typedef enum NoteLength NoteLength;
 @property (nonatomic, strong) NSArray *melody;
 
 + (Song *) newSong;
++ (Song *) songSonata;
 + (NSString *)noteLengthString:(NoteLength)length;
 + (NSString *)noteTypeString:(NoteType)type;
 

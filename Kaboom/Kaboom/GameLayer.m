@@ -585,5 +585,10 @@
         [self addChild:pausedMenu z:100];    }
 }
 
+- (void)addScore:(int)score toDrum:(NSString *)drumKey
+{
+    
+}
+
 
 @end
