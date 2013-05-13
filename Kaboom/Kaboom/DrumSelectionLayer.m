@@ -230,6 +230,7 @@
         if ([self distanceBetween:location and:drumCenter] < kDrumEffectiveRadius) {
             [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_ONE];
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
+            [[drumLayer.drums objectForKey:DrumKey_ONE] setTexture:currentDrumTexture];
         }
     } else if (data.mode == MODE_TWO_DRUM) {
         CGPoint leftDrumCenter = ccp(0, size.height / 2);
@@ -237,10 +238,12 @@
         if ([self distanceBetween:location and:leftDrumCenter] < kDrumEffectiveRadius) {
             [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_LEFT];
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
+            [[drumLayer.drums objectForKey:DrumKey_LEFT] setTexture:currentDrumTexture];
             
         } else if ([self distanceBetween:location and:rightDrumCenter] < kDrumEffectiveRadius) {
             [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_RIGHT];
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
+            [[drumLayer.drums objectForKey:DrumKey_RIGHT] setTexture:currentDrumTexture];
         }
         
     } else if (data.mode == MODE_FOUR_DRUM) {

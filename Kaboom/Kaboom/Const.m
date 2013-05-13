@@ -41,13 +41,13 @@ NSString * const DrumKey_LEFT_BOTTOM    = @"DrumKey_LEFT_BOTTOM";
     
     
     if (data.mode == MODE_ONE_DRUM) {
-        CGRect drum1 = CGRectMake(size.width / 2 - kDrumHitRectWidth, size.height - kDrumHitRectHeight - kDrumHitRectOffsetY,
+        CGRect drum1 = CGRectMake(size.width / 2 - kDrumHitRectWidth / 2, size.height - kDrumHitRectHeight - kDrumHitRectOffsetY,
                                   kDrumHitRectWidth, kDrumHitRectHeight);
         result = @[[NSValue valueWithCGRect:drum1]];
         
     } else if (data.mode == MODE_TWO_DRUM) {
-        CGRect drum2_left = CGRectMake(kDrumHitRectOffsetX, size.height / 2 - kDrumHitRectHeight, kDrumHitRectWidth, kDrumHitRectHeight);
-        CGRect drum2_right = CGRectMake(size.width - kDrumHitRectWidth - kDrumHitRectOffsetX, size.height / 2 -  kDrumHitRectHeight, kDrumHitRectWidth, kDrumHitRectHeight);
+        CGRect drum2_left = CGRectMake(kDrumHitRectOffsetX, size.height / 2 - kDrumHitRectHeight / 2, kDrumHitRectWidth, kDrumHitRectHeight);
+        CGRect drum2_right = CGRectMake(size.width - kDrumHitRectWidth - kDrumHitRectOffsetX, size.height / 2 -  kDrumHitRectHeight / 2, kDrumHitRectWidth, kDrumHitRectHeight);
         result = @[[NSValue valueWithCGRect:drum2_left], [NSValue valueWithCGRect:drum2_right]];
         
     } else {
@@ -91,29 +91,18 @@ NSString * const DrumKey_LEFT_BOTTOM    = @"DrumKey_LEFT_BOTTOM";
     return ccp(-1, -1);
 }
 
-+ (NSArray *)getAllDrumBasePoints
++ (NSArray *)getAllPossibleBasePoints
 {
     CGSize size = [[CCDirector sharedDirector] winSize];
-    KaboomGameData *data = [KaboomGameData sharedData];
     
-    if (data.mode == MODE_ONE_DRUM) {
-        return [NSArray arrayWithObject:[NSValue valueWithCGPoint:ccp(size.width / 2, 0)]];
-        
-    } else if (data.mode == MODE_TWO_DRUM) {
-        return [NSArray arrayWithObjects:[NSValue valueWithCGPoint:ccp(0, size.height / 2)],
-                                         [NSValue valueWithCGPoint:ccp(size.width, size.height / 2)],
-                                         nil];
-    
-    } else {
-        return [NSArray arrayWithObjects:[NSValue valueWithCGPoint:ccp(0, size.height)],
-                                         [NSValue valueWithCGPoint:ccp(size.width, size.height)],
-                                         [NSValue valueWithCGPoint:ccp(size.width, 0)],
-                                         [NSValue valueWithCGPoint:ccp(0, 0)],
-                                         nil];
-    
-    }
-    
-    return nil;
+    return [NSArray arrayWithObjects:[NSValue valueWithCGPoint:ccp(size.width / 2, 0)],
+                                     [NSValue valueWithCGPoint:ccp(0, size.height / 2)],
+                                     [NSValue valueWithCGPoint:ccp(size.width, size.height / 2)],
+                                     [NSValue valueWithCGPoint:ccp(0, size.height)],
+                                     [NSValue valueWithCGPoint:ccp(size.width, size.height)],
+                                     [NSValue valueWithCGPoint:ccp(size.width, 0)],
+                                     [NSValue valueWithCGPoint:ccp(0, 0)],
+                                     nil];
 }
 
 + (int)playerIdForDrum:(int)drumId

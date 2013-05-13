@@ -119,8 +119,6 @@
         if (note.intValue != NOTE_TYPE_REST) {
             CGPoint destinationPointP1;
             CGPoint destinationPointP2;
-            NSMutableArray *queue1;
-            NSMutableArray *queue2;
 
             CGPoint p0 = ccp(size.width * 0.07, size.height * 0.93);
             CGPoint p1 = ccp(size.width * 0.93, size.height * 0.93);
