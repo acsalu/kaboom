@@ -17,6 +17,7 @@ const int SCORE_DISTANCE_HIGHER_BOUND = 200;
 
 @implementation DrumSprite
 
+
 - (void)onEnter
 {
     [super onEnter];
@@ -74,7 +75,7 @@ const int SCORE_DISTANCE_HIGHER_BOUND = 200;
             CCSprite *note = _noteQueue[0];
             CGFloat distance = [Utility distanceBetween:note.position and:[Const basePointForDrum:index]];
             if (distance < kDrumEffectiveRadius) {
-                if (SCORE_DISTANCE_LOWER_BOUND < distance && distance > SCORE_DISTANCE_HIGHER_BOUND) {
+                if (SCORE_DISTANCE_LOWER_BOUND < distance && distance < SCORE_DISTANCE_HIGHER_BOUND) {
                     [self.delegate drum:self.drumKey Hit:note andGetScore:1];
                 } else {
                     [self.delegate drum:self.drumKey Hit:note andGetScore:0];

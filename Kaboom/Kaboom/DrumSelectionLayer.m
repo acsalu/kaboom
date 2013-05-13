@@ -280,4 +280,10 @@
     return distance;
 }
 
+- (void)onExit
+{
+    [self removeAllChildrenWithCleanup:YES];
+    [super onExit];
+}
+
 @end
