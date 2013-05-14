@@ -33,4 +33,6 @@
 
 @property (strong, nonatomic) DrumLayer *drumLayer;
 
+@property (strong, nonatomic) NSMutableDictionary *scoreLabels;
+
 @end

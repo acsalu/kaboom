@@ -13,7 +13,7 @@
 #import "KaboomGameData.h"
 
 const int EFFECT_HIT_DISTANCE = 350;
-const int SCORE_DISTANCE_LOWER_BOUND = 100;
+const int SCORE_DISTANCE_LOWER_BOUND = 0;
 const int SCORE_DISTANCE_HIGHER_BOUND = 200;
 
 @implementation DrumSprite

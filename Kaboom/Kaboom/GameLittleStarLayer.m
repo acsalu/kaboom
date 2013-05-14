@@ -77,6 +77,9 @@
         [self removeChild:_countdownSprite cleanup:YES];
         [self unschedule:@selector(countdown:)];
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"star.mp3"];
+        [self createScoreLabels];
+        
+        
     } else {
         if (_count == 1) [self fire:0.0f];
         CGSize size = [[CCDirector sharedDirector] winSize];
@@ -87,6 +90,41 @@
         [self addChild:_countdownSprite];
         --_count;
     }
+}
+
+- (void)createScoreLabels
+{
+    CGSize size = [CCDirector sharedDirector].winSize;
+    _scoreLabels = [NSMutableDictionary dictionary];
+    
+    CCLabelTTF *label = [CCLabelTTF labelWithString:@"0" fontName:@"Marker Felt" fontSize:60];
+    label.position = ccp(size.width * 0.2, size.height * 0.8);
+    label.rotation = 120;
+    label.color = ccc3(255, 255, 255);
+    [self addChild:label];
+    [_scoreLabels setObject:label forKey:DrumKey_LEFT_TOP];
+    
+    label = [CCLabelTTF labelWithString:@"0" fontName:@"Marker Felt" fontSize:60];
+    label.position = ccp(size.width * 0.8, size.height * 0.8);
+    label.rotation = -120;
+    label.color = ccc3(255, 255, 255);
+    [self addChild:label];
+    [_scoreLabels setObject:label forKey:DrumKey_RIGHT_TOP];
+    
+    label = [CCLabelTTF labelWithString:@"0" fontName:@"Marker Felt" fontSize:60];
+    label.position = ccp(size.width * 0.8, size.height * 0.2);
+    label.rotation = -60;
+    label.color = ccc3(255, 255, 255);
+    [self addChild:label];
+    [_scoreLabels setObject:label forKey:DrumKey_RIGHT_BOTTOM];
+    
+    label = [CCLabelTTF labelWithString:@"0" fontName:@"Marker Felt" fontSize:60];
+    label.position = ccp(size.width * 0.2, size.height * 0.2);
+    label.rotation = 60;
+    label.color = ccc3(255, 255, 255);
+    [self addChild:label];
+    [_scoreLabels setObject:label forKey:DrumKey_LEFT_BOTTOM];
+    
 }
 
 - (void)startGameLoop
@@ -326,6 +364,8 @@
 - (void)addScore:(int)score toDrum:(NSString *)drumKey
 {
     CCLOG(@"[score] %d at %@", score, drumKey);
+    CCLabelTTF *scoreLabel = (CCLabelTTF *) [_scoreLabels objectForKey:drumKey];
+    scoreLabel.string = [NSString stringWithFormat:@"%d", scoreLabel.string.intValue + score];
 }
 
 
