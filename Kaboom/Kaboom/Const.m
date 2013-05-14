@@ -239,4 +239,31 @@ NSString * const DrumKey_LEFT_BOTTOM    = @"DrumKey_LEFT_BOTTOM";
 
 }
 
++ (CGFloat)rotationWithNoteType:(NoteType)type
+{
+    CGFloat rotation = 0;
+    switch (type) {
+        case NOTE_TYPE_P_AB:
+        case NOTE_TYPE_P_BC:
+        case NOTE_TYPE_P_ED:
+        case NOTE_TYPE_P_FE:
+            rotation = 90;
+            break;
+        case NOTE_TYPE_P_CB:
+        case NOTE_TYPE_P_BA:
+        case NOTE_TYPE_P_DE:
+        case NOTE_TYPE_P_EF:
+            rotation = -90;
+            break;
+        case NOTE_TYPE_P_CD:
+        case NOTE_TYPE_P_AF:
+            rotation = 180;
+            break;
+        default:
+            break;
+    }
+    
+    return rotation;
+}
+
 @end

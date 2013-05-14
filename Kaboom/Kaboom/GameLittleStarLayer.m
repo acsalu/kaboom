@@ -158,20 +158,18 @@
             
             CGPoint startingPoint = [Const startingPointWithNoteType:note.intValue];
             CGPoint destinationPoint = [Const destinationPointWithNoteType:note.intValue];
-            
-//            CCLOG(@"%@ from (%.0f, %.0f) to (%.0f, %.0f)", [Song noteTypeString:note.intValue], startingPoint.x, startingPoint.y, destinationPoint.x, destinationPoint.y);
-            
-            
-//            CGPoint startingPoint = ccp(size.width / 2, size.height / 2);
-//            CGPoint destinationPoint = ccp(size.width * 0.07, size.height * 0.07);
-            
             NSString *drumKey = [Const drumKeyPointWithNoteType:note.intValue];
             
             ccTime duration = _song.interval;
             
-            CCSprite *sprite = [CCSprite spriteWithFile:@"notedot.png"];
+            CCSprite *sprite;
+            if (note.intValue <= NOTE_TYPE_IN3)
+                sprite = [CCSprite spriteWithFile:@"notedot.png"];
+            else
+                sprite = [CCSprite spriteWithFile:@"notedot-arrow.png"];
             
             sprite.position = startingPoint;
+            sprite.rotation = [Const rotationWithNoteType:note.intValue];
             
             CCSequence *sequence = [CCSequence actions:
                                      [CCMoveTo actionWithDuration:duration position:destinationPoint], nil];

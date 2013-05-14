@@ -55,5 +55,6 @@ typedef enum NoteLength NoteLength;
 + (CGPoint)startingPointWithNoteType:(NoteType)type;
 + (CGPoint)destinationPointWithNoteType:(NoteType)type;
 + (NSString *)drumKeyPointWithNoteType:(NoteType)type;
++ (CGFloat)rotationWithNoteType:(NoteType)type;
 
 @end
