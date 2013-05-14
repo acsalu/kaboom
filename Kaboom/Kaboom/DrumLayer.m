@@ -105,8 +105,12 @@
 - (void)drum:(NSString *)drumKey Hit:(CCSprite *)note andGetScore:(int)score
 {
     // do some effect
-    
-    // blabla....
+    if (score == 0) {
+        CCTexture2D *redNote = [[CCTextureCache sharedTextureCache] addImage:@"notedot_red.png"];
+        [note setTexture:redNote];
+    } else {
+        // star
+    }
     
     // and then remove note
     [self removeChild:note cleanup:YES];

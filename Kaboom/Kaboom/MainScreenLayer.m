@@ -45,7 +45,6 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
 		CGSize size = [[CCDirector sharedDirector] winSize];
         
         CCSprite *background;
-        CGPoint center = ccp(size.width/2, size.height/2);
         
         KaboomGameData *data = [KaboomGameData sharedData];
         
@@ -63,30 +62,9 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
         LanchDrumLayer *launchDrumLayer = [LanchDrumLayer node];
         _lanchDrumLayer = launchDrumLayer;
         
-//        _oneDrum1P = [CCSprite spriteWithFile:@"1p1d.png"];
-//        _oneDrum1P.position = center;
-//        
-//        _twoDrum1P = [CCSprite spriteWithFile:@"1p2d.png"];
-//        _twoDrum1P.position = center;
-//        
-//        _fourDrum1P = [CCSprite spriteWithFile:@"1p4d.png"];
-//        _fourDrum1P.position = center;
-//        
-//        _twoDrum2P = [CCSprite spriteWithFile:@"2p2d.png"];
-//        _twoDrum2P.position = center;
-//        _twoDrum2P.visible = NO;
-//        
-//        _fourDrum2P = [CCSprite spriteWithFile:@"2p4d.png"];
-//        _fourDrum2P.position = center;
-//        _fourDrum2P.visible = NO;
         
         [self addChild:background];
         [self addChild:launchDrumLayer];
-//        [self addChild:_oneDrum1P];
-//        [self addChild:_twoDrum1P];
-//        [self addChild:_fourDrum1P];
-//        [self addChild:_twoDrum2P];
-//        [self addChild:_fourDrum2P];
         
         // SETUP DEVICE ORIENTATION CHANGE NOTIFICATION
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -131,13 +109,8 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
     else CCLOG(@"PLAYER_MULTI");
     NSString *bgImageName = (data.player == PLAYER_SINGLE) ? @"background1-landscape.png" : @"background1-portrait.png";
     CGPoint bgPosition = ccp(size.width / 2, size.height / 2);
-    //    [self removeChildByTag:BACKGROUND_TAG cleanup:YES];
     [self removeChildByTag:BACKGROUND_TAG cleanup:YES];
     
-    //    CCSprite *background = (CCSprite *) [self getChildByTag:BACKGROUND_TAG];
-    //    CCTexture2D *texture = [[CCTextureCache sharedTextureCache] addImage:bgImageName];
-    //    [background setTexture:texture];
-    //
     CCSprite *background = [CCSprite spriteWithFile:bgImageName];
     background.tag = BACKGROUND_TAG;
     background.position = bgPosition;
@@ -145,11 +118,6 @@ const int DRUM_FOUR_LOWER_LEFT   = 6;
     
     [_lanchDrumLayer changeOrientation];
     
-//    _oneDrum1P.visible = !_oneDrum1P.visible;
-//    _twoDrum1P.visible = !_twoDrum1P.visible;
-//    _fourDrum1P.visible = !_fourDrum1P.visible;
-//    _twoDrum2P.visible = !_twoDrum2P.visible;
-//    _fourDrum2P.visible = !_fourDrum2P.visible;
     
 }
 

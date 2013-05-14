@@ -17,7 +17,7 @@
     if (self = [super init]) {
         orientation = LandScape;
         [self addAllSprite];
-        [self bumpAnimation];
+        [self scheduleOnce:@selector(bumpAnimation) delay:0.5];
         
     }
     return self;
@@ -54,14 +54,18 @@
     LauchDrumSprite *d_l_6 = [LauchDrumSprite spriteWithFile:@"drum_4_2.png"];
     d_l_6.position = [basePoints[6] CGPointValue];
     
-    [self addChild:d_l_0];
-    [self addChild:d_l_1];
-    [self addChild:d_l_2];
-    [self addChild:d_l_3];
-    [self addChild:d_l_4];
-    [self addChild:d_l_5];
-    [self addChild:d_l_6];
     _drums = [NSArray arrayWithObjects:d_l_0, d_l_1, d_l_2, d_l_3, d_l_4, d_l_5, d_l_6, nil];
+
+    for (LauchDrumSprite *d in _drums) {
+        d.visible = NO;
+        [self addChild:d];
+        
+        id scaleToZero = [CCScaleTo actionWithDuration:0.0 scale:0.0];
+        id beVisible = [CCCallBlock actionWithBlock:^{ d.visible = YES; }];
+        CCSequence *sequence = [CCSequence actions:scaleToZero, beVisible, nil];
+        [d runAction:sequence];
+    }
+    
 }
 
 - (void)changeOrientation
@@ -73,8 +77,10 @@
         [_drums[2] setTexture:texture_2_blue];
         
         CCTexture2D *texture_4_orange = [[CCTextureCache sharedTextureCache] addImage:@"drum_4_5.png"];
+        [_drums[4] setTexture:texture_4_orange];
         [_drums[5] setTexture:texture_4_orange];
-        [_drums[6] setTexture:texture_4_orange];
+        
+        orientation = Portrait;
         
     } else if (orientation == Portrait) {
         [_drums[0] setVisible:YES];
@@ -83,8 +89,10 @@
         [_drums[2] setTexture:texture_2_yellow];
         
         CCTexture2D *texture_4_red = [[CCTextureCache sharedTextureCache] addImage:@"drum_4_2.png"];
+        [_drums[4] setTexture:texture_4_red];
         [_drums[5] setTexture:texture_4_red];
-        [_drums[6] setTexture:texture_4_red];
+        
+        orientation = LandScape;
         
     } else {
         NSLog(@"OH!! FUCK!!");

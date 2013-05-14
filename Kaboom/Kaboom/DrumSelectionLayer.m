@@ -56,14 +56,26 @@
         drumLayer.tag = DRUM_LAYER_TAG;
         
         CCMenuItem *startMenuItem = [CCMenuItemImage itemWithNormalImage:@"start_light.png" selectedImage:@"start_dark.png" block:^(id sender) {
-            [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[SongSelectionLayer scene]]];
+            
+            id callbackReplaceScene = [CCCallBlock actionWithBlock:^{
+                [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[SongSelectionLayer scene]]];
+            }];
+            
+            id enlargeAction = [CCScaleTo actionWithDuration:0.15 scale:1.5];
+            enlargeAction = [CCEaseOut actionWithAction:enlargeAction rate:2];
+            id narrowAction = [CCScaleTo actionWithDuration:0.05 scale:1];
+            narrowAction = [CCEaseInOut actionWithAction:narrowAction rate:2];
+            id delay = [CCDelayTime actionWithDuration:0.2];
+            CCSequence *actionsForDrumTap = [CCSequence actions:enlargeAction, narrowAction, delay, callbackReplaceScene, nil];
+            
+            [sender runAction:actionsForDrumTap];
+            
         }];
         
         
         
         NSLog(@"(w, h) = (%.0f, %.0f)", [startMenuItem boundingBox].size.width, [startMenuItem boundingBox].size.height);
         
-//        startMenuItem.isEnabled = NO;
         startMenuItem.tag = START_ITEM_TAG;
         
         CCMenu *startMenu = [CCMenu menuWithItems:startMenuItem, nil];
@@ -161,7 +173,7 @@
                 
                 id enlargeAction = [CCScaleTo actionWithDuration:0.15 scale:1.5];
                 enlargeAction = [CCEaseOut actionWithAction:enlargeAction rate:2];
-                id narrowAction = [CCScaleTo actionWithDuration:0.05 scale:1];
+                id narrowAction = [CCScaleTo actionWithDuration:0.15 scale:1];
                 narrowAction = [CCEaseInOut actionWithAction:narrowAction rate:2];
                 CCSequence *actionsForDrumTap = [CCSequence actions:enlargeAction, narrowAction, nil];
                 [draggedDrum runAction:actionsForDrumTap];
