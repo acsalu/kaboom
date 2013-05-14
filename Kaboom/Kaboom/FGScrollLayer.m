@@ -8,7 +8,8 @@
 
 #import "FGScrollLayer.h"
 #import "GameLayer.h"
-
+#import "GameSonataLayer.h"
+#import "GameLittleStarLayer.h"
 
 enum
 {
@@ -389,6 +390,7 @@ BOOL isMove = NO;
                 [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameLayer scene]]];
             else 
                 [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameLayer scene]]];
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameLittleStarLayer scene]]];
         }
     }
     

@@ -19,5 +19,7 @@ typedef enum {
 @interface Utility : NSObject
 
 + (Rank)calculateRank:(int)score totalNotes:(int)total;
++ (CGFloat)distanceBetween:(CGPoint)p1 and:(CGPoint)p2;
+
 
 @end

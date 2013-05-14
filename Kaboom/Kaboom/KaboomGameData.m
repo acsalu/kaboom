@@ -8,6 +8,7 @@
 
 #import "KaboomGameData.h"
 
+
 @implementation KaboomGameData
 
 + (KaboomGameData *)sharedData
@@ -26,7 +27,6 @@
 - (id)init
 {
     if (self = ([super init])) {
-        
         _drumEffect = [NSMutableDictionary dictionary];
         _player = PLAYER_SINGLE;
     }
@@ -34,7 +34,17 @@
     return self;
 }
 
-- (CCSprite *) drumSprite {
+- (DrumLayer *)drumLayer
+{
+    static DrumLayer *drumLayer;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        drumLayer = [DrumLayer node];
+    });
+    return drumLayer;
+}
+
+- (CCSprite *)drumSprite {
     NSString *imageName = nil;
     CGSize size = [CCDirector sharedDirector].winSize;
     if (_player == PLAYER_SINGLE) {
@@ -47,8 +57,6 @@
     }
     
     CCSprite *drum = [CCSprite spriteWithFile:imageName];
-    //    CGPoint position = ccp(512, 384);
-    //    drum.position = position;
     drum.position = ccp(size.width / 2, size.height / 2);
     
     return drum;

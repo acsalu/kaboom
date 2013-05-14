@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
+#import "DrumLayer.h"
 
 enum mode {
     MODE_UNDETERMINED = 0,
@@ -28,7 +29,9 @@ typedef enum player PLAYER;
 
 + (KaboomGameData *)sharedData;
 - (CCSprite *)drumSprite;
+- (DrumLayer *)drumLayer;
 - (BOOL) allDrumsAreSet;
+
 
 @property (nonatomic) MODE mode;
 @property (nonatomic) PLAYER player;
