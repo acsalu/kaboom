@@ -209,13 +209,29 @@ NSString * const DrumKey_LEFT_BOTTOM    = @"DrumKey_LEFT_BOTTOM";
 
 + (NSString *)drumKeyPointWithNoteType:(NoteType)type
 {
-    NSString *drumKey;
+    NSString *drumKey = nil;
     switch (type) {
         case NOTE_TYPE_IN0:
         case NOTE_TYPE_P_BA:
         case NOTE_TYPE_P_FA:
             drumKey = DrumKey_LEFT_TOP;
             break;
+        case NOTE_TYPE_IN1:
+        case NOTE_TYPE_P_BC:
+        case NOTE_TYPE_P_DC:
+            drumKey = DrumKey_RIGHT_TOP;
+            break;
+        case NOTE_TYPE_IN2:
+        case NOTE_TYPE_P_CD:
+        case NOTE_TYPE_P_ED:
+            drumKey = DrumKey_RIGHT_BOTTOM;
+            break;
+        case NOTE_TYPE_IN3:
+        case NOTE_TYPE_P_EF:
+        case NOTE_TYPE_P_AF:
+            drumKey = DrumKey_LEFT_BOTTOM;
+            break;
+            
         default:
             break;
     }
