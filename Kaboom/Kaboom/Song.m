@@ -427,6 +427,137 @@
     return song;
 }
 
+#pragma mark - Song Little Star
+
++ (Song *)songStar
+{
+    Song *song = [[Song alloc] init];
+    song.melody = @[
+                    // 1
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_IN1)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_CD)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_DE)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_EF)]},
+
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_FA)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_AB)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_BC)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_CD)]},
+
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_DE)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_EF)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_FA)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_AB)]},
+
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_BC)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_CD)]},
+                    @{@"length":@(NOTE_LENGTH_2ND),@"notes":@[@(NOTE_TYPE_REST)]},
+
+                    // 5
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_IN3)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_FA)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_AB), @(NOTE_TYPE_IN3)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_BC) , @(NOTE_TYPE_P_FA)]},
+
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_CD) , @(NOTE_TYPE_P_AB)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_DE) , @(NOTE_TYPE_P_BC)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_EF) , @(NOTE_TYPE_P_CD)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_FA) , @(NOTE_TYPE_P_DE)]},
+
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_AB) , @(NOTE_TYPE_P_EF)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_BC) , @(NOTE_TYPE_P_FA)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_CD) , @(NOTE_TYPE_P_AB)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_DE) , @(NOTE_TYPE_P_BC)]},
+
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_EF) , @(NOTE_TYPE_P_CD)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_FA) , @(NOTE_TYPE_P_DE)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_AB) , @(NOTE_TYPE_P_EF)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_BC) , @(NOTE_TYPE_P_FA)]},
+
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_CD) , @(NOTE_TYPE_P_AB)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_DE) , @(NOTE_TYPE_P_BC)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_EF) , @(NOTE_TYPE_P_CD)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_FA) , @(NOTE_TYPE_P_DE)]},
+
+                    // 10
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_AB) , @(NOTE_TYPE_P_EF)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_BC) , @(NOTE_TYPE_P_FA)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_CD) , @(NOTE_TYPE_P_AB)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_DE) , @(NOTE_TYPE_P_BC)]},
+
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_EF) , @(NOTE_TYPE_P_CD)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_FA) , @(NOTE_TYPE_P_DE)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_AB) , @(NOTE_TYPE_P_EF)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_BC) , @(NOTE_TYPE_P_FA)]},
+
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_CD) ]},
+                    @{@"length":@(NOTE_LENGTH_2ND),@"notes":@[@(NOTE_TYPE_REST)]},
+                    @{@"length":@(NOTE_LENGTH_4TH),@"notes":@[@(NOTE_TYPE_REST)]},
+
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_IN3)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_FA),  @(NOTE_TYPE_IN3)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_AB), @(NOTE_TYPE_P_FA)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_BC) , @(NOTE_TYPE_P_AB)]},
+
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_CD) , @(NOTE_TYPE_P_BC)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_DE) , @(NOTE_TYPE_P_CD)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_EF) , @(NOTE_TYPE_P_DE)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_FA) , @(NOTE_TYPE_P_EF)]},
+
+                    // 15
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_AB) , @(NOTE_TYPE_P_FA)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_BC) , @(NOTE_TYPE_P_AB)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_CD) , @(NOTE_TYPE_P_BC)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_DE) , @(NOTE_TYPE_P_CD)]},
+                                                             
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_EF) , @(NOTE_TYPE_P_DE)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_FA) , @(NOTE_TYPE_P_EF)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_AB) , @(NOTE_TYPE_P_FA)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_BC) , @(NOTE_TYPE_P_AB)]},
+                                                             
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_CD) , @(NOTE_TYPE_P_BC)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_DE) , @(NOTE_TYPE_P_CD)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_EF) , @(NOTE_TYPE_P_DE)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_FA) , @(NOTE_TYPE_P_EF)]},
+                                                             
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_AB) , @(NOTE_TYPE_P_FA)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_BC) , @(NOTE_TYPE_P_AB)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_CD) , @(NOTE_TYPE_P_BC)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_DE) , @(NOTE_TYPE_P_CD)]},
+                                                             
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_EF) , @(NOTE_TYPE_P_DE)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_FA) , @(NOTE_TYPE_P_EF)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_AB) , @(NOTE_TYPE_P_FA)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_BC) , @(NOTE_TYPE_P_AB)]},
+                                                             
+                    // 20
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_CD) , @(NOTE_TYPE_P_BC)]},
+                    @{@"length":@(NOTE_LENGTH_2ND),@"notes":@[@(NOTE_TYPE_REST)]},
+                    @{@"length":@(NOTE_LENGTH_4TH),@"notes":@[@(NOTE_TYPE_REST)]},
+                                                             
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_IN3)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_FA)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_AB)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_BC)]},
+                                                             
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_CD)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_DE)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_EF)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_FA)]},
+                                                             
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_AB)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_BC)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_CD)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_DE)]},
+                                                             
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_EF)]},
+                    @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_P_FA)]},
+                    @{@"length":@(NOTE_LENGTH_2ND),@"notes":@[@(NOTE_TYPE_REST)]},
+                ];
+                                                               song.interval = 0.5f;
+                                                               return song;
+}
+
 + (NSString *)noteLengthString:(NoteLength)length
 {
     switch (length) {
@@ -449,7 +580,27 @@
         case NOTE_TYPE_BOUNCE_LR2: return @"bounce L2R2";
         case NOTE_TYPE_BOUNCE_RL1: return @"bounce R2L1";
         case NOTE_TYPE_BOUNCE_RL2: return @"bounce R2L2";
-        default: return nil;
+            
+        case NOTE_TYPE_IN0 : return @"IN0";
+        case NOTE_TYPE_IN1 : return @"IN1";
+        case NOTE_TYPE_IN2 : return @"IN2";
+        case NOTE_TYPE_IN3 : return @"IN3";
+            
+        case NOTE_TYPE_P_AB: return @"P_AB";
+        case NOTE_TYPE_P_BC: return @"P_BC";
+        case NOTE_TYPE_P_CD: return @"P_CD";
+        case NOTE_TYPE_P_DE: return @"P_DE";
+        case NOTE_TYPE_P_EF: return @"P_EF";
+        case NOTE_TYPE_P_FA: return @"P_FA";
+        
+        case NOTE_TYPE_P_AF: return @"P_AF";
+        case NOTE_TYPE_P_FE: return @"P_FE";
+        case NOTE_TYPE_P_ED: return @"P_ED";
+        case NOTE_TYPE_P_DC: return @"P_DC";
+        case NOTE_TYPE_P_CB: return @"P_CB";
+        case NOTE_TYPE_P_BA: return @"P_BA";
+        
+        default: return @"";
     }
 }
 
@@ -474,5 +625,7 @@
     
     return result;
 }
+
+
 
 @end

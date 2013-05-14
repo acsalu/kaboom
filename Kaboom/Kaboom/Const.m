@@ -120,4 +120,107 @@ NSString * const DrumKey_LEFT_BOTTOM    = @"DrumKey_LEFT_BOTTOM";
     return -1;
 }
 
++ (CGPoint)startingPointWithNoteType:(NoteType)type
+{
+    CGPoint startingPoint;
+    CGSize size = [CCDirector sharedDirector].winSize;
+    switch (type) {
+        case NOTE_TYPE_IN0:
+        case NOTE_TYPE_IN1:
+        case NOTE_TYPE_IN2:
+        case NOTE_TYPE_IN3:
+            startingPoint = ccp(size.width / 2, size.height / 2);
+            break;
+        case NOTE_TYPE_P_AB:
+        case NOTE_TYPE_P_AF:
+            startingPoint = ccp(size.width * 0.07, size.height * 0.93);
+            break;
+        case NOTE_TYPE_P_BA:
+        case NOTE_TYPE_P_BC:
+            startingPoint = ccp(size.width / 2, size.height * 0.93);
+            break;
+        case NOTE_TYPE_P_CB:
+        case NOTE_TYPE_P_CD:
+            startingPoint = ccp(size.width * 0.93, size.height * 0.93);
+            break;
+        case NOTE_TYPE_P_DC:
+        case NOTE_TYPE_P_DE:
+            startingPoint = ccp(size.width * 0.93, size.height * 0.07);
+            break;
+        case NOTE_TYPE_P_ED:
+        case NOTE_TYPE_P_EF:
+            startingPoint = ccp(size.width / 2, size.height * 0.07);
+            break;
+        case NOTE_TYPE_P_FA:
+        case NOTE_TYPE_P_FE:
+            startingPoint = ccp(size.width * 0.07, size.height * 0.07);
+            
+        default:
+            break;
+    }
+    return startingPoint;
+}
+
++ (CGPoint)destinationPointWithNoteType:(NoteType)type
+{
+    CGPoint destinationPoint;
+    CGSize size = [CCDirector sharedDirector].winSize;
+    switch (type) {
+        case NOTE_TYPE_IN0:
+        case NOTE_TYPE_P_FA:
+        case NOTE_TYPE_P_BA:
+            destinationPoint = ccp(size.width * 0.07, size.height * 0.93);
+            break;
+        
+        case NOTE_TYPE_P_AB:
+        case NOTE_TYPE_P_CB:
+            destinationPoint = ccp(size.width / 2, size.height * 0.93);
+            break;
+        
+        case NOTE_TYPE_IN1:
+        case NOTE_TYPE_P_BC:
+        case NOTE_TYPE_P_DC:
+            destinationPoint = ccp(size.width * 0.93, size.height * 0.93);
+            break;
+        
+        case NOTE_TYPE_IN2:
+        case NOTE_TYPE_P_CD:
+        case NOTE_TYPE_P_ED:
+            destinationPoint = ccp(size.width * 0.93, size.height * 0.07);
+            break;
+        
+        case NOTE_TYPE_P_DE:
+        case NOTE_TYPE_P_FE:
+            destinationPoint = ccp(size.width / 2, size.height * 0.07);
+            break;
+        
+        case NOTE_TYPE_IN3:
+        case NOTE_TYPE_P_AF:
+        case NOTE_TYPE_P_EF:
+            destinationPoint = ccp(size.width * 0.07, size.height * 0.07);
+            break;
+            
+            
+        default:
+            break;
+    }
+    return destinationPoint;
+}
+
++ (NSString *)drumKeyPointWithNoteType:(NoteType)type
+{
+    NSString *drumKey;
+    switch (type) {
+        case NOTE_TYPE_IN0:
+        case NOTE_TYPE_P_BA:
+        case NOTE_TYPE_P_FA:
+            drumKey = DrumKey_LEFT_TOP;
+            break;
+        default:
+            break;
+    }
+    return drumKey;
+
+}
+
 @end
