@@ -119,7 +119,6 @@
         if (note.intValue != NOTE_TYPE_REST) {
             
             CGPoint startingPoint = ccp(size.width / 2, size.height / 2);
-            id callback = [CCCallFuncND actionWithTarget:_drumLayer selector:@selector(removeChild:cleanup:) data:YES];
             ccTime duration = _song.interval;
             
             if ([KaboomGameData sharedData].mode == MODE_ONE_DRUM) {
@@ -131,7 +130,7 @@
                 CGPoint destinationPoint = ccp (size.width / 2, size.height * 0.07);
                 
                 CCSequence *sequence = [CCSequence actions:
-                                         [CCMoveTo actionWithDuration:duration position:destinationPoint], callback, nil];
+                                         [CCMoveTo actionWithDuration:duration position:destinationPoint], nil];
                 
                 [_drumLayer addNote:note ToDrum:DrumKey_ONE WithActionSequence:sequence];
                 
@@ -148,9 +147,9 @@
                 CGPoint destinationPoint2 = ccp(size.width * 0.93, size.height / 2);
                 
                 CCSequence *sequence1 = [CCSequence actions:
-                                        [CCMoveTo actionWithDuration:duration position:destinationPoint1], callback, nil];
+                                        [CCMoveTo actionWithDuration:duration position:destinationPoint1], nil];
                 CCSequence *sequence2 = [CCSequence actions:
-                                        [CCMoveTo actionWithDuration:duration position:destinationPoint2], callback, nil];
+                                        [CCMoveTo actionWithDuration:duration position:destinationPoint2], nil];
                 
                 [_drumLayer addNote:note1 ToDrum:DrumKey_LEFT WithActionSequence:sequence1];
                 [_drumLayer addNote:note2 ToDrum:DrumKey_RIGHT WithActionSequence:sequence2];
@@ -173,13 +172,13 @@
                 CGPoint destinationPoint4 = ccp(size.width * 0.07, size.height * 0.07);
                 
                 CCSequence *sequence1 = [CCSequence actions:
-                                         [CCMoveTo actionWithDuration:duration position:destinationPoint1], callback, nil];
+                                         [CCMoveTo actionWithDuration:duration position:destinationPoint1], nil];
                 CCSequence *sequence2 = [CCSequence actions:
-                                         [CCMoveTo actionWithDuration:duration position:destinationPoint2], callback, nil];
+                                         [CCMoveTo actionWithDuration:duration position:destinationPoint2], nil];
                 CCSequence *sequence3 = [CCSequence actions:
-                                         [CCMoveTo actionWithDuration:duration position:destinationPoint3], callback, nil];
+                                         [CCMoveTo actionWithDuration:duration position:destinationPoint3], nil];
                 CCSequence *sequence4 = [CCSequence actions:
-                                         [CCMoveTo actionWithDuration:duration position:destinationPoint4], callback, nil];
+                                         [CCMoveTo actionWithDuration:duration position:destinationPoint4], nil];
 
                 [_drumLayer addNote:note1 ToDrum:DrumKey_LEFT_TOP WithActionSequence:sequence1];
                 [_drumLayer addNote:note2 ToDrum:DrumKey_RIGHT_TOP WithActionSequence:sequence2];

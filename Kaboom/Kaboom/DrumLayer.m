@@ -19,7 +19,7 @@
     if (self = [super init]) {
         
         _drums = [[NSMutableDictionary alloc] init];
-        
+
         [self setDrumSprites];
     }
     return self;
@@ -93,27 +93,42 @@
     }
 }
 
+- (void)removeNote:(CCSprite *)note FromDrum:(NSString *)drumKey
+{
+    [self removeChild:note cleanup:YES];
+    DrumSprite *drum = [_drums objectForKey:drumKey];
+    [drum.noteQueue removeObject:note];
+}
 
 - (void)addNote:(CCSprite *)note ToDrum:(NSString *)drumKey WithActionSequence:(CCSequence *)sequence
 {
     DrumSprite *drum = [_drums objectForKey:drumKey];
     [drum.noteQueue addObject:note];
     [self addChild:note];
+    
+    id callback = [CCCallFuncND actionWithTarget:self selector:@selector(removeNote:FromDrum:) data:(__bridge void *)(drumKey)];
+    sequence = [CCSequence actions:sequence, callback, nil];
     [note runAction:sequence];
 }
 
 - (void)drum:(NSString *)drumKey Hit:(CCSprite *)note andGetScore:(int)score
 {
-    // do some effect
+    
+    // and then remove note
+    [self removeNote:note FromDrum:drumKey];
+    
     if (score == 0) {
-        CCTexture2D *redNote = [[CCTextureCache sharedTextureCache] addImage:@"notedot_red.png"];
-        [note setTexture:redNote];
+        CCSprite *redNote = [CCSprite spriteWithFile:@"notedot_red.png"];
+        redNote.position = note.position;
+        id fadeOut = [CCFadeOut actionWithDuration:0.5];
+        id callback = [CCCallFuncND actionWithTarget:self selector:@selector(removeChild:cleanup:) data:YES];
+        CCSequence *s = [CCSequence actions:fadeOut, callback, nil];
+        [self addChild:redNote];
+        [redNote runAction:s];
+        
     } else {
         // star
     }
-    
-    // and then remove note
-    [self removeChild:note cleanup:YES];
     
     [self.delegate addScore:score toDrum:drumKey];
 }

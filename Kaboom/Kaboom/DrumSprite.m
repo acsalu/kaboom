@@ -12,7 +12,8 @@
 #import "Utility.h"
 #import "KaboomGameData.h"
 
-const int SCORE_DISTANCE_LOWER_BOUND = 150;
+const int EFFECT_HIT_DISTANCE = 350;
+const int SCORE_DISTANCE_LOWER_BOUND = 100;
 const int SCORE_DISTANCE_HIGHER_BOUND = 200;
 
 @implementation DrumSprite
@@ -21,13 +22,14 @@ const int SCORE_DISTANCE_HIGHER_BOUND = 200;
 - (void)onEnter
 {
     [super onEnter];
-    
-    [self showAnimation];
+    self.visible = NO;
     
     [[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:TouchPriorityDrumSprite swallowsTouches:NO];
     _effectDict = [[KaboomGameData sharedData] drumEffect];
-    
     _noteQueue = [NSMutableArray array];
+    
+    [self showAnimation];
+    
 }
 
 - (void)onExit
@@ -38,13 +40,14 @@ const int SCORE_DISTANCE_HIGHER_BOUND = 200;
 
 - (void)showAnimation
 {
-    id small = [CCScaleTo actionWithDuration:0.01 scale:0.1];
-    id delay = [CCDelayTime actionWithDuration:0.3];
-    id scaleAction = [CCScaleTo actionWithDuration:0.3 scale:1.3];
-    //    scaleAction = [CCEaseInOut actionWithAction:scaleAction rate:2];
+    id scaleToZero = [CCScaleTo actionWithDuration:0.0 scale:0.0];
+    id delay = [CCDelayTime actionWithDuration:0.5];
+    id beVisible = [CCCallBlock actionWithBlock:^{ self.visible = YES; }];
+    id scaleAction = [CCScaleTo actionWithDuration:0.2 scale:1.3];
+    scaleAction = [CCEaseOut actionWithAction:scaleAction rate:3.0];
     id restoreAction = [CCScaleTo actionWithDuration:0.1 scale:1.0];
     restoreAction = [CCEaseInOut actionWithAction:restoreAction rate:2];
-    CCSequence *sequence = [CCSequence actions:small, delay, scaleAction, restoreAction, nil];
+    CCSequence *sequence = [CCSequence actions:scaleToZero, delay, beVisible, scaleAction, restoreAction, nil];
     [self runAction:sequence];
 }
 
@@ -53,35 +56,41 @@ const int SCORE_DISTANCE_HIGHER_BOUND = 200;
     [[self parent] removeChild:sender cleanup:YES];
 }
 
+- (void)blink
+{
+    CCSprite *blinkSprite = [CCSprite spriteWithTexture:[self texture]];
+    blinkSprite.position = self.position;
+    blinkSprite.rotation = self.rotation;
+    [[self parent] addChild:blinkSprite];
+    
+    id callback = [CCCallFuncN actionWithTarget:self selector:@selector(removeBlinkSprite:)];
+    id scaleAction = [CCScaleTo actionWithDuration:0.2 scale:1.3];
+    id easeScaleAction = [CCEaseInOut actionWithAction:scaleAction rate:2];
+    CCSequence *sequence = [CCSequence actions:easeScaleAction, callback, nil];
+    [blinkSprite runAction:sequence];
+    
+    [[SimpleAudioEngine sharedEngine] playEffect:_effectDict[_drumKey]];
+}
+
 - (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
     CGPoint touchLocation = [touch locationInView:[[CCDirector sharedDirector] view]];
     
     if (CGRectContainsPoint([_hitRect CGRectValue], touchLocation)) {
-        CCSprite *blinkSprite = [CCSprite spriteWithTexture:[self texture]];
-        blinkSprite.position = self.position;
-        blinkSprite.rotation = self.rotation;
-        [[self parent] addChild:blinkSprite];
         
-        id callback = [CCCallFuncN actionWithTarget:self selector:@selector(removeBlinkSprite:)];
-        id scaleAction = [CCScaleTo actionWithDuration:0.2 scale:1.3];
-        id easeScaleAction = [CCEaseInOut actionWithAction:scaleAction rate:2];
-        CCSequence *sequence = [CCSequence actions:easeScaleAction, callback, nil];
-        [blinkSprite runAction:sequence];
-        
-        [[SimpleAudioEngine sharedEngine] playEffect:_effectDict[_drumKey]];
+        [self blink];
         
         if (_noteQueue.count > 0) {
             CCSprite *note = _noteQueue[0];
-            CGFloat distance = [Utility distanceBetween:note.position and:[Const basePointForDrum:index]];
-            if (distance < kDrumEffectiveRadius) {
+            CGFloat distance = [Utility distanceBetween:note.position and:self.position];
+
+            if (distance < EFFECT_HIT_DISTANCE) {
                 if (SCORE_DISTANCE_LOWER_BOUND < distance && distance < SCORE_DISTANCE_HIGHER_BOUND) {
                     [self.delegate drum:self.drumKey Hit:note andGetScore:1];
                 } else {
                     [self.delegate drum:self.drumKey Hit:note andGetScore:0];
                 }
             }
-            [self.noteQueue removeObject:note];
         }
 
         

@@ -61,6 +61,12 @@
 		0FD93F03173A871B00E0C838 /* drum_4_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FD93EF7173A871B00E0C838 /* drum_4_3.png */; };
 		0FD93F04173A871B00E0C838 /* drum_4_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FD93EF8173A871B00E0C838 /* drum_4_3@2x.png */; };
 		0FD93F06173A887100E0C838 /* drum_4_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FD93F05173A887100E0C838 /* drum_4_2.png */; };
+		0FE563CF17422CAA00451D12 /* hitstar1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE563C917422CAA00451D12 /* hitstar1.png */; };
+		0FE563D017422CAA00451D12 /* hitstar1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE563CA17422CAA00451D12 /* hitstar1@2x.png */; };
+		0FE563D117422CAA00451D12 /* hitstar2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE563CB17422CAA00451D12 /* hitstar2.png */; };
+		0FE563D217422CAA00451D12 /* hitstar2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE563CC17422CAA00451D12 /* hitstar2@2x.png */; };
+		0FE563D317422CAA00451D12 /* hitstar3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE563CD17422CAA00451D12 /* hitstar3.png */; };
+		0FE563D417422CAA00451D12 /* hitstar3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE563CE17422CAA00451D12 /* hitstar3@2x.png */; };
 		900386D41716E7AF00E542EF /* Const.m in Sources */ = {isa = PBXBuildFile; fileRef = 900386D31716E7AF00E542EF /* Const.m */; };
 		900386D61717090400E542EF /* sourcedot.png in Resources */ = {isa = PBXBuildFile; fileRef = 900386D51717090400E542EF /* sourcedot.png */; };
 		900386D91717092B00E542EF /* sourcedot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 900386D81717092A00E542EF /* sourcedot@2x.png */; };
@@ -363,6 +369,12 @@
 		0FD93EF7173A871B00E0C838 /* drum_4_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = drum_4_3.png; sourceTree = "<group>"; };
 		0FD93EF8173A871B00E0C838 /* drum_4_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "drum_4_3@2x.png"; sourceTree = "<group>"; };
 		0FD93F05173A887100E0C838 /* drum_4_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = drum_4_2.png; sourceTree = "<group>"; };
+		0FE563C917422CAA00451D12 /* hitstar1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hitstar1.png; sourceTree = "<group>"; };
+		0FE563CA17422CAA00451D12 /* hitstar1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hitstar1@2x.png"; sourceTree = "<group>"; };
+		0FE563CB17422CAA00451D12 /* hitstar2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hitstar2.png; sourceTree = "<group>"; };
+		0FE563CC17422CAA00451D12 /* hitstar2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hitstar2@2x.png"; sourceTree = "<group>"; };
+		0FE563CD17422CAA00451D12 /* hitstar3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hitstar3.png; sourceTree = "<group>"; };
+		0FE563CE17422CAA00451D12 /* hitstar3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hitstar3@2x.png"; sourceTree = "<group>"; };
 		900386D31716E7AF00E542EF /* Const.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Const.m; sourceTree = "<group>"; };
 		900386D51717090400E542EF /* sourcedot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sourcedot.png; sourceTree = "<group>"; };
 		900386D81717092A00E542EF /* sourcedot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sourcedot@2x.png"; sourceTree = "<group>"; };
@@ -875,6 +887,23 @@
 			name = Drum;
 			sourceTree = "<group>";
 		};
+		0FE563C817420F4300451D12 /* Lauch & MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				90C1505016F6C96A00DFF0ED /* AppDelegate.h */,
+				90C1505116F6C96A00DFF0ED /* AppDelegate.m */,
+				90C1505616F6C96A00DFF0ED /* IntroLayer.h */,
+				90C1505716F6C96A00DFF0ED /* IntroLayer.m */,
+				90C2767D1709602200D8F93B /* MainScreenLayer.h */,
+				90C2767E1709602200D8F93B /* MainScreenLayer.m */,
+				0F20CEEE1741591200A26F77 /* LanchDrumLayer.h */,
+				0F20CEEF1741591300A26F77 /* LanchDrumLayer.m */,
+				0F20CEF11741593F00A26F77 /* LauchDrumSprite.h */,
+				0F20CEF21741593F00A26F77 /* LauchDrumSprite.m */,
+			);
+			name = "Lauch & MainScreen";
+			sourceTree = "<group>";
+		};
 		900386CF1715D1E500E542EF /* Drum Effects */ = {
 			isa = PBXGroup;
 			children = (
@@ -918,6 +947,12 @@
 				90A2D4A4172860F000443567 /* notedot-arrow-R2L@2x.png */,
 				90A2D4A5172860F000443567 /* notedot-arrow-L2R@2x.png */,
 				90A2D4A6172860F000443567 /* notedot-arrow-L2R.png */,
+				0FE563C917422CAA00451D12 /* hitstar1.png */,
+				0FE563CA17422CAA00451D12 /* hitstar1@2x.png */,
+				0FE563CB17422CAA00451D12 /* hitstar2.png */,
+				0FE563CC17422CAA00451D12 /* hitstar2@2x.png */,
+				0FE563CD17422CAA00451D12 /* hitstar3.png */,
+				0FE563CE17422CAA00451D12 /* hitstar3@2x.png */,
 			);
 			name = Game;
 			sourceTree = "<group>";
@@ -970,8 +1005,7 @@
 		90C14ED816F6C96800DFF0ED /* Kaboom */ = {
 			isa = PBXGroup;
 			children = (
-				90C1505016F6C96A00DFF0ED /* AppDelegate.h */,
-				90C1505116F6C96A00DFF0ED /* AppDelegate.m */,
+				0FE563C817420F4300451D12 /* Lauch & MainScreen */,
 				900398CF17284815007A5C7B /* CCScrollLayer.h */,
 				900398D017284815007A5C7B /* CCScrollLayer.m */,
 				90039908172848DF007A5C7B /* FGScrollLayer.h */,
@@ -984,12 +1018,6 @@
 				0FAC3A58173A2A4B0018EF8D /* DrumLayer.m */,
 				0FAC3A5B173A69F60018EF8D /* DrumSprite.h */,
 				0FAC3A5C173A69F60018EF8D /* DrumSprite.m */,
-				90C2767D1709602200D8F93B /* MainScreenLayer.h */,
-				90C2767E1709602200D8F93B /* MainScreenLayer.m */,
-				0F20CEEE1741591200A26F77 /* LanchDrumLayer.h */,
-				0F20CEEF1741591300A26F77 /* LanchDrumLayer.m */,
-				0F20CEF11741593F00A26F77 /* LauchDrumSprite.h */,
-				0F20CEF21741593F00A26F77 /* LauchDrumSprite.m */,
 				0FABB38B171E9C8700C46023 /* TouchTracker.h */,
 				0FABB38C171E9C8800C46023 /* TouchTracker.m */,
 				90C2780D1709DC4200D8F93B /* DrumSelectionLayer.h */,
@@ -1004,8 +1032,6 @@
 				909488F4174147690090FA8E /* GameSonataLayer.m */,
 				90ED82281728127800710FC9 /* ShowResultLayer.h */,
 				90ED82291728127800710FC9 /* ShowResultLayer.m */,
-				90C1505616F6C96A00DFF0ED /* IntroLayer.h */,
-				90C1505716F6C96A00DFF0ED /* IntroLayer.m */,
 				90DB8B2A171439FE00EE785D /* Const.h */,
 				900386D31716E7AF00E542EF /* Const.m */,
 				90C3732C1724EE3F0034A8BB /* Song.h */,
@@ -1678,6 +1704,12 @@
 				909488E21740F3A40090FA8E /* time machine.mp3 in Resources */,
 				909488F7174149740090FA8E /* sonata.mp3 in Resources */,
 				909488F9174163DF0090FA8E /* star.mp3 in Resources */,
+				0FE563CF17422CAA00451D12 /* hitstar1.png in Resources */,
+				0FE563D017422CAA00451D12 /* hitstar1@2x.png in Resources */,
+				0FE563D117422CAA00451D12 /* hitstar2.png in Resources */,
+				0FE563D217422CAA00451D12 /* hitstar2@2x.png in Resources */,
+				0FE563D317422CAA00451D12 /* hitstar3.png in Resources */,
+				0FE563D417422CAA00451D12 /* hitstar3@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

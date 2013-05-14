@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
+extern const int EFFECT_HIT_DISTANCE;
 extern const int SCORE_DISTANCE_LOWER_BOUND;
 extern const int SCORE_DISTANCE_HIGHER_BOUND;
 
@@ -28,5 +29,7 @@ extern const int SCORE_DISTANCE_HIGHER_BOUND;
 @property (strong, nonatomic) NSString *drumKey;
 @property (strong, nonatomic) NSMutableDictionary *effectDict;
 @property (strong, nonatomic) NSMutableArray *noteQueue;
+
+- (void)showAnimation;
 
 @end

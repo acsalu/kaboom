@@ -121,7 +121,7 @@
             CGPoint startingPoint = [Const startingPointWithNoteType:note.intValue];
             CGPoint destinationPoint = [Const destinationPointWithNoteType:note.intValue];
             
-            CCLOG(@"%@ from (%.0f, %.0f) to (%.0f, %.0f)", [Song noteTypeString:note.intValue], startingPoint.x, startingPoint.y, destinationPoint.x, destinationPoint.y);
+//            CCLOG(@"%@ from (%.0f, %.0f) to (%.0f, %.0f)", [Song noteTypeString:note.intValue], startingPoint.x, startingPoint.y, destinationPoint.x, destinationPoint.y);
             
             
 //            CGPoint startingPoint = ccp(size.width / 2, size.height / 2);
@@ -129,7 +129,6 @@
             
             NSString *drumKey = [Const drumKeyPointWithNoteType:note.intValue];
             
-            id callback = [CCCallFuncND actionWithTarget:_drumLayer selector:@selector(removeChild:cleanup:) data:YES];
             ccTime duration = _song.interval;
             
             CCSprite *sprite = [CCSprite spriteWithFile:@"notedot.png"];
@@ -137,12 +136,13 @@
             sprite.position = startingPoint;
             
             CCSequence *sequence = [CCSequence actions:
-                                     [CCMoveTo actionWithDuration:duration position:destinationPoint], callback, nil];
+                                     [CCMoveTo actionWithDuration:duration position:destinationPoint], nil];
             
             if (note.intValue == NOTE_TYPE_P_AB || note.intValue == NOTE_TYPE_P_CB ||
                 note.intValue == NOTE_TYPE_P_DE || note.intValue == NOTE_TYPE_P_ED) {
                 [_drumLayer addChild:sprite];
-                [sprite runAction:sequence];
+                id callback = [CCCallFuncND actionWithTarget:_drumLayer selector:@selector(removeChild:cleanup:) data:YES];
+                [sprite runAction:[CCSequence actions:sequence, callback, nil]];
             } else
                 [_drumLayer addNote:sprite ToDrum:drumKey WithActionSequence:sequence];
             

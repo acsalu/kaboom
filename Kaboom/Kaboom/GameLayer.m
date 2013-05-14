@@ -173,8 +173,6 @@
             }
 
 
-        id callback = [CCCallFuncND actionWithTarget:_drumLayer selector:@selector(removeChild:cleanup:) data:YES];
-
         NoteType type = note.intValue;
         ccTime duration = (type == NOTE_TYPE_BOUNCE_LR2 || type == NOTE_TYPE_BOUNCE_RL2) ?
                                 _song.interval / 2 : _song.interval * 2;
@@ -197,7 +195,7 @@
         }
 
         CCSequence *sequence1 = [CCSequence actions:
-                                 [CCMoveTo actionWithDuration:duration position:destinationPointP1], callback, nil];
+                                 [CCMoveTo actionWithDuration:duration position:destinationPointP1], nil];
 
         note1.position = startingPointP1;
 //        [self addChild:note1];
@@ -206,7 +204,7 @@
         [_drumLayer addNote:note1 ToDrum:drum1 WithActionSequence:sequence1];
 
         CCSequence *sequence2 = [CCSequence actions:
-                                 [CCMoveTo actionWithDuration:duration position:destinationPointP2], callback, nil];
+                                 [CCMoveTo actionWithDuration:duration position:destinationPointP2], nil];
 
         note2.position = startingPointP2;
 //        [self addChild:note2];
