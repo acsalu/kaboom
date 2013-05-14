@@ -14,7 +14,7 @@
 
 const int EFFECT_HIT_DISTANCE = 350;
 const int SCORE_DISTANCE_LOWER_BOUND = 0;
-const int SCORE_DISTANCE_HIGHER_BOUND = 200;
+const int SCORE_DISTANCE_HIGHER_BOUND = 300;
 
 @implementation DrumSprite
 
