@@ -55,7 +55,7 @@
         
         NSMutableArray* _layers = [[NSMutableArray alloc] init];
         
-        for (int i=0; i<5; i++)
+        for (int i=0; i<3; i++)
         {
             int number = i;
             NSString* name = [NSString stringWithFormat:@"song%d_ipad.png",i+1];

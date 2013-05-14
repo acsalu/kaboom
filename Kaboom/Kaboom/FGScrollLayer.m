@@ -78,7 +78,7 @@ enum
         pageHeight_ = pageSize.height;
         pageWidth_ = pageSize.width;
         maxVerticalPos_ = pageHeight_ * [layers_ count] - rect.size.height + 5;
-        
+                
         realBound = rect;
         
 		[self updatePages];
@@ -383,7 +383,12 @@ BOOL isMove = NO;
             int selectPage = currentPage - delta;
             selectPage = MIN([layers_ count], selectPage);
             NSLog(@"position: %f, select: %d, current: %d",(touchPoint.y),selectPage,currentPage);   // Start Game!
-            [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameLayer scene]]];
+            if(selectPage==0)
+                [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameLayer scene]]];
+            else if(selectPage==1)
+                [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameLayer scene]]];
+            else 
+                [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameLayer scene]]];
         }
     }
     

@@ -8,16 +8,23 @@
 
 #import "cocos2d.h"
 #import "TouchTracker.h"
+#import <AVFoundation/AVFoundation.h>
 
-@interface DrumSelectionLayer : CCLayer
+@interface DrumSelectionLayer : CCLayer <AVAudioRecorderDelegate, AVAudioPlayerDelegate>{
+    CCSprite* recordSprite;
+}
 
 @property (strong, nonatomic) NSArray *drums;
 @property (strong, nonatomic) NSArray *initialLocations;
 @property (strong, nonatomic) NSMutableArray *draggedDrums;
 @property (nonatomic) int currentDrum;
+@property (nonatomic) int count;
+@property (strong, nonatomic) CCSprite *countdownSprite;
 
 @property (strong, nonatomic) TouchTracker *sharedTouchTracker;
 
+@property (strong, nonatomic) AVAudioRecorder *audioRecorder;
+@property (strong, nonatomic) AVAudioPlayer *audioPlayer;
 
 +(CCScene *) scene;
 
