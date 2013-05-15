@@ -19,10 +19,11 @@
 //
 //@end
 
+static int recordCount;
 
 @interface GESoundManager : CCLayer <AVAudioPlayerDelegate, AVAudioRecorderDelegate>
 {
-    AVAudioPlayer *audioPlayer;
+//    AVAudioPlayer *audioPlayer;
     CCSprite* recordSprite;
 }
 
@@ -33,6 +34,7 @@
 @property (nonatomic) int count;
 @property (strong, nonatomic) CCSprite *countdownSprite;
 @property (strong, nonatomic) AVAudioRecorder *audioRecorder;
+@property (strong, nonatomic) AVAudioPlayer *audioPlayer;
 
 @property (nonatomic) BOOL playing;
 

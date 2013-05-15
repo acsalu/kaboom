@@ -72,11 +72,12 @@ const int SCORE_DISTANCE_HIGHER_BOUND = 300;
     [blinkSprite runAction:sequence];
     
     NSString *effect = _effectDict[_drumKey];
-    if ([effect isEqualToString:@"d6.wav"]) {
-        [[GESoundManager soleSoundManager] playEffect:effect];
+    if ([effect rangeOfString:@"d6"].location == NSNotFound) {
+        [[SimpleAudioEngine sharedEngine] playEffect:effect];
         
     } else {
-        [[SimpleAudioEngine sharedEngine] playEffect:effect];
+        [[GESoundManager soleSoundManager] playEffect:effect];
+    
     }
 }
 

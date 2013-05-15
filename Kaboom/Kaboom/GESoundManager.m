@@ -26,36 +26,11 @@
 - (id)init {
     if ((self = [super init])) {
         // record
-        NSArray *dirPaths;
-        NSString *docsDir;
-        dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        docsDir = dirPaths[0];
-        
-        NSString *soundFilePath = [docsDir stringByAppendingPathComponent:@"d6.wav"];
-        
-        NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
-        
-        NSDictionary *recordSettings = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        [NSNumber numberWithInt:AVAudioQualityMin], AVEncoderAudioQualityKey,
-                                        [NSNumber numberWithInt:16], AVEncoderBitRateKey,
-                                        [NSNumber numberWithInt: 2], AVNumberOfChannelsKey,
-                                        [NSNumber numberWithFloat:44100.0], AVSampleRateKey, nil];
-        
-        NSError *error = nil;
-        
-        _audioRecorder = [[AVAudioRecorder alloc] initWithURL:soundFileURL
-                                                     settings:recordSettings
-                                                        error:&error];
-        _audioRecorder.delegate = self;
-        
+        recordCount = 0;
         
         [self createRecordLayer];
         
-        if (error){
-            NSLog(@"error: %@", [error localizedDescription]);
-        } else {
-            [_audioRecorder prepareToRecord];
-        }
+
     }
     return self;
 }
@@ -72,32 +47,12 @@
     
     NSArray *dirPaths = dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);;
     NSString *docsDir = dirPaths[0];
-    NSString *soundFilePath = [docsDir stringByAppendingPathComponent:@"d6.wav"];
+    NSString *soundFilePath = [docsDir stringByAppendingPathComponent:fileName];
     NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
     
-    audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
-    audioPlayer.delegate = self;
-    [audioPlayer play];
-    self.playing = YES;
-}
-
-
-
-- (void)playAnswerOrSingleNote:(NSString *)songName instrument:(NSString *)instrument{
-    if (self.playing) {
-        // NSLog(@"Audio player is playing.");
-        return;
-    }
-    
-    NSString *answerFile = [[NSBundle mainBundle] pathForResource:songName ofType:@"mp3"];
-    if (answerFile == nil) {
-        // NSLog(@"Can't locate answer file");
-        return;
-    }
-    NSURL *answerURL = [NSURL fileURLWithPath:answerFile];
-    audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:answerURL error:nil];
-    audioPlayer.delegate = self;
-    [audioPlayer play];
+    _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+    _audioPlayer.delegate = self;
+    [_audioPlayer play];
     self.playing = YES;
 }
 
@@ -112,7 +67,7 @@
     if (flag == NO) {
         // NSLog(@"Audio player decoding error.");
     }
-    audioPlayer = nil;
+    _audioPlayer = nil;
 }
 
 
@@ -144,8 +99,8 @@
 //    [self countdown:3];
     
 //    return _recordLayer;
-    [[[KaboomGameData sharedData] drumEffect] setObject:@"d6.wav" forKey:drumKey];
-    
+    recordCount++;
+    [[[KaboomGameData sharedData] drumEffect] setObject:[NSString stringWithFormat:@"d6-%d.wav", recordCount] forKey:drumKey];
 }
 
 - (void)countdown:(ccTime)delta{
@@ -153,7 +108,8 @@
         [self removeChild:_countdownSprite cleanup:YES];
         [self unschedule:@selector(countdown:)];
         _count = 1;
-        [self schedule:@selector(record:) interval:delta];
+        [self record];
+//        [self schedule:@selector(record:) interval:delta];
     }
     else {
         CGSize size = [[CCDirector sharedDirector] winSize];
@@ -165,33 +121,59 @@
         --_count;
     }
 }
-- (void)record:(ccTime)delta{
-    if (_count==1) {
-        NSLog(@"record");
-        if (!_audioRecorder.recording){
-            [_audioRecorder recordForDuration:(NSTimeInterval) 1];
-        }
-        --_count;
+- (void)record
+{
+    NSString *recordFileName = [NSString stringWithFormat:@"d6-%d.wav", recordCount];
+    
+    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);;
+    NSString *docsDir = dirPaths[0];
+    NSString *soundFilePath = [docsDir stringByAppendingPathComponent:recordFileName];
+    NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+    
+    NSDictionary *recordSettings = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [NSNumber numberWithInt:AVAudioQualityMin], AVEncoderAudioQualityKey,
+                                    [NSNumber numberWithInt:16], AVEncoderBitRateKey,
+                                    [NSNumber numberWithInt: 2], AVNumberOfChannelsKey,
+                                    [NSNumber numberWithFloat:44100.0], AVSampleRateKey, nil];
+    
+    NSError *error = nil;
+    
+    _audioRecorder = [[AVAudioRecorder alloc] initWithURL:soundFileURL
+                                                 settings:recordSettings
+                                                    error:&error];
+    _audioRecorder.delegate = self;
+    
+    
+    
+    if (error){
+        NSLog(@"error: %@", [error localizedDescription]);
+    } else {
+        [_audioRecorder prepareToRecord];
     }
-    else if(_count<0){
-        [_delegate unschedule:@selector(record:)];
-        _count = 1;
-        [self playEffect:@"d6.wav"];
-        //        [self unschedule:@selector(play:)];
-        _delegate.isTouchEnabled = YES;
-        [recordSprite runAction:[CCPlace actionWithPosition:ccp([CCDirector sharedDirector].winSize.width/2 ,
-                                                                [CCDirector sharedDirector].winSize.height + 700)]];
-        [_delegate removeChild:self cleanup:YES];
+    
+    
 
+    if (!_audioRecorder.recording){
+        NSLog(@"record");
+//        [_audioRecorder recordForDuration:(NSTimeInterval) 1];
+        [_audioRecorder record];
+        [_audioRecorder performSelector:@selector(stop) withObject:nil afterDelay:1.0];
     }
-    else{
-        --_count;
-    }
+
+
+
 }
 
 
 -(void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag{
     NSLog(@"Record OK!!! URL: %@", _audioRecorder.url);
+    _audioRecorder = nil;
+    
+    _delegate.isTouchEnabled = YES;
+//    [self playEffect:recordFileName];
+    [recordSprite runAction:[CCPlace actionWithPosition:ccp([CCDirector sharedDirector].winSize.width/2 ,
+                                                            [CCDirector sharedDirector].winSize.height + 700)]];
+    [_delegate removeChild:self cleanup:YES];
 }
 
 -(void)audioRecorderEncodeErrorDidOccur:(AVAudioRecorder *)recorder error:(NSError *)error{
