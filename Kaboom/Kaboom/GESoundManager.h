@@ -19,11 +19,10 @@
 //
 //@end
 
-static int recordCount;
-
 @interface GESoundManager : CCLayer <AVAudioPlayerDelegate, AVAudioRecorderDelegate>
 {
 //    AVAudioPlayer *audioPlayer;
+    int recordCount;
     CCSprite* recordSprite;
 }
 

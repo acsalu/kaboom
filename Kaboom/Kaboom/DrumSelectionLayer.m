@@ -77,7 +77,7 @@
         
         
         
-        NSLog(@"(w, h) = (%.0f, %.0f)", [startMenuItem boundingBox].size.width, [startMenuItem boundingBox].size.height);
+//        NSLog(@"(w, h) = (%.0f, %.0f)", [startMenuItem boundingBox].size.width, [startMenuItem boundingBox].size.height);
         
         startMenuItem.tag = START_ITEM_TAG;
         
