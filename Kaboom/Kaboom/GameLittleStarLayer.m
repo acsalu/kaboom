@@ -96,29 +96,30 @@
 {
     CGSize size = [CCDirector sharedDirector].winSize;
     _scoreLabels = [NSMutableDictionary dictionary];
+    NSString *fontName = @"Showcard Gothic";
     
-    CCLabelTTF *label = [CCLabelTTF labelWithString:@"0" fontName:@"Marker Felt" fontSize:60];
+    CCLabelTTF *label = [CCLabelTTF labelWithString:@"0" fontName:fontName fontSize:60];
     label.position = ccp(size.width * 0.2, size.height * 0.8);
     label.rotation = 120;
     label.color = ccc3(255, 255, 255);
     [self addChild:label];
     [_scoreLabels setObject:label forKey:DrumKey_LEFT_TOP];
     
-    label = [CCLabelTTF labelWithString:@"0" fontName:@"Marker Felt" fontSize:60];
+    label = [CCLabelTTF labelWithString:@"0" fontName:fontName fontSize:60];
     label.position = ccp(size.width * 0.8, size.height * 0.8);
     label.rotation = -120;
     label.color = ccc3(255, 255, 255);
     [self addChild:label];
     [_scoreLabels setObject:label forKey:DrumKey_RIGHT_TOP];
     
-    label = [CCLabelTTF labelWithString:@"0" fontName:@"Marker Felt" fontSize:60];
+    label = [CCLabelTTF labelWithString:@"0" fontName:fontName fontSize:60];
     label.position = ccp(size.width * 0.8, size.height * 0.2);
     label.rotation = -60;
     label.color = ccc3(255, 255, 255);
     [self addChild:label];
     [_scoreLabels setObject:label forKey:DrumKey_RIGHT_BOTTOM];
     
-    label = [CCLabelTTF labelWithString:@"0" fontName:@"Marker Felt" fontSize:60];
+    label = [CCLabelTTF labelWithString:@"0" fontName:fontName fontSize:60];
     label.position = ccp(size.width * 0.2, size.height * 0.2);
     label.rotation = 60;
     label.color = ccc3(255, 255, 255);
