@@ -123,6 +123,22 @@
 }
 - (void)record
 {
+    
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    NSError *err = nil;
+    [audioSession setCategory :AVAudioSessionCategoryPlayAndRecord error:&err];
+    if(err){
+        NSLog(@"audioSession: %@ %d %@", [err domain], [err code], [[err userInfo] description]);
+        return;
+    }
+    err = nil;
+    [audioSession setActive:YES error:&err];
+    if(err){
+        NSLog(@"audioSession: %@ %d %@", [err domain], [err code], [[err userInfo] description]);
+        return;
+    }
+    ///
+    
     NSString *recordFileName = [NSString stringWithFormat:@"d6-%d.wav", recordCount];
     
     NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);;
@@ -156,7 +172,8 @@
     if (!_audioRecorder.recording){
         NSLog(@"record");
 //        [_audioRecorder recordForDuration:(NSTimeInterval) 1];
-        [_audioRecorder record];
+        BOOL ho = [_audioRecorder record];
+        NSLog(@"%d", ho);
         [_audioRecorder performSelector:@selector(stop) withObject:nil afterDelay:1.0];
     }
 
