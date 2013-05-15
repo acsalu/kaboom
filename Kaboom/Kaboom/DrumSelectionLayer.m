@@ -14,6 +14,7 @@
 #import "DrumEffectSprite.h"
 #import "DrumLayer.h"
 
+#import "GESoundManager.h"
 
 #define ONE_DRUM_OFFST_Y 100
 #define DRUM_DIFF_Y 192
@@ -38,6 +39,8 @@
 - (id)init
 {
     if( (self=[super init]) ) {
+        
+        [[GESoundManager soleSoundManager] setDelegate:self];
         
         self.draggedDrums = [NSMutableArray arrayWithCapacity:11];
         self.isTouchEnabled = YES;
@@ -141,36 +144,8 @@
             [data.drumEffect setObject:defaultDrumEffect forKey:DrumKey_LEFT_BOTTOM];
         }
         
-        
-        // record
-        [self createRecordLayer];
-        NSArray *dirPaths;
-        NSString *docsDir;
-        dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        docsDir = dirPaths[0];
-        
-        NSString *soundFilePath = [docsDir stringByAppendingPathComponent:@"sound.wav"];
-        
-        NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
-        
-        NSDictionary *recordSettings = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        [NSNumber numberWithInt:AVAudioQualityMin], AVEncoderAudioQualityKey,
-                                        [NSNumber numberWithInt:16], AVEncoderBitRateKey,
-                                        [NSNumber numberWithInt: 2], AVNumberOfChannelsKey,
-                                        [NSNumber numberWithFloat:44100.0], AVSampleRateKey, nil];
-        
-        NSError *error = nil;
-        
-        _audioRecorder = [[AVAudioRecorder alloc] initWithURL:soundFileURL
-                                                     settings:recordSettings
-                                                        error:&error];
-        _audioRecorder.delegate = self;
-        
-        if (error){
-            NSLog(@"error: %@", [error localizedDescription]);
-        } else {
-            [_audioRecorder prepareToRecord];
-        }
+
+
 	}
 	return self;
 }
@@ -263,12 +238,11 @@
     KaboomGameData *data = [KaboomGameData sharedData];
     CGSize size = [[CCDirector sharedDirector] winSize];
     NSString *currentDrumEffect;
-//    if (drumIndex != 6) {
     currentDrumEffect = [NSString stringWithFormat:@"d%d.mp3", drumIndex];
 //    } else {
 //        [self openRecordLayer];
 ////        currentDrumEffect = [_audioPlayer.url absoluteString];
-//        currentDrumEffect = @"sound.wav";
+//        currentDrumEffect = @"d6.wav";
 //    }
     
     DrumLayer *drumLayer = (DrumLayer *)[self getChildByTag:DRUM_LAYER_TAG];
@@ -281,6 +255,9 @@
             [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_ONE];
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
             [[drumLayer.drums objectForKey:DrumKey_ONE] setTexture:currentDrumTexture];
+            if ([currentDrumEffect isEqualToString:@"d6.mp3"]) {
+                [[GESoundManager soleSoundManager] openRecordLayerForDrum:DrumKey_ONE];
+            }
         }
     } else if (data.mode == MODE_TWO_DRUM) {
         NSString *currentDrum = [NSString stringWithFormat:@"drum_2_%d.png", drumIndex];
@@ -291,11 +268,17 @@
             [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_LEFT];
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
             [[drumLayer.drums objectForKey:DrumKey_LEFT] setTexture:currentDrumTexture];
+            if ([currentDrumEffect isEqualToString:@"d6.mp3"]) {
+                [[GESoundManager soleSoundManager] openRecordLayerForDrum:DrumKey_LEFT];
+            }
             
         } else if ([self distanceBetween:location and:rightDrumCenter] < kDrumEffectiveRadius) {
             [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_RIGHT];
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
             [[drumLayer.drums objectForKey:DrumKey_RIGHT] setTexture:currentDrumTexture];
+            if ([currentDrumEffect isEqualToString:@"d6.mp3"]) {
+                [[GESoundManager soleSoundManager] openRecordLayerForDrum:DrumKey_RIGHT];
+            }
         }
         
     } else if (data.mode == MODE_FOUR_DRUM) {
@@ -309,18 +292,30 @@
             [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_LEFT_TOP];
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
             [[drumLayer.drums objectForKey:DrumKey_LEFT_TOP] setTexture:currentDrumTexture];
+            if ([currentDrumEffect isEqualToString:@"d6.mp3"]) {
+                [[GESoundManager soleSoundManager] openRecordLayerForDrum:DrumKey_LEFT_TOP];
+            }
         } else if ([self distanceBetween:location and:rightTopDrumCenter] < kDrumEffectiveRadius) {
             [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_RIGHT_TOP];
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
             [[drumLayer.drums objectForKey:DrumKey_RIGHT_TOP] setTexture:currentDrumTexture];
+            if ([currentDrumEffect isEqualToString:@"d6.mp3"]) {
+                [[GESoundManager soleSoundManager] openRecordLayerForDrum:DrumKey_RIGHT_TOP];
+            }
         } else if ([self distanceBetween:location and:rightBottomDrumCenter] < kDrumEffectiveRadius) {
             [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_RIGHT_BOTTOM];
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
             [[drumLayer.drums objectForKey:DrumKey_RIGHT_BOTTOM] setTexture:currentDrumTexture];
+            if ([currentDrumEffect isEqualToString:@"d6.mp3"]) {
+                [[GESoundManager soleSoundManager] openRecordLayerForDrum:DrumKey_RIGHT_BOTTOM];
+            }
         } else if ([self distanceBetween:location and:leftBottomDrumCenter] < kDrumEffectiveRadius) {
             [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_LEFT_BOTTOM];
             [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
             [[drumLayer.drums objectForKey:DrumKey_LEFT_BOTTOM] setTexture:currentDrumTexture];
+            if ([currentDrumEffect isEqualToString:@"d6.mp3"]) {
+                [[GESoundManager soleSoundManager] openRecordLayerForDrum:DrumKey_LEFT_BOTTOM];
+            }
         }
     }
 }
@@ -340,110 +335,7 @@
     [super onExit];
 }
 
-////////////////////
-////// record //////
-////////////////////
 
-- (void)createRecordLayer{
-    recordSprite = [CCSprite spriteWithFile:@"pause_horizontal_ipad.png"];
-    [recordSprite setPosition:ccp([CCDirector sharedDirector].winSize.width/2, [CCDirector sharedDirector].winSize.height + 700)];
-    [self addChild:recordSprite z:100];
-}
-
-- (void)openRecordLayer{
-    // gray background
-    self.isTouchEnabled = NO;
-    [recordSprite runAction:[CCPlace actionWithPosition:ccp([CCDirector sharedDirector].winSize.width/2 ,
-                                                            [CCDirector sharedDirector].winSize.height/2)]];
-    
-    // countdown
-    float delay = 1;
-    _count = 3;
-    [self schedule:@selector(countdown:) interval:delay];
-    
-}
-
-- (void)countdown:(ccTime)delta{
-    if (_count < 0) {
-        [self removeChild:_countdownSprite cleanup:YES];
-        [self unschedule:@selector(countdown:)];
-        _count = 1;
-        [self schedule:@selector(record:) interval:delta];
-    }
-    else {
-        CGSize size = [[CCDirector sharedDirector] winSize];
-        CGPoint center = ccp(size.width / 2, size.height / 2);
-        if (_countdownSprite) [self removeChild:_countdownSprite cleanup:YES];
-        _countdownSprite = [CCSprite spriteWithFile:[NSString stringWithFormat:@"countdown-%d.png", _count]];
-        _countdownSprite.position = center;
-        [self addChild:_countdownSprite];
-        --_count;
-    }
-}
-- (void)record:(ccTime)delta{
-    if (_count==1) {
-        NSLog(@"record");
-        if (!_audioRecorder.recording){
-            [_audioRecorder recordForDuration:(NSTimeInterval) 1];
-        }
-        --_count;
-    }
-    else if(_count<0){
-        [self unschedule:@selector(record:)];
-        _count = 1;
-//        [self schedule:@selector(play:) interval:delta];
-//        NSLog(@"%@", _audioRecorder.url);
-        
-        [[SimpleAudioEngine sharedEngine] playEffect:[_audioRecorder.url absoluteString]];
-        [[SimpleAudioEngine sharedEngine] playEffect:@"sound.wav"];
-        NSLog(@"dfdsfd");
-    }
-    else{
-        --_count;
-    }
-}
-
-- (void)play:(ccTime)delta{
-    NSLog(@"%d",_count);
-    if (_count==1) {
-        NSLog(@"play");
-        if (!_audioRecorder.recording){
-            NSError *error;
-            _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:_audioRecorder.url error:&error];
-            _audioPlayer.delegate = self;
-            
-            if (error)
-                NSLog(@"Error: %@", [error localizedDescription]);
-            else
-                [_audioPlayer play];
-        }
-        --_count;
-    }
-    else if(_count<0){
-        [self unschedule:@selector(play:)];
-        self.isTouchEnabled = YES;
-        [recordSprite runAction:[CCPlace actionWithPosition:ccp([CCDirector sharedDirector].winSize.width/2 ,
-                                                                [CCDirector sharedDirector].winSize.height + 700)]];
-    }
-    else{
-        --_count;
-    }
-}
-
--(void)audioPlayerDidFinishPlaying: (AVAudioPlayer *)player successfully:(BOOL)flag{
-}
-
--(void)audioPlayerDecodeErrorDidOccur: (AVAudioPlayer *)player error:(NSError *)error{
-    NSLog(@"Decode Error occurred");
-}
-
--(void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag{
-    NSLog(@"%@", _audioRecorder.url);
-}
-
--(void)audioRecorderEncodeErrorDidOccur:(AVAudioRecorder *)recorder error:(NSError *)error{
-    NSLog(@"Encode Error occurred");
-}
 
 
 @end
