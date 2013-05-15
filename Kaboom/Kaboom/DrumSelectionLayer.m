@@ -140,7 +140,9 @@
             [data.drumEffect setObject:defaultDrumEffect forKey:DrumKey_RIGHT_BOTTOM];
             [data.drumEffect setObject:defaultDrumEffect forKey:DrumKey_LEFT_BOTTOM];
         }
-        // ===
+        
+        
+        // record
         [self createRecordLayer];
         NSArray *dirPaths;
         NSString *docsDir;
@@ -162,6 +164,7 @@
         _audioRecorder = [[AVAudioRecorder alloc] initWithURL:soundFileURL
                                                      settings:recordSettings
                                                         error:&error];
+        _audioRecorder.delegate = self;
         
         if (error){
             NSLog(@"error: %@", [error localizedDescription]);
@@ -233,7 +236,6 @@
         CCSprite *dSprite = [self.draggedDrums objectAtIndex:touchID];
         dSprite.position = location;
         [self removeChild:dSprite cleanup:YES];
-        
         [self checkDrumWithLocation:location andDrumIndex:self.sharedTouchTracker.touchTracks[touchID].drumIdx];
         self.sharedTouchTracker.touchTracks[touchID].touchPtr = 0;
     }
@@ -256,100 +258,73 @@
     startButton.isEnabled = YES;
 }
 
-- (void)checkDrumWithLocation:(CGPoint)location andDrumIndex:(int)drumIndex{
+- (void)checkDrumWithLocation:(CGPoint)location andDrumIndex:(int)drumIndex
+{
     KaboomGameData *data = [KaboomGameData sharedData];
     CGSize size = [[CCDirector sharedDirector] winSize];
     NSString *currentDrumEffect;
-
-    if(drumIndex<6){
+    if (drumIndex != 6) {
         currentDrumEffect = [NSString stringWithFormat:@"d%d.mp3", drumIndex];
-        if (data.mode == MODE_ONE_DRUM) {
-            CGPoint drumCenter = ccp(size.width / 2, 0);
-            if ([self distanceBetween:location and:drumCenter] < kDrumEffectiveRadius) {
-                [data.drumEffect setObject:currentDrumEffect forKey:@"ONE"];
-                [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
-            }
-        }
-        else if (data.mode == MODE_TWO_DRUM) {
-            CGPoint leftDrumCenter = ccp(0, size.height / 2);
-            CGPoint rightDrumCenter = ccp(size.width, size.height / 2);
-            if ([self distanceBetween:location and:leftDrumCenter] < kDrumEffectiveRadius) {
-                [data.drumEffect setObject:currentDrumEffect forKey:@"TWO_LEFT"];
-                [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
-            }
-            else if ([self distanceBetween:location and:rightDrumCenter] < kDrumEffectiveRadius) {
-                [data.drumEffect setObject:currentDrumEffect forKey:@"TWO_RIGHT"];
-                [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
-            }
-        }
-        else if (data.mode == MODE_FOUR_DRUM) {
-            CGPoint leftTopDrumCenter = ccp(0, 0);
-            CGPoint leftBottomDrumCenter = ccp(0, size.height);
-            CGPoint rightTopDrumCenter = ccp(size.width, 0);
-            CGPoint rightBottomDrumCenter = ccp(size.width, size.height);
-            if ([self distanceBetween:location and:leftTopDrumCenter] < kDrumEffectiveRadius) {
-                [data.drumEffect setObject:currentDrumEffect forKey:@"TWO_LEFT_TOP"];
-                [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
-            }
-            else if ([self distanceBetween:location and:leftBottomDrumCenter] < kDrumEffectiveRadius) {
-                [data.drumEffect setObject:currentDrumEffect forKey:@"TWO_LEFT_BOTTOM"];
-                [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
-            }
-            else if ([self distanceBetween:location and:rightTopDrumCenter] < kDrumEffectiveRadius) {
-                [data.drumEffect setObject:currentDrumEffect forKey:@"TWO_RIGHT_TOP"];
-                [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
-            }
-            else if ([self distanceBetween:location and:rightBottomDrumCenter] < kDrumEffectiveRadius) {
-                [data.drumEffect setObject:currentDrumEffect forKey:@"TWO_RIGHT_BOTTOM"];
-                [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
-            }
-        }
+    } else {
+        [self openRecordLayer];
+//        currentDrumEffect = [_audioPlayer.url absoluteString];
+        currentDrumEffect = @"sound.wav";
     }
-    else{
-        if (data.mode == MODE_ONE_DRUM) {
-            CGPoint drumCenter = ccp(size.width / 2, 0);
-            if ([self distanceBetween:location and:drumCenter] < kDrumEffectiveRadius) {
-                [self openRecordLayer];
-                [data.drumEffect setObject:(_audioRecorder.url) forKey:@"ONE"];
-            }
+    
+    DrumLayer *drumLayer = (DrumLayer *)[self getChildByTag:DRUM_LAYER_TAG];
+    
+    if (data.mode == MODE_ONE_DRUM) {
+        NSString *currentDrum = [NSString stringWithFormat:@"drum_2_%d.png", drumIndex];
+        CCTexture2D *currentDrumTexture = [[CCTextureCache sharedTextureCache] addImage:currentDrum];
+        CGPoint drumCenter = ccp(size.width / 2, 0);
+        if ([self distanceBetween:location and:drumCenter] < kDrumEffectiveRadius) {
+            [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_ONE];
+            [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
+            [[drumLayer.drums objectForKey:DrumKey_ONE] setTexture:currentDrumTexture];
         }
-        else if (data.mode == MODE_TWO_DRUM) {
-            CGPoint leftDrumCenter = ccp(0, size.height / 2);
-            CGPoint rightDrumCenter = ccp(size.width, size.height / 2);
-            if ([self distanceBetween:location and:leftDrumCenter] < kDrumEffectiveRadius) {
-                [self openRecordLayer];
-                [data.drumEffect setObject:_audioRecorder.url forKey:@"TWO_LEFT"];
-            }
-            else if ([self distanceBetween:location and:rightDrumCenter] < kDrumEffectiveRadius) {
-                [self openRecordLayer];
-                [data.drumEffect setObject:_audioRecorder.url forKey:@"TWO_RIGHT"];
-            }
+    } else if (data.mode == MODE_TWO_DRUM) {
+        NSString *currentDrum = [NSString stringWithFormat:@"drum_2_%d.png", drumIndex];
+        CCTexture2D *currentDrumTexture = [[CCTextureCache sharedTextureCache] addImage:currentDrum];
+        CGPoint leftDrumCenter = ccp(0, size.height / 2);
+        CGPoint rightDrumCenter = ccp(size.width, size.height / 2);
+        if ([self distanceBetween:location and:leftDrumCenter] < kDrumEffectiveRadius) {
+            [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_LEFT];
+            [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
+            [[drumLayer.drums objectForKey:DrumKey_LEFT] setTexture:currentDrumTexture];
+            
+        } else if ([self distanceBetween:location and:rightDrumCenter] < kDrumEffectiveRadius) {
+            [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_RIGHT];
+            [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
+            [[drumLayer.drums objectForKey:DrumKey_RIGHT] setTexture:currentDrumTexture];
         }
-        else if (data.mode == MODE_FOUR_DRUM) {
-            CGPoint leftTopDrumCenter = ccp(0, 0);
-            CGPoint leftBottomDrumCenter = ccp(0, size.height);
-            CGPoint rightTopDrumCenter = ccp(size.width, 0);
-            CGPoint rightBottomDrumCenter = ccp(size.width, size.height);
-            if ([self distanceBetween:location and:leftTopDrumCenter] < kDrumEffectiveRadius) {
-                [self openRecordLayer];
-                [data.drumEffect setObject:_audioRecorder.url forKey:@"TWO_LEFT_TOP"];
-            }
-            else if ([self distanceBetween:location and:leftBottomDrumCenter] < kDrumEffectiveRadius) {
-                [self openRecordLayer];
-                [data.drumEffect setObject:_audioRecorder.url forKey:@"TWO_LEFT_BOTTOM"];
-            }
-            else if ([self distanceBetween:location and:rightTopDrumCenter] < kDrumEffectiveRadius) {
-                [self openRecordLayer];
-                [data.drumEffect setObject:_audioRecorder.url forKey:@"TWO_RIGHT_TOP"];
-            }
-            else if ([self distanceBetween:location and:rightBottomDrumCenter] < kDrumEffectiveRadius) {
-                [self openRecordLayer];
-                [data.drumEffect setObject:_audioRecorder.url forKey:@"TWO_RIGHT_BOTTOM"];
-                NSLog(@"%@",_audioRecorder.url);
-            }
+        
+    } else if (data.mode == MODE_FOUR_DRUM) {
+        NSString *currentDrum = [NSString stringWithFormat:@"drum_4_%d.png", drumIndex];
+        CCTexture2D *currentDrumTexture = [[CCTextureCache sharedTextureCache] addImage:currentDrum];
+        CGPoint leftTopDrumCenter = ccp(0, size.height);
+        CGPoint rightTopDrumCenter = ccp(size.width, size.height);
+        CGPoint rightBottomDrumCenter = ccp(size.width, 0);
+        CGPoint leftBottomDrumCenter = ccp(0, 0);
+        if ([self distanceBetween:location and:leftTopDrumCenter] < kDrumEffectiveRadius) {
+            [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_LEFT_TOP];
+            [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
+            [[drumLayer.drums objectForKey:DrumKey_LEFT_TOP] setTexture:currentDrumTexture];
+        } else if ([self distanceBetween:location and:rightTopDrumCenter] < kDrumEffectiveRadius) {
+            [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_RIGHT_TOP];
+            [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
+            [[drumLayer.drums objectForKey:DrumKey_RIGHT_TOP] setTexture:currentDrumTexture];
+        } else if ([self distanceBetween:location and:rightBottomDrumCenter] < kDrumEffectiveRadius) {
+            [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_RIGHT_BOTTOM];
+            [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
+            [[drumLayer.drums objectForKey:DrumKey_RIGHT_BOTTOM] setTexture:currentDrumTexture];
+        } else if ([self distanceBetween:location and:leftBottomDrumCenter] < kDrumEffectiveRadius) {
+            [data.drumEffect setObject:currentDrumEffect forKey:DrumKey_LEFT_BOTTOM];
+            [[SimpleAudioEngine sharedEngine] playEffect:currentDrumEffect];
+            [[drumLayer.drums objectForKey:DrumKey_LEFT_BOTTOM] setTexture:currentDrumTexture];
         }
     }
 }
+
 
 - (CGFloat)distanceBetween:(CGPoint)p1 and:(CGPoint)p2
 {
@@ -358,6 +333,16 @@
     CGFloat distance = sqrt((xDist * xDist) + (yDist * yDist));
     return distance;
 }
+
+- (void)onExit
+{
+    [self removeAllChildrenWithCleanup:YES];
+    [super onExit];
+}
+
+////////////////////
+////// record //////
+////////////////////
 
 - (void)createRecordLayer{
     recordSprite = [CCSprite spriteWithFile:@"pause_horizontal_ipad.png"];
@@ -406,7 +391,11 @@
     else if(_count<0){
         [self unschedule:@selector(record:)];
         _count = 1;
-        [self schedule:@selector(play:) interval:delta];
+//        [self schedule:@selector(play:) interval:delta];
+//        NSLog(@"%@", _audioRecorder.url);
+        
+//        [[SimpleAudioEngine sharedEngine] playEffect:[_audioRecorder.url absoluteString]];
+//        NSLog(@"dfdsfd");
     }
     else{
         --_count;
@@ -421,7 +410,7 @@
             NSError *error;
             _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:_audioRecorder.url error:&error];
             _audioPlayer.delegate = self;
-        
+            
             if (error)
                 NSLog(@"Error: %@", [error localizedDescription]);
             else
@@ -448,14 +437,12 @@
 }
 
 -(void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag{
+    NSLog(@"%@", _audioRecorder.url);
 }
 
 -(void)audioRecorderEncodeErrorDidOccur:(AVAudioRecorder *)recorder error:(NSError *)error{
     NSLog(@"Encode Error occurred");
 }
-- (void)onExit{
-    [self removeAllChildrenWithCleanup:YES];
-    [super onExit];
-}
+
 
 @end
