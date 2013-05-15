@@ -117,6 +117,7 @@
     // and then remove note
     [self removeNote:note FromDrum:drumKey];
     
+    NSLog(@"hit");
     if (score == 0) {
         CCSprite *redNote = [CCSprite spriteWithFile:@"notedot_red.png"];
         redNote.position = note.position;
@@ -127,10 +128,39 @@
         [redNote runAction:s];
         
     } else {
-        // star
+        NSLog(@"score");
+        [self starBlinkAt:drumKey];
+//        DrumSprite *drum = [_drums objectForKey:drumKey];
+//        CCSprite *star = [CCSprite spriteWithFile:@"hitstar1.png"];
+//        star.position = drum.position;
+//        star.rotation = drum.rotation;
+//        [self addChild:star];
+
+        
     }
     
     [self.delegate addScore:score toDrum:drumKey];
+}
+
+- (void)removeStarBlink:(id)sender
+{
+    [self removeChild:sender cleanup:YES];
+}
+
+
+- (void)starBlinkAt:(NSString *)drumKey
+{
+    DrumSprite *drum = [_drums objectForKey:drumKey];
+    CCSprite *star = [CCSprite spriteWithFile:@"hitstar_4.png"];
+    star.position = drum.position;
+    star.rotation = drum.rotation;
+    [self addChild:star];
+    
+    id callback = [CCCallFuncN actionWithTarget:self selector:@selector(removeStarBlink:)];
+    id scaleAction = [CCScaleTo actionWithDuration:0.2 scale:1.3];
+    id easeScaleAction = [CCEaseOut actionWithAction:scaleAction rate:2];
+    CCSequence *sequence = [CCSequence actions:easeScaleAction, callback, nil];
+    [star runAction:sequence];
 }
 
 @end
