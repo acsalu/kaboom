@@ -12,6 +12,8 @@
 #import "Utility.h"
 #import "KaboomGameData.h"
 
+#import "GESoundManager.h"
+
 const int EFFECT_HIT_DISTANCE = 350;
 const int SCORE_DISTANCE_LOWER_BOUND = 0;
 const int SCORE_DISTANCE_HIGHER_BOUND = 300;
@@ -69,7 +71,13 @@ const int SCORE_DISTANCE_HIGHER_BOUND = 300;
     CCSequence *sequence = [CCSequence actions:easeScaleAction, callback, nil];
     [blinkSprite runAction:sequence];
     
-    [[SimpleAudioEngine sharedEngine] playEffect:_effectDict[_drumKey]];
+    NSString *effect = _effectDict[_drumKey];
+    if ([effect isEqualToString:@"d6.wav"]) {
+        [[GESoundManager soleSoundManager] playEffect:effect];
+        
+    } else {
+        [[SimpleAudioEngine sharedEngine] playEffect:effect];
+    }
 }
 
 - (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
