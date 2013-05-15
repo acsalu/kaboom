@@ -263,13 +263,13 @@
     KaboomGameData *data = [KaboomGameData sharedData];
     CGSize size = [[CCDirector sharedDirector] winSize];
     NSString *currentDrumEffect;
-    if (drumIndex != 6) {
-        currentDrumEffect = [NSString stringWithFormat:@"d%d.mp3", drumIndex];
-    } else {
-        [self openRecordLayer];
-//        currentDrumEffect = [_audioPlayer.url absoluteString];
-        currentDrumEffect = @"sound.wav";
-    }
+//    if (drumIndex != 6) {
+    currentDrumEffect = [NSString stringWithFormat:@"d%d.mp3", drumIndex];
+//    } else {
+//        [self openRecordLayer];
+////        currentDrumEffect = [_audioPlayer.url absoluteString];
+//        currentDrumEffect = @"sound.wav";
+//    }
     
     DrumLayer *drumLayer = (DrumLayer *)[self getChildByTag:DRUM_LAYER_TAG];
     
@@ -394,8 +394,9 @@
 //        [self schedule:@selector(play:) interval:delta];
 //        NSLog(@"%@", _audioRecorder.url);
         
-//        [[SimpleAudioEngine sharedEngine] playEffect:[_audioRecorder.url absoluteString]];
-//        NSLog(@"dfdsfd");
+        [[SimpleAudioEngine sharedEngine] playEffect:[_audioRecorder.url absoluteString]];
+        [[SimpleAudioEngine sharedEngine] playEffect:@"sound.wav"];
+        NSLog(@"dfdsfd");
     }
     else{
         --_count;
