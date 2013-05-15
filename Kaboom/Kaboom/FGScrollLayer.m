@@ -387,10 +387,9 @@ BOOL isMove = NO;
             if(selectPage==0)
                 [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameLayer scene]]];
             else if(selectPage==1)
-                [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameLayer scene]]];
+                [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameLittleStarLayer scene]]];
             else 
-                [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameLayer scene]]];
-            [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameLittleStarLayer scene]]];
+                [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameSonataLayer scene]]];
         }
     }
     
