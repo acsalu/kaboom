@@ -67,7 +67,6 @@
         float delay = _song.interval;
         _count = 3;
         [self schedule:@selector(countdown:) interval:delay];
-        [self performSelector:@selector(fire:) withObject:nil afterDelay:8.0f];
 	}
 	return self;
 }
@@ -79,7 +78,7 @@
         [self unschedule:@selector(countdown:)];
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"star.mp3"];
         [self createScoreLabels];
-        
+        [self performSelector:@selector(fire:) withObject:nil afterDelay:0.0f];
         
     } else {
         CGSize size = [[CCDirector sharedDirector] winSize];
