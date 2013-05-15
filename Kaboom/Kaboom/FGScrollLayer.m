@@ -396,8 +396,8 @@ BOOL isMove = NO;
                 case MODE_FOUR_DRUM:
                     if(selectPage==0)
                         [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameLayer scene]]];
-                    else if(selectPage==1)
-                        [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameLittleStarLayer scene]]];
+//                    else if(selectPage==1)
+//                        [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameLittleStarLayer scene]]];
                     else
                         [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameSonataLayer scene]]];
                     break;

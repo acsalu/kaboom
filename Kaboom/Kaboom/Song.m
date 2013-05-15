@@ -423,7 +423,7 @@
                     @{@"length":@(NOTE_LENGTH_4TH), @"notes":@[@(NOTE_TYPE_REST)]}
                     
                     ];
-    song.interval = 0.4;
+    song.interval = 60.0 / 130;
     return song;
 }
 

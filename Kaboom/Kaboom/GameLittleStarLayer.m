@@ -67,6 +67,7 @@
         float delay = _song.interval;
         _count = 3;
         [self schedule:@selector(countdown:) interval:delay];
+        [self performSelector:@selector(fire:) withObject:nil afterDelay:8.0f];
 	}
 	return self;
 }
@@ -81,7 +82,6 @@
         
         
     } else {
-        if (_count == 1) [self fire:0.0f];
         CGSize size = [[CCDirector sharedDirector] winSize];
         CGPoint center = ccp(size.width / 2, size.height / 2);
         if (_countdownSprite) [self removeChild:_countdownSprite cleanup:YES];

@@ -115,7 +115,7 @@
 //    CCLOG(@"%d", _song.currentIdx);
     CGSize size = [[CCDirector sharedDirector] winSize];
     for (NSNumber *note in _song.melody[_song.currentIdx][@"notes"]) {
-//        CCLOG(@"%@", [Song noteTypeString:note.intValue]);
+        CCLOG(@"%@", [Song noteTypeString:note.intValue]);
 
         if (note.intValue != NOTE_TYPE_REST) {
             CGPoint destinationPointP1;
@@ -136,80 +136,36 @@
                 case NOTE_TYPE_REST:
                     return;
                 case NOTE_TYPE_LEFT:
-                case NOTE_TYPE_BOUNCE_LR1:
                     destinationPointP1 = p0;
                     destinationPointP2 = p2;
                     drum1 = DrumKey_LEFT_TOP;
                     drum2 = DrumKey_RIGHT_BOTTOM;
                     break;
                 case NOTE_TYPE_RIGHT:
-                case NOTE_TYPE_BOUNCE_RL1:
                     destinationPointP1 = p3;
                     destinationPointP2 = p1;
                     drum1 = DrumKey_RIGHT_TOP;
                     drum2 = DrumKey_LEFT_BOTTOM;
                     break;
-                case NOTE_TYPE_BOUNCE_LR2:
-                    startingPointP1 = p0;
-                    destinationPointP1 = p3;
-                    drum1 = DrumKey_LEFT_BOTTOM;
-
-                    startingPointP2 = p2;
-                    destinationPointP2 = p1;
-                    drum2 = DrumKey_RIGHT_TOP;
-                    break;
-
-                case NOTE_TYPE_BOUNCE_RL2:
-                    startingPointP1 = p3;
-                    destinationPointP1 = p0;
-                    drum1 = DrumKey_LEFT_TOP;
-
-                    startingPointP2 = p1;
-                    destinationPointP2 = p2;
-                    drum2 = DrumKey_RIGHT_BOTTOM;
-                    break;
                 default:
                     break;
             }
-
-
-        NoteType type = note.intValue;
-        ccTime duration = (type == NOTE_TYPE_BOUNCE_LR2 || type == NOTE_TYPE_BOUNCE_RL2) ?
-                                _song.interval / 2 : _song.interval * 2;
+            
+        ccTime duration = _song.interval;
         CCSprite *note1, *note2;
-        if (type == NOTE_TYPE_BOUNCE_LR1 || type == NOTE_TYPE_BOUNCE_LR2) {
-            note1 = [CCSprite spriteWithFile:@"notedot-arrow-L2R.png"];
-            note1.rotation = 90;
-
-            note2 = [CCSprite spriteWithFile:@"notedot-arrow-L2R.png"];
-            note2.rotation = -90;
-        } else if (type == NOTE_TYPE_BOUNCE_RL1 || type == NOTE_TYPE_BOUNCE_RL2) {
-            note1 = [CCSprite spriteWithFile:@"notedot-arrow-R2L.png"];
-            note1.rotation = 90;
-
-            note2 = [CCSprite spriteWithFile:@"notedot-arrow-R2L.png"];
-            note2.rotation = -90;
-        } else {
             note1 = [CCSprite spriteWithFile:@"notedot.png"];
             note2 = [CCSprite spriteWithFile:@"notedot.png"];
-        }
 
         CCSequence *sequence1 = [CCSequence actions:
                                  [CCMoveTo actionWithDuration:duration position:destinationPointP1], nil];
 
         note1.position = startingPointP1;
-//        [self addChild:note1];
-//        [note1 runAction:sequence1];
-//        [queue1 addObject:note1];
         [_drumLayer addNote:note1 ToDrum:drum1 WithActionSequence:sequence1];
 
         CCSequence *sequence2 = [CCSequence actions:
                                  [CCMoveTo actionWithDuration:duration position:destinationPointP2], nil];
 
         note2.position = startingPointP2;
-//        [self addChild:note2];
-//        [note2 runAction:sequence2];
-//        [queue2 addObject:note2];
         [_drumLayer addNote:note2 ToDrum:drum2 WithActionSequence:sequence2];
 
         }}

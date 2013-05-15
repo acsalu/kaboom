@@ -136,12 +136,14 @@
 
 - (void)countdown:(ccTime)delta
 {
+
     if (_count < 0) {
         [self removeChild:_countdownSprite cleanup:YES];
         [self unschedule:@selector(countdown:)];
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"sonata.mp3"];
+//        [self scheduleOnce:@selector(fire:) delay:8.0f];
+        [self performSelector:@selector(fire:) withObject:nil afterDelay:0.0f];
     } else {
-        if (_count == 1) [self fire:0.0f];
         CGSize size = [[CCDirector sharedDirector] winSize];
         CGPoint center = ccp(size.width / 2, size.height / 2);
         if (_countdownSprite) [self removeChild:_countdownSprite cleanup:YES];
