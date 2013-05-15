@@ -392,7 +392,7 @@
 
 - (void)addScore:(int)score toDrum:(NSString *)drumKey
 {
-    CCLOG(@"[score] %d at %@", score, drumKey);
+//    CCLOG(@"[score] %d at %@", score, drumKey);
     if ([KaboomGameData sharedData].player == PLAYER_SINGLE) {
         _scores[0] = @([_scores[0] intValue] + score);
     } else {

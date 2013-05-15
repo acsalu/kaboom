@@ -362,7 +362,7 @@
 
 - (void)addScore:(int)score toDrum:(NSString *)drumKey
 {
-    CCLOG(@"[score] %d at %@", score, drumKey);
+//    CCLOG(@"[score] %d at %@", score, drumKey);
     CCLabelTTF *scoreLabel = (CCLabelTTF *) [_scoreLabels objectForKey:drumKey];
     scoreLabel.string = [NSString stringWithFormat:@"%d", scoreLabel.string.intValue + score];
 }
