@@ -103,8 +103,8 @@
 - (void)addNote:(CCSprite *)note ToDrum:(NSString *)drumKey WithActionSequence:(CCSequence *)sequence
 {
     DrumSprite *drum = [_drums objectForKey:drumKey];
-    [drum.noteQueue addObject:note];
     [self addChild:note];
+    [drum.noteQueue addObject:note];
     
     id callback = [CCCallFuncND actionWithTarget:self selector:@selector(removeNote:FromDrum:) data:(__bridge void *)(drumKey)];
     sequence = [CCSequence actions:sequence, callback, nil];
