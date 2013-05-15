@@ -10,6 +10,7 @@
 #import "GameLayer.h"
 #import "GameSonataLayer.h"
 #import "GameLittleStarLayer.h"
+#import "KaboomGameData.h"
 
 enum
 {
@@ -384,13 +385,28 @@ BOOL isMove = NO;
             int selectPage = currentPage - delta;
             selectPage = MIN([layers_ count], selectPage);
             NSLog(@"position: %f, select: %d, current: %d",(touchPoint.y),selectPage,currentPage);   // Start Game!
-            if(selectPage==0)
-                [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameLayer scene]]];
-            else if(selectPage==1)
-                [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameLayer scene]]];
-            else 
-                [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameLayer scene]]];
-            [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameLittleStarLayer scene]]];
+            switch ([KaboomGameData sharedData].mode) {
+                case MODE_ONE_DRUM:
+                    [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameSonataLayer scene]]];
+                    break;
+                case MODE_TWO_DRUM:
+                    [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameSonataLayer scene]]];
+                    break;
+                    
+                case MODE_FOUR_DRUM:
+                    if(selectPage==0)
+                        [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameLayer scene]]];
+                    else if(selectPage==1)
+                        [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameLittleStarLayer scene]]];
+                    else
+                        [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[GameSonataLayer scene]]];
+                    break;
+                case MODE_UNDETERMINED:
+                    break;
+            }
+            
+            
+            
         }
     }
     

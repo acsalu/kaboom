@@ -52,23 +52,86 @@
         [self createPauseButton];
         [self createPausedMenu];
         
-        CCMenuItem *sourcedot = [CCMenuItemImage itemWithNormalImage:@"sourcedot.png" selectedImage:@"sourcedot.png" block:^(id sender) {
+        _sourceDot = [CCMenuItemImage itemWithNormalImage:@"sourcedot.png" selectedImage:@"sourcedot.png" block:^(id sender) {
             NSLog(@"should open pause menu!");
         }];
         
-        sourcedot.position = ccp(size.width / 2, size.height / 2);
+        _sourceDot.position = ccp(size.width / 2, size.height / 2);
+        if (data.mode == MODE_ONE_DRUM) _sourceDot.position = ccp(size.width / 2, size.height * 0.7);
         
         [self addChild:background];
         [self addChild:drumLayer];
-        [self addChild:sourcedot];
+        [self addChild:_sourceDot];
         
         _song = [Song songSonata];
+        
+        [self createScoreLabels];
+        
         
         float delay = _song.interval;
         _count = 3;
         [self schedule:@selector(countdown:) interval:delay];
 	}
 	return self;
+}
+
+- (void)createScoreLabels
+{
+    CGSize size = [CCDirector sharedDirector].winSize;
+    _scoreLabels = [NSMutableDictionary dictionary];
+    
+    if ([KaboomGameData sharedData].mode == MODE_FOUR_DRUM) {
+    
+        CCLabelTTF *label = [CCLabelTTF labelWithString:@"0" fontName:@"Marker Felt" fontSize:60];
+        label.position = ccp(size.width * 0.2, size.height * 0.8);
+        label.rotation = 120;
+        label.color = ccc3(255, 255, 255);
+        [self addChild:label];
+        [_scoreLabels setObject:label forKey:DrumKey_LEFT_TOP];
+        
+        label = [CCLabelTTF labelWithString:@"0" fontName:@"Marker Felt" fontSize:60];
+        label.position = ccp(size.width * 0.8, size.height * 0.8);
+        label.rotation = -120;
+        label.color = ccc3(255, 255, 255);
+        [self addChild:label];
+        [_scoreLabels setObject:label forKey:DrumKey_RIGHT_TOP];
+        
+        label = [CCLabelTTF labelWithString:@"0" fontName:@"Marker Felt" fontSize:60];
+        label.position = ccp(size.width * 0.8, size.height * 0.2);
+        label.rotation = -60;
+        label.color = ccc3(255, 255, 255);
+        [self addChild:label];
+        [_scoreLabels setObject:label forKey:DrumKey_RIGHT_BOTTOM];
+        
+        label = [CCLabelTTF labelWithString:@"0" fontName:@"Marker Felt" fontSize:60];
+        label.position = ccp(size.width * 0.2, size.height * 0.2);
+        label.rotation = 60;
+        label.color = ccc3(255, 255, 255);
+        [self addChild:label];
+        [_scoreLabels setObject:label forKey:DrumKey_LEFT_BOTTOM];
+    } else if ([KaboomGameData sharedData].mode == MODE_TWO_DRUM) {
+        
+        CCLabelTTF *label = [CCLabelTTF labelWithString:@"0" fontName:@"Marker Felt" fontSize:60];
+        label.position = ccp(size.width * 0.3, size.height / 2);
+        label.rotation = 90;
+        label.color = ccc3(255, 255, 255);
+        [self addChild:label];
+        [_scoreLabels setObject:label forKey:DrumKey_LEFT];
+        
+        label = [CCLabelTTF labelWithString:@"0" fontName:@"Marker Felt" fontSize:60];
+        label.position = ccp(size.width * 0.7, size.height / 2);
+        label.rotation = -90;
+        label.color = ccc3(255, 255, 255);
+        [self addChild:label];
+        [_scoreLabels setObject:label forKey:DrumKey_RIGHT];
+    } else {
+        
+        CCLabelTTF *label = [CCLabelTTF labelWithString:@"0" fontName:@"Marker Felt" fontSize:60];
+        label.position = ccp(size.width / 2, size.height * 0.35);
+        label.color = ccc3(255, 255, 255);
+        [self addChild:label];
+        [_scoreLabels setObject:label forKey:DrumKey_ONE];
+    }
 }
 
 - (void)countdown:(ccTime)delta
@@ -111,12 +174,30 @@
         [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
         return;
     }
+    
+    
+    
+    
+//    id scaleAction = [CCScaleTo actionWithDuration:0.2 scale:1.3];
+//    id easeScaleAction = [CCEaseInOut actionWithAction:scaleAction rate:2];
+//    CCSequence *sequence = [CCSequence actions:easeScaleAction, nil];
+//    [_sourceDot runAction:sequence];
+    
+    
+    
     //    CCLOG(@"%d", _song.currentIdx);
     CGSize size = [[CCDirector sharedDirector] winSize];
     for (NSNumber *note in _song.melody[_song.currentIdx][@"notes"]) {
         //        CCLOG(@"%@", [Song noteTypeString:note.intValue]);
         
         if (note.intValue != NOTE_TYPE_REST) {
+            id enlargeAction = [CCScaleTo actionWithDuration:0.15 scale:1.5];
+            enlargeAction = [CCEaseOut actionWithAction:enlargeAction rate:2];
+            id narrowAction = [CCScaleTo actionWithDuration:0.05 scale:1];
+            narrowAction = [CCEaseInOut actionWithAction:narrowAction rate:2];
+            CCSequence *actionsForDrumTap = [CCSequence actions:enlargeAction, narrowAction, nil];
+            
+            [_sourceDot runAction:actionsForDrumTap];
             
             CGPoint startingPoint = ccp(size.width / 2, size.height / 2);
             ccTime duration = _song.interval;
@@ -125,7 +206,8 @@
                 
                 CCSprite *note = [CCSprite spriteWithFile:@"notedot.png"];
                 
-                note.position = startingPoint;
+                note.position = ccp(size.width / 2, size.height * 0.7);
+                note.visible = NO;
                 
                 CGPoint destinationPoint = ccp (size.width / 2, size.height * 0.07);
                 
@@ -142,6 +224,9 @@
                 
                 note1.position = startingPoint;
                 note2.position = startingPoint;
+                
+                note1.visible = NO;
+                note2.visible = NO;
                 
                 CGPoint destinationPoint1 = ccp(size.width * 0.07, size.height / 2);
                 CGPoint destinationPoint2 = ccp(size.width * 0.93, size.height / 2);
@@ -165,6 +250,12 @@
                 note2.position = startingPoint;
                 note3.position = startingPoint;
                 note4.position = startingPoint;
+                
+                note1.visible = NO;
+                note2.visible = NO;
+                note3.visible = NO;
+                note4.visible = NO;
+                
                 
                 CGPoint destinationPoint1 = ccp(size.width * 0.07, size.height * 0.93);
                 CGPoint destinationPoint2 = ccp(size.width * 0.93, size.height * 0.93);
@@ -365,6 +456,8 @@
 - (void)addScore:(int)score toDrum:(NSString *)drumKey
 {
     CCLOG(@"[score] %d at %@", score, drumKey);
+    CCLabelTTF *scoreLabel = (CCLabelTTF *) [_scoreLabels objectForKey:drumKey];
+    scoreLabel.string = [NSString stringWithFormat:@"%d", scoreLabel.string.intValue + score];
 }
 
 
