@@ -284,7 +284,7 @@
     
     KaboomGameData *data = [KaboomGameData sharedData];
     
-    if (data.player == PLAYER_SINGLE) {
+//    if (data.player == PLAYER_SINGLE) {
         pausedSprite = [CCSprite spriteWithFile:@"pause_horizontal_ipad.png"];
         
         CCMenuItemSprite *item1 = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"resume_ipad.png"]
@@ -314,36 +314,36 @@
         [self addChild:pausedSprite z:100];
         [self addChild:pausedMenu z:100];
         
-    }
-    else if (data.player == PLAYER_TWO){
-        pausedSprite = [CCSprite spriteWithFile:@"pause_vertical_ipad.png"];
-        
-        CCMenuItemSprite *item1 = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"resume_ipad.png"]
-                                                          selectedSprite:nil
-                                                                  target:self
-                                                                selector:@selector(resumeButtonWasPressed:)];
-        
-        CCMenuItemSprite *item2 = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"restart_ipad.png"]
-                                                          selectedSprite:nil
-                                                                  target:self
-                                                                selector:@selector(restartButtonWasPressed:)];
-        
-        CCMenuItemSprite *item3 = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"menu_ipad.png"]
-                                                          selectedSprite:nil
-                                                                  target:self
-                                                                selector:@selector(quitButtonWasPressed:)];
-        
-        pausedMenu = [CCMenu menuWithItems:item1, item2, item3, nil];
-        [pausedMenu alignItemsInRows: [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
-        [pausedMenu alignItemsVerticallyWithPadding:40];
-        
-        // create the paused sprite and paused menu buttons off screen
-        [pausedSprite setPosition:ccp([CCDirector sharedDirector].winSize.width/2, [CCDirector sharedDirector].winSize.height + 700)];
-        [pausedMenu setPosition:ccp([CCDirector sharedDirector].winSize.width/2, [CCDirector sharedDirector].winSize.height + 700)];
-        
-        // add the Paused sprite and menu to the current layer
-        [self addChild:pausedSprite z:100];
-        [self addChild:pausedMenu z:100];    }
+//    }
+//    else if (data.player == PLAYER_TWO){
+//        pausedSprite = [CCSprite spriteWithFile:@"pause_vertical_ipad.png"];
+//        
+//        CCMenuItemSprite *item1 = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"resume_ipad.png"]
+//                                                          selectedSprite:nil
+//                                                                  target:self
+//                                                                selector:@selector(resumeButtonWasPressed:)];
+//        
+//        CCMenuItemSprite *item2 = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"restart_ipad.png"]
+//                                                          selectedSprite:nil
+//                                                                  target:self
+//                                                                selector:@selector(restartButtonWasPressed:)];
+//        
+//        CCMenuItemSprite *item3 = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"menu_ipad.png"]
+//                                                          selectedSprite:nil
+//                                                                  target:self
+//                                                                selector:@selector(quitButtonWasPressed:)];
+//        
+//        pausedMenu = [CCMenu menuWithItems:item1, item2, item3, nil];
+//        [pausedMenu alignItemsInRows: [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], [NSNumber numberWithInt:1], nil];
+//        [pausedMenu alignItemsVerticallyWithPadding:40];
+//        
+//        // create the paused sprite and paused menu buttons off screen
+//        [pausedSprite setPosition:ccp([CCDirector sharedDirector].winSize.width/2, [CCDirector sharedDirector].winSize.height + 700)];
+//        [pausedMenu setPosition:ccp([CCDirector sharedDirector].winSize.width/2, [CCDirector sharedDirector].winSize.height + 700)];
+//        
+//        // add the Paused sprite and menu to the current layer
+//        [self addChild:pausedSprite z:100];
+//        [self addChild:pausedMenu z:100];    }
 }
 
 - (void)addScore:(int)score toDrum:(NSString *)drumKey
