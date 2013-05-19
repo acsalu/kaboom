@@ -14,9 +14,9 @@
 
 #import "GESoundManager.h"
 
-const int EFFECT_HIT_DISTANCE = 350;
+const int EFFECT_HIT_DISTANCE = 550;
 const int SCORE_DISTANCE_LOWER_BOUND = 0;
-const int SCORE_DISTANCE_HIGHER_BOUND = 300;
+const int SCORE_DISTANCE_HIGHER_BOUND = 450;
 
 @implementation DrumSprite
 
